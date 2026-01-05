@@ -1,0 +1,392 @@
+# Arkiv App Kit
+
+**Composable building blocks for Arkiv integrations.**
+
+**Package name:** `@understories/arkiv-app-kit` (when published)
+
+**Product name:** Arkiv App Kit
+
+**Internal concept:** The modules in this package are **Arkiv application primitives** - composable building blocks with restraint, not opinionated abstractions.
+
+This package provides the "boring but essential" Arkiv plumbing that every app needs: wallet normalization, query builders, transaction timeouts, space ID management, and more.
+
+**Philosophy:** These are Arkiv application primitives, not a framework. They provide composable building blocks with restraint, not opinionated abstractions.
+
+---
+
+## Installation
+
+**For this month:** This package is distributed via git submodule, workspace monorepo, or copy-in approach (not published to npm yet).
+
+**Future:** Will be published to npm when patterns stabilize.
+
+### Git Submodule
+
+```bash
+git submodule add <repository-url> packages/arkiv-app-kit
+```
+
+### Workspace Monorepo
+
+```json
+{
+  "workspaces": [
+    "packages/*"
+  ]
+}
+```
+
+### Copy-In
+
+Copy the `src/` directory into your project with a banner noting it's vendored.
+
+---
+
+## Quick Start
+
+```typescript
+import { 
+  getPublicClient, 
+  buildSafeQuery, 
+  executeQuery,
+  makeAttributes,
+  normalizeWallet,
+  getSpaceId,
+  requireEnv
+} from '@understories/arkiv-app-kit';
+
+// Get public client
+const client = getPublicClient();
+
+// Build a safe query (always includes type + spaceId + limit)
+const query = buildSafeQuery('user_profile', { limit: 50 });
+const entities = await executeQuery(query);
+
+// Create attributes with enforced conventions
+const attributes = makeAttributes({
+  type: 'user_profile',
+  wallet: '0xABC123...', // Automatically normalized
+  status: 'active',
+});
+
+// Get environment variables (fail-closed)
+const spaceId = getSpaceId(); // Throws if SPACE_ID not set
+const privateKey = requireEnv('ARKIV_PRIVATE_KEY');
+```
+
+---
+
+## Core Modules
+
+### `env.ts` - Environment Variables
+
+Fail-closed helpers for environment variables.
+
+- `requireEnv(name)` - Require an env var (throws if missing)
+- `getEnv(name, defaultValue)` - Get env var with default
+- `getArkivTarget()` - Get ARKIV_TARGET ('local' | 'mendoza')
+- `isLocalTarget()` - Check if targeting local node
+- `isMendozaTarget()` - Check if targeting Mendoza testnet
+
+**Prohibits "cute fallbacks"** - makes it painful to hardcode values, easy to use config.
+
+### `space.ts` - Space ID Management
+
+Fail-closed Space ID management.
+
+- `getSpaceId()` - Get Space ID from environment (throws if not set)
+- `validateSpaceId(spaceId)` - Validate Space ID format
+- `getValidatedSpaceId()` - Get and validate Space ID
+
+**Never allows hardcoded fallbacks** - prevents accidental cross-environment data leaks.
+
+### `wallet.ts` - Wallet Normalization
+
+Consistent wallet address normalization.
+
+- `normalizeWallet(wallet)` - Normalize to lowercase
+- `validateWalletFormat(wallet)` - Validate wallet format
+
+**Always normalizes** - prevents case-sensitivity bugs.
+
+### `schema.ts` - Schema Conventions
+
+Canonical attribute keys and helpers.
+
+- `ATTR_KEYS` - Canonical attribute key constants
+- `makeAttributes(options)` - Create attributes with enforced conventions
+
+**Enforces conventions** - prevents template-specific attribute name drift.
+
+### `client.ts` - Client Construction
+
+Public and wallet client construction.
+
+- `getPublicClient()` - Public client for reads
+- `getWalletClientFromPrivateKey(privateKey)` - Server-side wallet client
+- `getWalletClientFromMetaMask(account)` - Client-side wallet client
+
+**Automatically uses correct RPC** based on ARKIV_TARGET.
+
+### `queries.ts` - Query Builders
+
+Safe query shapes with defensive validation.
+
+- `buildSafeQuery(type, options)` - Build query with type + spaceId + limit
+- `buildWalletQuery(type, wallet, options)` - Wallet-scoped query
+- `executeQuery(queryBuilder)` - Execute with defensive validation
+- `queryMultipleSpaces(type, spaceIds, options)` - Query multiple spaces (client-side filter)
+- `validateQueryResult(result)` - Validate result structure
+
+**Always includes required filters** - ensures indexer-friendly queries.
+
+### `transactions.ts` - Transaction Handling
+
+Timeout handling and error classification.
+
+- `handleTransactionWithTimeout(createEntityFn)` - Wrap entity creation with timeout handling
+- `isRateLimitError(error)` - Check if rate limit error
+- `isTransactionReplacementError(error)` - Check if nonce error
+- `isTransactionTimeoutError(error)` - Check if timeout error
+
+**Handles all common errors** - rate limits, timeouts, nonce errors, network issues.
+
+### `keys.ts` - Stable Entity Key Derivation
+
+Deterministic key derivation for Pattern B.
+
+- `deriveStableKey(type, identifyingAttrs, options)` - Derive stable key
+- `deriveWalletKey(type, wallet, options)` - Derive wallet-scoped key
+- `parseStableKey(key)` - Parse key into components
+
+**Deterministic keys** - enables Pattern B (stable entity key updates).
+
+---
+
+## Strongly Recommended Modules
+
+These modules are **optional in API surface** but **strongly recommended for any write path**. They directly address core Arkiv realities (indexer lag, observability).
+
+### `indexer.ts` - Indexer Reconciliation
+
+Polling helpers to wait for indexer to catch up.
+
+- `waitForIndexer(entityKey, type, options)` - Wait for entity to be indexed
+- `waitForIndexerByTxHash(txHash, type, options)` - Wait for transaction to be indexed
+
+**Why:** Directly addresses indexer lag, which is a core Arkiv reality.
+
+### `txhash-entities.ts` - Transaction Hash Companion Entities
+
+Creates parallel `*_txhash` entities for reliable querying.
+
+- `createTxHashEntity(originalType, txHash, entityKey, privateKey)` - Create companion entity
+- `queryByTxHash(txHash, originalType)` - Query entities by transaction hash
+
+**Why:** Directly addresses observability and reliable querying, which are core Arkiv realities.
+
+---
+
+## Usage Examples
+
+### Creating an Entity
+
+```typescript
+import { 
+  getWalletClientFromPrivateKey,
+  makeAttributes,
+  handleTransactionWithTimeout,
+  createTxHashEntity,
+  requireEnv
+} from '@understories/arkiv-app-kit';
+
+const privateKey = requireEnv('ARKIV_PRIVATE_KEY') as `0x${string}`;
+const walletClient = getWalletClientFromPrivateKey(privateKey);
+
+// Create attributes
+const attributes = makeAttributes({
+  type: 'user_profile',
+  wallet: '0xABC123...', // Automatically normalized
+  status: 'active',
+});
+
+// Create payload
+const payload = new TextEncoder().encode(JSON.stringify({
+  name: 'Alice',
+  bio: 'Developer',
+}));
+
+// Create entity with timeout handling
+const result = await handleTransactionWithTimeout(async () => {
+  return await walletClient.createEntity({
+    payload,
+    attributes,
+    contentType: 'application/json',
+    expiresIn: 15768000, // 6 months
+  });
+});
+
+// Create companion txHash entity (strongly recommended)
+await createTxHashEntity('user_profile', result.txHash, result.entityKey);
+```
+
+### Querying Entities
+
+```typescript
+import { 
+  buildSafeQuery, 
+  executeQuery,
+  buildWalletQuery
+} from '@understories/arkiv-app-kit';
+
+// Query all entities of a type
+const query = buildSafeQuery('user_profile', { 
+  limit: 50,
+  withPayload: true 
+});
+const entities = await executeQuery(query);
+
+// Query wallet-scoped entities
+const walletQuery = buildWalletQuery('user_profile', '0xABC123...');
+const userEntities = await executeQuery(walletQuery);
+```
+
+### Updating an Entity (Pattern B)
+
+```typescript
+import { 
+  deriveWalletKey,
+  getWalletClientFromPrivateKey,
+  makeAttributes,
+  handleTransactionWithTimeout,
+  requireEnv
+} from '@understories/arkiv-app-kit';
+
+const privateKey = requireEnv('ARKIV_PRIVATE_KEY') as `0x${string}`;
+const walletClient = getWalletClientFromPrivateKey(privateKey);
+
+// Derive stable key
+const entityKey = deriveWalletKey('user_profile', '0xABC123...');
+
+// Create attributes
+const attributes = makeAttributes({
+  type: 'user_profile',
+  wallet: '0xABC123...',
+  status: 'updated',
+  updated_at: new Date().toISOString(),
+});
+
+// Update entity (reuses same entityKey)
+const result = await handleTransactionWithTimeout(async () => {
+  return await walletClient.updateEntity({
+    entityKey: entityKey as `0x${string}`,
+    payload: new TextEncoder().encode(JSON.stringify({ name: 'Alice Updated' })),
+    attributes,
+    contentType: 'application/json',
+    expiresIn: 15768000,
+  });
+});
+```
+
+---
+
+## Environment Variables
+
+### Required
+
+- `SPACE_ID` - Space ID for data isolation (no fallback allowed)
+- `ARKIV_PRIVATE_KEY` - Private key for server-signed writes (Phase 0)
+
+### Optional
+
+- `ARKIV_TARGET` - Target network: 'local' or 'mendoza' (default: 'mendoza')
+- `ARKIV_RPC_URL` - Custom RPC URL (overrides default for ARKIV_TARGET)
+
+---
+
+## Contract Defaults (Executable Constants)
+
+These defaults are pinned to prevent template drift. All templates must use these values unless explicitly overriding for a specific reason.
+
+### Query Limits
+
+- **Default limit:** `100` entities per query
+- **Maximum cap:** `500` entities per query (enforced in `buildSafeQuery()`)
+- **Rationale:** Prevents indexer overload and ensures predictable performance
+
+**Important:** Limits are **UX/latency knobs, not correctness knobs**. Correctness comes from deterministic keys + reconciliation, not fetching "everything". If you need pagination, use cursor-based pagination (e.g., `created_at` timestamp or entity key as cursor). Do not solve missing records by cranking limits to 500 everywhere - this will cause UI performance issues and doesn't address the root cause (indexer lag or missing reconciliation).
+
+### Indexer Wait Policy Defaults
+
+The default policy is designed for **server/worker contexts** (longer polling, can wait):
+
+- **Initial delay:** `1000ms` (1 second)
+- **Max attempts:** `10` polling attempts
+- **Backoff multiplier:** `1.5x` (exponential backoff)
+- **Total max time:** Approximately 30 seconds (10 attempts with exponential backoff)
+
+**Two distinct policies:**
+
+- **UI Policy (short, humane):** Use fewer attempts (e.g., 3-5) with shorter delays. Give up early and show "Pending indexing" with a retry button. Users should not wait 30 seconds in the UI.
+- **Server/Worker Policy (longer, can poll):** Use the default (10 attempts) or more. Can log metrics, retry in background. Suitable for background jobs, webhooks, or server-side reconciliation.
+
+**Why this matters:** Using the server policy in UI creates slow, unresponsive interfaces. Using the UI policy in server flows creates brittle systems that give up too early. Choose the right policy for the context.
+
+---
+
+## Testnet-Native Design
+
+This package is **testnet-native** (Mendoza-focused):
+
+- Defaults to Mendoza testnet
+- Supports local node for CI determinism
+- All examples use testnet addresses
+- Mainnet guidance is intentionally non-operational (checklist, not instructions)
+
+---
+
+## Patterns Implemented
+
+Each module maps to specific patterns from the Arkiv Patterns Catalog:
+
+| Module | Pattern ID | Pattern Name |
+|--------|-----------|--------------|
+| `queries.ts` | PAT-QUERY-001 | Indexer-Friendly Query Shapes |
+| `transactions.ts` | PAT-TIMEOUT-001 | Transaction Timeouts |
+| `transactions.ts` | PAT-ERROR-001 | Error Handling |
+| `space.ts` | PAT-SPACE-001 | Space ID as Environment Boundary |
+| `wallet.ts` | PAT-IDENTITY-001 | Wallet Normalization |
+| `keys.ts` | PAT-UPDATE-001 | Stable Entity Key Updates |
+| `indexer.ts` | PAT-INDEXER-001 | Read-Your-Writes Under Indexer Lag |
+| `txhash-entities.ts` | Engineering Guidelines | Transaction Hash Companion Entities |
+
+This mapping ensures all templates use pattern-aligned code and reduces drift with the patterns catalog.
+
+---
+
+## Minimal Conformance Test
+
+Every template using Arkiv App Kit must pass a minimal conformance test that proves these invariants:
+
+1. **Wallet normalization applied** - All wallet addresses are normalized to lowercase in writes and queries
+2. **Query shape contains type + spaceId + limit** - All queries include required filters
+3. **Transaction wrapper times out** - Transaction wrapper doesn't hang indefinitely (returns error after timeout)
+4. **TxHash companion entity is written** - If write succeeded, companion `*_txhash` entity is created (non-blocking)
+5. **Reconciliation distinguishes submitted vs indexed** - UI/API correctly represents "submitted" (txHash exists) vs "indexed" (queryable)
+
+This is not a full integration test suite - it's a minimal compliance check that ensures Arkiv-native patterns are followed. Templates should include a `scripts/conformance-test.ts` or similar that can run against local node or Mendoza testnet.
+
+See `arkiv-nextjs-starter/scripts/smoke-test.ts` for a reference implementation.
+
+---
+
+## TypeScript
+
+Full TypeScript support with strict mode. All functions are typed and documented.
+
+---
+
+## License
+
+MIT
+
