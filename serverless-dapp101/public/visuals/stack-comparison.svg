@@ -1,0 +1,49 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Development stack comparison">
+  <title>Development Stack Comparison</title>
+  <desc>Comparison of the Vibes to App development stack with the Serverless DApp stack, highlighting Arkiv as the new decentralized data layer.</desc>
+  
+  <defs>
+    <style>
+      .stack-item { fill: #e5e7eb; stroke: #d1d5db; stroke-width: 1; }
+      .stack-item-new { fill: #dbeafe; stroke: #3b82f6; stroke-width: 2; }
+      .text-label { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; fill: #1f2937; font-weight: 500; }
+      .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; fill: #111827; font-weight: 600; }
+      .text-new { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #3b82f6; font-weight: 600; }
+    </style>
+  </defs>
+  
+  <!-- Vibes to App Stack -->
+  <g id="vibes-stack">
+    <text x="200" y="30" text-anchor="middle" class="text-title">Vibes to App:</text>
+    
+    <rect x="50" y="50" width="300" height="50" rx="6" class="stack-item"/>
+    <text x="200" y="80" text-anchor="middle" class="text-label">Next.js</text>
+    
+    <rect x="50" y="110" width="300" height="50" rx="6" class="stack-item"/>
+    <text x="200" y="140" text-anchor="middle" class="text-label">TypeScript</text>
+    
+    <rect x="50" y="170" width="300" height="50" rx="6" class="stack-item"/>
+    <text x="200" y="200" text-anchor="middle" class="text-label">Tailwind</text>
+    
+    <rect x="50" y="230" width="300" height="50" rx="6" class="stack-item"/>
+    <text x="200" y="260" text-anchor="middle" class="text-label">Database ?</text>
+  </g>
+  
+  <!-- Serverless DApp Stack -->
+  <g id="serverless-stack">
+    <text x="600" y="30" text-anchor="middle" class="text-title">Serverless DApp:</text>
+    
+    <rect x="450" y="50" width="300" height="50" rx="6" class="stack-item"/>
+    <text x="600" y="80" text-anchor="middle" class="text-label">Next.js</text>
+    
+    <rect x="450" y="110" width="300" height="50" rx="6" class="stack-item"/>
+    <text x="600" y="140" text-anchor="middle" class="text-label">TypeScript</text>
+    
+    <rect x="450" y="170" width="300" height="50" rx="6" class="stack-item"/>
+    <text x="600" y="200" text-anchor="middle" class="text-label">Tailwind</text>
+    
+    <rect x="450" y="230" width="300" height="50" rx="6" class="stack-item-new"/>
+    <text x="600" y="260" text-anchor="middle" class="text-label">Arkiv</text>
+    <text x="600" y="300" text-anchor="middle" class="text-new">← NEW</text>
+  </g>
+</svg>
