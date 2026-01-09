@@ -81,6 +81,16 @@ const result = await walletClient.createEntity({
    - Check your transactions on the explorer
    - See other participants' messages
 
+## Shared Space Behavior
+
+This demo uses `SPACE_ID=ns` as a shared space. This means:
+
+- All messages written with `spaceId='ns'` appear together
+- Messages from different wallets are visible to everyone using the same space ID
+- The deployed hello-world page shows messages from all tutorial participants who use `SPACE_ID=ns`
+
+This works because Arkiv queries filter by `spaceId` attribute, not by wallet address. Any entity with `spaceId='ns'` will be returned by the query, regardless of which wallet created it.
+
 ## Files
 
 - `app/hello-world/page.tsx` - Frontend UI
