@@ -143,3 +143,6 @@ A: Yes! This is exactly how production Arkiv apps work. Your data persists indep
 
 **Q: Can multiple people see my messages?**
 A: Yes! Since we're using `SPACE_ID=ns` (the shared workshop space), anyone using the same space ID can see all messages. In production, you'd use a unique space ID for your app.
+
+**Q: Will my messages appear on the deployed hello-world page?**
+A: Yes, as long as both your local environment and the deployed application use the same `SPACE_ID=ns`. The deployed page queries for all entities with `spaceId='ns'`, so messages from all tutorial participants using the same space ID will appear together. This works because Arkiv queries filter by space ID, not by wallet address.
