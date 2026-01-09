@@ -1,41 +1,54 @@
-<svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arkiv entity structure diagram">
+<svg viewBox="0 0 550 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arkiv entity structure diagram">
   <title>Arkiv Entity Structure</title>
   <desc>Diagram of an Arkiv entity showing its unique ID, queryable attributes, content payload, and transaction hash used for verification.</desc>
   
   <defs>
     <style>
-      .entity-box { fill: #ffffff; stroke: #d1d5db; stroke-width: 2; }
-      .section-header { fill: #f3f4f6; stroke: #9ca3af; stroke-width: 1; }
-      .section-content { fill: #ffffff; stroke: #e5e7eb; stroke-width: 1; }
-      .text-label { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; fill: #1f2937; font-weight: 500; }
-      .text-content { font-family: 'Courier New', monospace; font-size: 12px; fill: #374151; }
-      .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; fill: #111827; font-weight: 600; text-anchor: middle; }
+      .entity-box { fill: #ffffff; stroke: #3b82f6; stroke-width: 2.5; }
+      .section-header { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
+      .section-content { fill: #ffffff; stroke: #e5e7eb; stroke-width: 1.5; }
+      .text-label { font-family: system-ui, -apple-system, sans-serif; font-size: 15px; fill: #1f2937; font-weight: 600; }
+      .text-content { font-family: 'Courier New', monospace; font-size: 13px; fill: #374151; }
+      .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 22px; fill: #111827; font-weight: 700; text-anchor: middle; }
+      .shadow { filter: url(#drop-shadow); }
     </style>
+    <filter id="drop-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
   
-  <text x="250" y="30" class="text-title">Arkiv Entity</text>
+  <text x="275" y="35" class="text-title">Arkiv Entity</text>
   
   <!-- Entity Container -->
-  <rect x="50" y="50" width="400" height="320" rx="8" class="entity-box"/>
+  <rect x="50" y="60" width="450" height="360" rx="12" class="entity-box shadow"/>
   
   <!-- Entity Key Section -->
-  <rect x="60" y="60" width="380" height="50" rx="4" class="section-header"/>
-  <text x="250" y="85" text-anchor="middle" class="text-label">Entity Key (unique ID)</text>
+  <rect x="70" y="80" width="410" height="60" rx="6" class="section-header"/>
+  <text x="275" y="110" text-anchor="middle" class="text-label">Entity Key (unique ID)</text>
+  <text x="275" y="130" text-anchor="middle" class="text-content">e.g., "record:0x1234..."</text>
   
   <!-- Attributes Section -->
-  <rect x="60" y="120" width="380" height="100" rx="4" class="section-content"/>
-  <text x="70" y="145" class="text-label">Attributes (queryable)</text>
-  <text x="80" y="170" class="text-content">- type: "record"</text>
-  <text x="80" y="190" class="text-content">- wallet: "0x..."</text>
-  <text x="80" y="210" class="text-content">- spaceId: "ns"</text>
+  <rect x="70" y="160" width="410" height="110" rx="6" class="section-content"/>
+  <text x="90" y="185" class="text-label">Attributes (queryable)</text>
+  <text x="100" y="210" class="text-content">• type: "record"</text>
+  <text x="100" y="235" class="text-content">• wallet: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"</text>
+  <text x="100" y="255" class="text-content">• spaceId: "ns"</text>
   
   <!-- Payload Section -->
-  <rect x="60" y="230" width="380" height="60" rx="4" class="section-content"/>
-  <text x="70" y="255" class="text-label">Payload (content)</text>
-  <text x="80" y="280" class="text-content">{ "message": "..." }</text>
+  <rect x="70" y="290" width="410" height="70" rx="6" class="section-content"/>
+  <text x="90" y="320" class="text-label">Payload (content)</text>
+  <text x="100" y="345" class="text-content">{ "message": "Hello, Arkiv!", "timestamp": 1234567890 }</text>
   
   <!-- Transaction Hash Section -->
-  <rect x="60" y="300" width="380" height="60" rx="4" class="section-content"/>
-  <text x="70" y="325" class="text-label">Transaction Hash</text>
-  <text x="80" y="350" class="text-content">(verification proof)</text>
+  <rect x="70" y="380" width="410" height="30" rx="6" class="section-content"/>
+  <text x="90" y="400" class="text-label">Transaction Hash</text>
+  <text x="300" y="400" class="text-content" fill="#6b7280">(verification proof)</text>
 </svg>
