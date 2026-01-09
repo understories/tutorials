@@ -9,9 +9,13 @@ export default function WorkshopTutorialLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ProgressProvider>
-      {children}
-    </ProgressProvider>
+    <html lang="en">
+      <body>
+        <ProgressProvider>
+          {children}
+        </ProgressProvider>
+      </body>
+    </html>
   );
 }
 
