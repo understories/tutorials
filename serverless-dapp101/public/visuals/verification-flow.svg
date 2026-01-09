@@ -1,0 +1,52 @@
+<svg viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Verification flow diagram">
+  <title>Verification Flow</title>
+  <desc>Step-by-step flow showing how a transaction hash is used to verify data on the blockchain using the Arkiv explorer.</desc>
+  
+  <defs>
+    <style>
+      .step-box { fill: #f3f4f6; stroke: #6b7280; stroke-width: 2; }
+      .step-number { fill: #3b82f6; font-family: system-ui, -apple-system, sans-serif; font-size: 18px; font-weight: 700; }
+      .arrow { stroke: #6b7280; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .text-label { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; fill: #1f2937; font-weight: 500; }
+      .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; fill: #111827; font-weight: 600; text-anchor: middle; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#6b7280" />
+    </marker>
+  </defs>
+  
+  <text x="300" y="30" class="text-title">Verification Flow</text>
+  
+  <!-- Step 1 -->
+  <circle cx="100" cy="80" r="20" fill="#3b82f6"/>
+  <text x="100" y="87" text-anchor="middle" class="step-number" fill="white">1</text>
+  <rect x="30" y="110" width="140" height="50" rx="8" class="step-box"/>
+  <text x="100" y="140" text-anchor="middle" class="text-label">Create Entity</text>
+  
+  <line x1="100" y1="160" x2="100" y2="180" class="arrow"/>
+  
+  <!-- Step 2 -->
+  <circle cx="100" cy="200" r="20" fill="#3b82f6"/>
+  <text x="100" y="207" text-anchor="middle" class="step-number" fill="white">2</text>
+  <rect x="30" y="230" width="140" height="50" rx="8" class="step-box"/>
+  <text x="100" y="260" text-anchor="middle" class="text-label">Get Transaction Hash</text>
+  
+  <line x1="100" y1="280" x2="200" y2="280" class="arrow"/>
+  <line x1="200" y1="280" x2="200" y2="200" class="arrow"/>
+  
+  <!-- Step 3 -->
+  <circle cx="300" cy="200" r="20" fill="#3b82f6"/>
+  <text x="300" y="207" text-anchor="middle" class="step-number" fill="white">3</text>
+  <rect x="230" y="110" width="140" height="50" rx="8" class="step-box"/>
+  <text x="300" y="140" text-anchor="middle" class="text-label">Open Explorer</text>
+  
+  <line x1="300" y1="160" x2="300" y2="180" class="arrow"/>
+  
+  <!-- Step 4 -->
+  <circle cx="500" cy="200" r="20" fill="#3b82f6"/>
+  <text x="500" y="207" text-anchor="middle" class="step-number" fill="white">4</text>
+  <rect x="430" y="230" width="140" height="50" rx="8" class="step-box"/>
+  <text x="500" y="260" text-anchor="middle" class="text-label">Verify Data on Chain</text>
+  
+  <line x1="300" y1="220" x2="480" y2="220" class="arrow"/>
+</svg>
