@@ -4,8 +4,10 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 
 interface ProgressContextType {
   completedSteps: string[];
+  checkpointStates: Record<string, boolean>; // stepId -> all checkboxes checked
   startTime: number | null;
   markStepComplete: (stepId: string) => void;
+  setCheckpointState: (stepId: string, allChecked: boolean) => void;
   resetProgress: () => void;
 }
 
@@ -13,6 +15,7 @@ const ProgressContext = createContext<ProgressContextType | null>(null);
 
 export function ProgressProvider({ children }: { children: ReactNode }) {
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
+  const [checkpointStates, setCheckpointStates] = useState<Record<string, boolean>>({});
   const [startTime, setStartTime] = useState<number | null>(null);
 
   useEffect(() => {
@@ -22,6 +25,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       try {
         const data = JSON.parse(saved);
         setCompletedSteps(data.completedSteps || []);
+        setCheckpointStates(data.checkpointStates || {});
         setStartTime(data.startTime || null);
       } catch (e) {
         // Invalid data, start fresh
@@ -38,10 +42,11 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     if (startTime !== null) {
       localStorage.setItem('workshop-progress', JSON.stringify({
         completedSteps,
+        checkpointStates,
         startTime,
       }));
     }
-  }, [completedSteps, startTime]);
+  }, [completedSteps, checkpointStates, startTime]);
 
   const markStepComplete = (stepId: string) => {
     setCompletedSteps(prev => {
@@ -50,15 +55,30 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const setCheckpointState = (stepId: string, allChecked: boolean) => {
+    setCheckpointStates(prev => ({
+      ...prev,
+      [stepId]: allChecked,
+    }));
+  };
+
   const resetProgress = () => {
     setCompletedSteps([]);
+    setCheckpointStates({});
     setStartTime(Date.now());
     localStorage.removeItem('workshop-progress');
   };
 
   return (
     <ProgressContext.Provider
-      value={{ completedSteps, startTime, markStepComplete, resetProgress }}
+      value={{ 
+        completedSteps, 
+        checkpointStates,
+        startTime, 
+        markStepComplete, 
+        setCheckpointState,
+        resetProgress 
+      }}
     >
       {children}
     </ProgressContext.Provider>

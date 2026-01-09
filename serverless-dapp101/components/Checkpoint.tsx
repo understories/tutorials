@@ -10,14 +10,19 @@ interface CheckpointProps {
 
 export function Checkpoint({ stepId, items }: CheckpointProps) {
   const [checked, setChecked] = useState<Record<number, boolean>>({});
-  const { markStepComplete } = useProgress();
+  const { markStepComplete, setCheckpointState } = useProgress();
 
   const handleCheck = (index: number) => {
     const newChecked = { ...checked, [index]: !checked[index] };
     setChecked(newChecked);
     
-    // Mark step complete if all items checked
+    // Check if all items are checked
     const allChecked = items.every((_, i) => newChecked[i]);
+    
+    // Update checkpoint state (for Next button enable/disable)
+    setCheckpointState(stepId, allChecked);
+    
+    // Mark step complete if all items checked
     if (allChecked) {
       markStepComplete(stepId);
     }

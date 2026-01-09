@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PathToggle } from './PathToggle';
 import { CodeBlock } from './CodeBlock';
 import { Checkpoint } from './Checkpoint';
+import { useProgress } from './ProgressProvider';
 import ReactMarkdown from 'react-markdown';
 
 export function StepContent({ 
@@ -16,9 +17,24 @@ export function StepContent({
   path: 'vibe' | 'manual' | 'both';
 }) {
   const [currentPath, setCurrentPath] = useState<'vibe' | 'manual'>(path === 'both' ? 'vibe' : path);
+  const { setCheckpointState } = useProgress();
   
   // Parse content sections
   const sections = parseMarkdownSections(content, currentPath);
+  
+  // Check if this step has a checkpoint section
+  const hasCheckpoint = sections.some(s => s.type === 'checkpoint');
+  
+  // Initialize checkpoint state: if no checkpoint, mark as "complete" (undefined means no requirement)
+  useEffect(() => {
+    if (!hasCheckpoint) {
+      // Step has no checkpoint, so navigation is always allowed
+      setCheckpointState(stepId, true);
+    } else {
+      // Step has checkpoint, start as incomplete
+      setCheckpointState(stepId, false);
+    }
+  }, [stepId, hasCheckpoint, setCheckpointState]);
 
   return (
     <>
