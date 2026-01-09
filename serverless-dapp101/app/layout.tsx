@@ -2,6 +2,7 @@
 
 import { ProgressProvider } from '../components/ProgressProvider';
 import { GitHubLink } from '../components/GitHubLink';
+import { LearnLink } from '../components/LearnLink';
 import './globals.css';
 
 export default function WorkshopTutorialLayout({
@@ -13,6 +14,7 @@ export default function WorkshopTutorialLayout({
     <html lang="en">
       <body>
         <ProgressProvider>
+          <LearnLink />
           <GitHubLink />
           {children}
         </ProgressProvider>
