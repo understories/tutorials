@@ -53,13 +53,13 @@ export default function WorkshopTutorialHome() {
 
           <div className="flex gap-4">
             <Link
-              href="/serverless-dapp101/01-quick-start"
+              href="/01-quick-start"
               className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
             >
               Start Tutorial →
             </Link>
             <Link
-              href="/serverless-dapp101/hello-world"
+              href="/hello-world"
               className="inline-block px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
             >
               See Hello World Demo →
