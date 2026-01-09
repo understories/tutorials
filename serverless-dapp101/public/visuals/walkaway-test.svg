@@ -1,0 +1,70 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Walkaway test comparison">
+  <title>Walkaway Test Visualization</title>
+  <desc>Comparison showing that data stored in a traditional app is lost when the app shuts down, while data stored on Arkiv remains accessible to new applications.</desc>
+  
+  <defs>
+    <style>
+      .scenario-box { fill: #f9fafb; stroke: #e5e7eb; stroke-width: 2; }
+      .failure-box { fill: #fef2f2; stroke: #ef4444; stroke-width: 2; }
+      .success-box { fill: #f0fdf4; stroke: #10b981; stroke-width: 2; }
+      .arrow { stroke: #6b7280; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .text-label { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; fill: #1f2937; font-weight: 500; }
+      .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; fill: #111827; font-weight: 600; }
+      .text-result { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 600; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#6b7280" />
+    </marker>
+  </defs>
+  
+  <!-- Scenario 1: Traditional App -->
+  <g id="scenario-1">
+    <text x="200" y="30" text-anchor="middle" class="text-title">Scenario 1: Traditional App</text>
+    
+    <rect x="50" y="50" width="300" height="50" rx="8" class="scenario-box"/>
+    <text x="200" y="80" text-anchor="middle" class="text-label">Your App</text>
+    
+    <line x1="200" y1="100" x2="200" y2="120" class="arrow"/>
+    
+    <rect x="50" y="120" width="300" height="50" rx="8" class="scenario-box"/>
+    <text x="200" y="150" text-anchor="middle" class="text-label">Company Database</text>
+    
+    <line x1="200" y1="170" x2="200" y2="190" class="arrow"/>
+    
+    <rect x="50" y="190" width="300" height="50" rx="8" class="failure-box"/>
+    <text x="200" y="220" text-anchor="middle" class="text-label">Company shuts down</text>
+    
+    <line x1="200" y1="240" x2="200" y2="260" class="arrow"/>
+    
+    <rect x="50" y="260" width="300" height="50" rx="8" class="failure-box"/>
+    <text x="200" y="290" text-anchor="middle" class="text-result" fill="#ef4444">Data lost ❌</text>
+  </g>
+  
+  <!-- Scenario 2: Serverless DApp -->
+  <g id="scenario-2">
+    <text x="600" y="30" text-anchor="middle" class="text-title">Scenario 2: Serverless DApp</text>
+    
+    <rect x="450" y="50" width="300" height="50" rx="8" class="scenario-box"/>
+    <text x="600" y="80" text-anchor="middle" class="text-label">Your App</text>
+    
+    <line x1="600" y1="100" x2="600" y2="120" class="arrow"/>
+    
+    <rect x="450" y="120" width="300" height="50" rx="8" class="scenario-box"/>
+    <text x="600" y="150" text-anchor="middle" class="text-label">Arkiv Network</text>
+    
+    <line x1="600" y1="170" x2="600" y2="190" class="arrow"/>
+    
+    <rect x="450" y="190" width="300" height="50" rx="8" class="success-box"/>
+    <text x="600" y="220" text-anchor="middle" class="text-label">Your app shuts down</text>
+    
+    <line x1="600" y1="240" x2="600" y2="260" class="arrow"/>
+    
+    <rect x="450" y="260" width="300" height="50" rx="8" class="success-box"/>
+    <text x="600" y="290" text-anchor="middle" class="text-result" fill="#10b981">Data still on Arkiv ✅</text>
+    
+    <line x1="600" y1="310" x2="600" y2="330" class="arrow"/>
+    
+    <rect x="450" y="330" width="300" height="50" rx="8" class="success-box"/>
+    <text x="600" y="360" text-anchor="middle" class="text-result" fill="#10b981">New App → Same data ✅</text>
+  </g>
+</svg>
