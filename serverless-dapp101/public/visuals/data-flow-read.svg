@@ -1,0 +1,41 @@
+<svg viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Read flow diagram">
+  <title>Data Flow - Read</title>
+  <desc>Read flow showing how application data is queried from Arkiv and displayed in the user interface.</desc>
+  
+  <defs>
+    <style>
+      .flow-box { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
+      .arrow { stroke: #3b82f6; stroke-width: 3; fill: none; marker-end: url(#arrowhead-blue); }
+      .text-label { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; fill: #1f2937; font-weight: 500; }
+      .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; fill: #111827; font-weight: 600; text-anchor: middle; }
+    </style>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#3b82f6" />
+    </marker>
+  </defs>
+  
+  <text x="300" y="30" class="text-title">Read Flow</text>
+  
+  <rect x="200" y="50" width="200" height="50" rx="8" class="flow-box"/>
+  <text x="300" y="80" text-anchor="middle" class="text-label">User Request</text>
+  
+  <line x1="300" y1="100" x2="300" y2="120" class="arrow"/>
+  
+  <rect x="200" y="120" width="200" height="50" rx="8" class="flow-box"/>
+  <text x="300" y="150" text-anchor="middle" class="text-label">API Route</text>
+  
+  <line x1="300" y1="170" x2="300" y2="190" class="arrow"/>
+  
+  <rect x="200" y="190" width="200" height="50" rx="8" class="flow-box"/>
+  <text x="300" y="220" text-anchor="middle" class="text-label">Query Arkiv</text>
+  
+  <line x1="300" y1="240" x2="300" y2="260" class="arrow"/>
+  
+  <rect x="200" y="260" width="200" height="50" rx="8" class="flow-box"/>
+  <text x="300" y="290" text-anchor="middle" class="text-label">Return Data</text>
+  
+  <line x1="300" y1="310" x2="300" y2="330" class="arrow"/>
+  
+  <rect x="200" y="330" width="200" height="50" rx="8" class="flow-box"/>
+  <text x="300" y="360" text-anchor="middle" class="text-label">Display in UI</text>
+</svg>
