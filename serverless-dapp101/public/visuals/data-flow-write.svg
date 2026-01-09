@@ -1,0 +1,46 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Write flow diagram">
+  <title>Data Flow - Write</title>
+  <desc>Write flow showing how a user action becomes a signed Arkiv transaction recorded on the blockchain and visible in the explorer.</desc>
+  
+  <defs>
+    <style>
+      .flow-box { fill: #fff7ed; stroke: #fb923c; stroke-width: 2; }
+      .flow-box-neutral { fill: #f3f4f6; stroke: #9ca3af; stroke-width: 2; }
+      .arrow { stroke: #fb923c; stroke-width: 3; fill: none; marker-end: url(#arrowhead-orange); }
+      .text-label { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; fill: #1f2937; font-weight: 500; }
+      .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; fill: #111827; font-weight: 600; text-anchor: middle; }
+    </style>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#fb923c" />
+    </marker>
+  </defs>
+  
+  <text x="300" y="30" class="text-title">Write Flow</text>
+  
+  <rect x="200" y="50" width="200" height="50" rx="8" class="flow-box"/>
+  <text x="300" y="80" text-anchor="middle" class="text-label">User Action</text>
+  
+  <line x1="300" y1="100" x2="300" y2="120" class="arrow"/>
+  
+  <rect x="200" y="120" width="200" height="50" rx="8" class="flow-box"/>
+  <text x="300" y="150" text-anchor="middle" class="text-label">API Route</text>
+  
+  <line x1="300" y1="170" x2="300" y2="190" class="arrow"/>
+  
+  <rect x="200" y="190" width="200" height="50" rx="8" class="flow-box"/>
+  <text x="300" y="220" text-anchor="middle" class="text-label">Wallet Signs</text>
+  
+  <line x1="300" y1="240" x2="300" y2="260" class="arrow"/>
+  
+  <rect x="200" y="260" width="200" height="50" rx="8" class="flow-box"/>
+  <text x="300" y="290" text-anchor="middle" class="text-label">Arkiv Transaction</text>
+  
+  <line x1="300" y1="310" x2="300" y2="330" class="arrow"/>
+  
+  <rect x="200" y="330" width="200" height="50" rx="8" class="flow-box-neutral"/>
+  <text x="300" y="360" text-anchor="middle" class="text-label">Blockchain</text>
+  
+  <line x1="300" y1="380" x2="300" y2="390" class="arrow"/>
+  
+  <text x="300" y="395" text-anchor="middle" class="text-label" font-size="12" fill="#6b7280">Explorer Visible</text>
+</svg>
