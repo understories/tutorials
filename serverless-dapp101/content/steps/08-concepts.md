@@ -243,3 +243,6 @@ A: There are practical limits based on gas costs. For large files, consider stor
 
 **Q: Can I query across multiple spaces?**
 A: No, queries are scoped to a single space. If you need data from multiple spaces, make separate queries and combine the results.
+
+**Q: How do shared spaces work?**
+A: When multiple users use the same `SPACE_ID`, all entities with that space ID are queryable by anyone. Queries filter by `spaceId` attribute, not by wallet address. This means messages from different wallets appear together if they share the same space ID. In this tutorial, we use `SPACE_ID=ns` as a shared space so all participants can see each other's messages on the deployed hello-world page.
