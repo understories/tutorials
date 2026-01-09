@@ -12,7 +12,7 @@ export function StepNav({ currentStepId }: { currentStepId: string }) {
     <div className="flex justify-between items-center mt-8 pt-8 border-t border-gray-200">
       {prevStep ? (
         <Link
-          href={`/serverless-dapp101/${prevStep.id}`}
+          href={`/${prevStep.id}`}
           className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
         >
           ← Previous: {prevStep.title}
@@ -22,7 +22,7 @@ export function StepNav({ currentStepId }: { currentStepId: string }) {
       )}
       {nextStep && (
         <Link
-          href={`/serverless-dapp101/${nextStep.id}`}
+          href={`/${nextStep.id}`}
           className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
         >
           Next: {nextStep.title} →

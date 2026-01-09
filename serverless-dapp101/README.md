@@ -29,8 +29,8 @@ A 1-hour hands-on workshop to build your first decentralized app with Arkiv.
    ```
 
 4. **Visit:**
-   - Tutorial: `http://localhost:3000/serverless-dapp101`
-   - Hello World Demo: `http://localhost:3000/serverless-dapp101/hello-world`
+   - Tutorial: `http://localhost:3000/01-quick-start`
+   - Hello World Demo: `http://localhost:3000/hello-world`
 
 ## Structure
 
