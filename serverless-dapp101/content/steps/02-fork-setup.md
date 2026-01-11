@@ -32,8 +32,8 @@ Help me:
 2. Clone it locally using: git clone https://github.com/YOUR_USERNAME/arkiv-hello-world.git
 3. Generate a new wallet for Arkiv testnet (Mendoza) using the official Arkiv Getting Started guide at https://arkiv.network/getting-started/typescript
 4. Copy my wallet address and private key from the interactive account generator
-5. Get testnet tokens from the Mendoza faucet at https://mendoza.hoodi.arkiv.network/faucet/ (complete CAPTCHA and wait for tokens)
-6. Verify I received the testnet tokens
+5. **PAUSE HERE** - When you reach the step of getting testnet tokens, you must pause and have the human complete the faucet step manually. Display the wallet address that was generated in step 4, and provide clear instructions: "I've generated your wallet address: [WALLET_ADDRESS]. Now you need to get testnet tokens by visiting the Mendoza faucet. Please: (1) Go to https://mendoza.hoodi.arkiv.network/faucet/, (2) Paste your wallet address [WALLET_ADDRESS] into the 'Wallet Address' field, (3) Complete the Proof of Work CAPTCHA, (4) Wait for the tokens to arrive (you'll receive 0.001 ETH test tokens via Optimism Bridge). Once you've completed the CAPTCHA and received the tokens, let me know and I'll continue with verification."
+6. After the human confirms they've received the testnet tokens, verify the wallet has a balance
 7. Understand what the starter template includes
 
 Provide clear, step-by-step instructions and emphasize using the official Arkiv Getting Started guide for account generation.
@@ -134,6 +134,15 @@ Before moving to the next step, verify:
 
 **Q: I don't have a GitHub account.**
 A: Create one at [github.com](https://github.com) - it's free and takes 2 minutes.
+
+**Q: What are testnet tokens and why do I need them? (New to Web3)**
+A: If you're new to Web3, here's what you need to know:
+- **Testnet tokens** are fake cryptocurrency used only for testing and learning. They have **no real value** and cannot be converted to real money.
+- Think of them like play money in a game - you use them to practice without risking real funds.
+- On blockchain networks, every action (like writing data) costs a small fee called "gas" - similar to paying a small transaction fee. Testnet tokens pay for these fees during testing.
+- The Mendoza testnet is a practice version of the Arkiv network where you can experiment safely.
+- You get testnet tokens for free from a "faucet" (like a water fountain, but for tokens) - just visit the faucet website, paste your wallet address, complete a CAPTCHA to prevent abuse, and receive free test tokens.
+- These tokens only work on the testnet and cannot be used on the real (mainnet) blockchain.
 
 **Q: How do I get testnet tokens for my wallet?**
 A: 
