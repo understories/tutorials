@@ -132,6 +132,8 @@ const result = await walletClient.createEntity({...});
 | Requires infrastructure | No infrastructure needed |
 | Data can be lost | Data persists on-chain |
 
+This comparison highlights the fundamental differences between traditional databases and Arkiv. The key tradeoff is speed for independence: Arkiv writes are slower (blockchain confirmation), but your data is truly independent and verifiable.
+
 ### Indexer Lag
 
 **Indexer lag** is the delay between when a transaction is confirmed and when it appears in queries.
