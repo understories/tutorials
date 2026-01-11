@@ -6,6 +6,7 @@ import { LearnLink } from '../components/LearnLink';
 import { DictLink } from '../components/DictLink';
 import { HomeLink } from '../components/HomeLink';
 import { SecurityLink } from '../components/SecurityLink';
+import { TryLink } from '../components/TryLink';
 import './globals.css';
 
 export default function WorkshopTutorialLayout({
@@ -19,9 +20,10 @@ export default function WorkshopTutorialLayout({
         <ProgressProvider>
           <nav className="fixed top-4 right-4 z-50 flex items-center gap-3">
             <HomeLink />
-            <SecurityLink />
             <LearnLink />
             <DictLink />
+            <SecurityLink />
+            <TryLink />
             <GitHubLink />
           </nav>
           {children}
