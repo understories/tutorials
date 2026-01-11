@@ -2,9 +2,10 @@ import Link from 'next/link';
 
 export default function SecurityPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 pt-20 pb-8">
-      <div className="prose prose-lg max-w-none">
-        <h1 className="text-4xl font-bold mb-6">Web3 Software Supply Chain Security</h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pt-20 pb-8">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="bg-white rounded-lg shadow-lg p-8">
+          <h1 className="text-4xl font-bold mb-6 text-gray-900">Web3 Software Supply Chain Security</h1>
         
         <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8">
           <p className="text-sm text-gray-700">
@@ -367,6 +368,7 @@ export default function SecurityPage() {
             </li>
           </ul>
         </section>
+        </div>
       </div>
     </div>
   );
