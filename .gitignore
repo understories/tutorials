@@ -1,0 +1,7 @@
+# Local development directories (users fork these from GitHub)
+arkiv-hello-world/
+standalone-arkiv-nextjs-starter/
+
+# OS files
+.DS_Store
+Thumbs.db
