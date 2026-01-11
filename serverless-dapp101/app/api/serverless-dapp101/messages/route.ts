@@ -14,54 +14,81 @@ export async function GET() {
     const publicClient = getPublicClient();
     
     // Query messages from Arkiv using query builder
+    // IMPORTANT: Query by type ONLY (no spaceId filter) to show ALL messages regardless of wallet or spaceId
+    // This ensures messages from all students appear on the demo page, even if they used different spaceIds
     // Use BETA_SPACE_ID env var if set (for workshop), otherwise use default from config
     const querySpaceId = process.env.BETA_SPACE_ID || SPACE_ID;
-    
-    // Query multiple spaceIds to ensure we catch all messages regardless of which space they were created in
-    // This handles cases where students might have used different spaceIds
-    // Always include 'ns' (default shared space) and the configured spaceId
     const spaceIdsToQuery = Array.from(new Set([querySpaceId, 'ns']));
     
-    // Fetch messages and txHash entities from all spaces in parallel
-    const [messageResults, txHashResults] = await Promise.all([
-      Promise.all(
-        spaceIdsToQuery.map(spaceId =>
-          publicClient
-            .buildQuery()
-            .where(eq('type', 'workshop_message'))
-            .where(eq('spaceId', spaceId))
-            .withAttributes(true)
-            .withPayload(true)
-            .limit(100)
-            .fetch()
-        )
-      ),
-      Promise.all(
-        spaceIdsToQuery.map(spaceId =>
-          publicClient
-            .buildQuery()
-            .where(eq('type', 'workshop_message_txhash'))
-            .where(eq('spaceId', spaceId))
-            .withAttributes(true)
-            .withPayload(true)
-            .limit(100)
-            .fetch()
-        )
-      ),
-    ]);
+    // Try querying WITHOUT spaceId filter first to get ALL messages of type 'workshop_message'
+    // If that fails (Arkiv requires spaceId), fall back to querying specific spaceIds
+    let messageResult, txHashResult;
     
-    // Combine results from all spaces
-    const result = {
-      entities: messageResults.flatMap(r => r.entities || []),
-    };
-    const txHashResult = {
-      entities: txHashResults.flatMap(r => r.entities || []),
-    };
+    try {
+      // Attempt to query without spaceId filter (shows ALL messages regardless of spaceId or wallet)
+      [messageResult, txHashResult] = await Promise.all([
+        publicClient
+          .buildQuery()
+          .where(eq('type', 'workshop_message'))
+          .withAttributes(true)
+          .withPayload(true)
+          .limit(500)
+          .fetch(),
+        publicClient
+          .buildQuery()
+          .where(eq('type', 'workshop_message_txhash'))
+          .withAttributes(true)
+          .withPayload(true)
+          .limit(500)
+          .fetch(),
+      ]);
+    } catch (error) {
+      // If querying without spaceId fails, fall back to querying specific spaceIds
+      console.warn('[messages/route] Query without spaceId failed, falling back to spaceId-specific queries:', error);
+      const [messageResults, txHashResults] = await Promise.all([
+        Promise.all(
+          spaceIdsToQuery.map(spaceId =>
+            publicClient
+              .buildQuery()
+              .where(eq('type', 'workshop_message'))
+              .where(eq('spaceId', spaceId))
+              .withAttributes(true)
+              .withPayload(true)
+              .limit(100)
+              .fetch()
+              .catch(() => ({ entities: [] }))
+          )
+        ),
+        Promise.all(
+          spaceIdsToQuery.map(spaceId =>
+            publicClient
+              .buildQuery()
+              .where(eq('type', 'workshop_message_txhash'))
+              .where(eq('spaceId', spaceId))
+              .withAttributes(true)
+              .withPayload(true)
+              .limit(100)
+              .fetch()
+              .catch(() => ({ entities: [] }))
+          )
+        ),
+      ]);
+      
+      messageResult = {
+        entities: messageResults.flatMap(r => r.entities || []),
+      };
+      txHashResult = {
+        entities: txHashResults.flatMap(r => r.entities || []),
+      };
+    }
+    
+    const result = messageResult || { entities: [] };
+    const finalTxHashResult = txHashResult || { entities: [] };
     
     // Build txHash map from companion entities
     const txHashMap: Record<string, string> = {};
-    if (txHashResult?.entities && Array.isArray(txHashResult.entities)) {
-      txHashResult.entities.forEach((entity: any) => {
+    if (finalTxHashResult?.entities && Array.isArray(finalTxHashResult.entities)) {
+      finalTxHashResult.entities.forEach((entity: any) => {
         try {
           const attrs = entity.attributes || {};
           const getAttr = (key: string): string => {
