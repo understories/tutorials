@@ -18,6 +18,8 @@ The starter template is a minimal Next.js app that demonstrates:
 
 Think of it as your "hello world" for decentralized apps.
 
+**Important:** When you fork this template, you get a **complete, standalone app** that runs independently. It includes its own API routes and communicates with other apps only through Arkiv (the blockchain), not through direct HTTP calls. This means your app can work completely on its own - no central server or external dependencies needed!
+
 ![Stack Comparison](/visuals/stack-comparison.svg)
 
 This visual shows how Arkiv fits into the familiar development stack. Instead of PostgreSQL, MongoDB, or Firebase, you use **Arkiv**, a decentralized database that stores data on the blockchain. The query interface feels familiar, but the data lives on-chain.
