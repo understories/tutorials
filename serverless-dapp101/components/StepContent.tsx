@@ -91,8 +91,8 @@ function parseMarkdownSections(content: string, currentPath: 'vibe' | 'manual'):
       continue;
     }
     
-    // Handle checkpoint
-    if (line.startsWith('## Checkpoint')) {
+    // Handle checkpoint (including "Final Checkpoint")
+    if (line.startsWith('## Checkpoint') || line.startsWith('## Final Checkpoint')) {
       if (currentSection.content.trim()) {
         sections.push(currentSection);
       }
