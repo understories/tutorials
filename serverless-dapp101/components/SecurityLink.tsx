@@ -4,6 +4,8 @@ export function SecurityLink() {
   return (
     <a
       href="/security"
+      target="_blank"
+      rel="noopener noreferrer"
       className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors shadow-lg"
       aria-label="Security Guide"
     >

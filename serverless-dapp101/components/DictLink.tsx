@@ -4,6 +4,8 @@ export function DictLink() {
   return (
     <a
       href="/dict"
+      target="_blank"
+      rel="noopener noreferrer"
       className="flex items-center gap-2 px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors shadow-lg"
       aria-label="Web3 Concepts Dictionary"
     >
