@@ -207,7 +207,7 @@ const concepts: Concept[] = [
   },
   {
     id: 'walkaway-test',
-    title: '3. Full Stack Web3 Apps & the &quot;Walkaway Test&quot;',
+    title: 'Full Stack Web3 Apps & the "Walkaway Test"',
     eli5: (
       <>
         <p>If the people who made the app disappear, <strong>can users still use it?</strong></p>
@@ -277,6 +277,14 @@ const concepts: Concept[] = [
           not<br />
           A company + servers + permissions
         </blockquote>
+        <p className="mt-4">Define it per layer:</p>
+        <ul>
+          <li>UI: alternative frontends (mirrors, IPFS/Swarm-hosted, downloadable builds)</li>
+          <li>Data: exportable, portable, verifiable state</li>
+          <li>Execution: permissionless transaction inclusion / no single sequencer gate</li>
+          <li>Keys: self-custody + recovery that doesn&apos;t introduce "critical secrets"</li>
+        </ul>
+        <p className="mt-4">Treat "walkaway" as a <strong>system integration test</strong>, not a slogan.</p>
       </>
     ),
     questions: (
@@ -284,8 +292,11 @@ const concepts: Concept[] = [
         <li>If the creators of an app vanished, what parts of it should still exist?</li>
         <li>Should users be able to rebuild tools they depend on without asking permission?</li>
         <li>Is it reasonable to expect non-technical people to care about where their app&apos;s data lives?</li>
-        <li>What&apos;s the difference between an app that is &quot;open source&quot; and one that is truly forkable in practice?</li>
-        <li>In the physical world, what systems pass the &quot;walkaway test&quot;? Which ones fail it?</li>
+        <li>What&apos;s the difference between an app that is "open source" and one that is truly forkable in practice?</li>
+        <li>In the physical world, what systems pass the "walkaway test"? Which ones fail it?</li>
+        <li>If your main app vanished tomorrow, what would you lose?</li>
+        <li>Which matters more: "can I leave?" or "can I verify?" Why?</li>
+        <li>What&apos;s the difference between "I can leave in theory" vs "I can leave in practice"?</li>
       </ul>
     ),
   },
@@ -437,44 +448,6 @@ const concepts: Concept[] = [
         <li>What&apos;s a real-world example of &quot;convenience drift&quot; (tech or non-tech)?</li>
         <li>When do defaults become coercion?</li>
         <li>What would &quot;escape hatches everywhere&quot; look like in schools, banks, or social media?</li>
-      </ul>
-    ),
-  },
-  {
-    id: 'walkaway-test-manifesto',
-    title: '7. The Walkaway Test (Survive Operator Failure or Betrayal)',
-    eli5: (
-      <>
-        <p>If the grown-up leaves the room, the game should still work.</p>
-      </>
-    ),
-    builder: (
-      <>
-        <p>If one operator disappears, changes the rules, or blocks you, <strong>you can keep going</strong>—without asking permission.</p>
-      </>
-    ),
-    engineer: (
-      <>
-        <p>Walkaway test: if one operator misbehaves or vanishes, another can replace them, and users can continue.</p>
-      </>
-    ),
-    developer: (
-      <>
-        <p>Define it per layer:</p>
-        <ul>
-          <li>UI: alternative frontends (mirrors, IPFS/Swarm-hosted, downloadable builds)</li>
-          <li>Data: exportable, portable, verifiable state</li>
-          <li>Execution: permissionless transaction inclusion / no single sequencer gate</li>
-          <li>Keys: self-custody + recovery that doesn&apos;t introduce &quot;critical secrets&quot;</li>
-        </ul>
-        <p className="mt-4">Treat &quot;walkaway&quot; as a <strong>system integration test</strong>, not a slogan.</p>
-      </>
-    ),
-    questions: (
-      <ul className="space-y-2 list-disc list-inside">
-        <li>If your main app vanished tomorrow, what would you lose?</li>
-        <li>Which matters more: &quot;can I leave?&quot; or &quot;can I verify?&quot; Why?</li>
-        <li>What&apos;s the difference between &quot;I can leave in theory&quot; vs &quot;I can leave in practice&quot;?</li>
       </ul>
     ),
   },
