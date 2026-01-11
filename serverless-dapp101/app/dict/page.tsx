@@ -692,7 +692,7 @@ export default function DictionaryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pt-20">
       <div className="max-w-4xl mx-auto px-4 py-8">
       <header className="mb-12">
         <h1 className="text-4xl font-bold mb-4 text-gray-900">Web3 Concepts Dictionary</h1>
