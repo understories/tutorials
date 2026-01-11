@@ -114,10 +114,7 @@ A: It should:
 - Be the same key you generated in step 2 using the [Arkiv Getting Started guide](https://arkiv.network/getting-started/typescript)
 
 **Q: I lost my private key from step 2.**
-A: You'll need to generate a new account. Go back to [step 2](../02-fork-setup) and use the [Arkiv Getting Started guide](https://arkiv.network/getting-started/typescript) to generate a new account. You'll also need to get new testnet tokens for the new wallet address.
-
-**Q: What if I lose my private key?**
-A: Generate a new one (step 2) and update your `.env` file. You'll need to get new testnet tokens for the new wallet address.
+A: You'll need to generate a new account. Go back to [step 2](../02-fork-setup) and use the [Arkiv Getting Started guide](https://arkiv.network/getting-started/typescript) to generate a new account. You'll also need to get new testnet tokens for the new wallet address from the [Mendoza Testnet Faucet](https://mendoza.hoodi.arkiv.network/faucet/).
 
 **Q: Can I use the same private key for multiple projects?**
 A: Yes, but for testnet only. Never reuse testnet keys for mainnet, and never share keys between projects in production.
