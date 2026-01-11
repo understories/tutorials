@@ -939,6 +939,11 @@ export default function DictionaryPage() {
                 {' '}
                 by Vitalik Buterin
               </li>
+              <li>
+                <a href="https://arkiv.network/pdf/ARKIV_Litepaper_blue.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                  Arkiv Litepaper
+                </a>
+              </li>
             </ul>
           </div>
         </section>
