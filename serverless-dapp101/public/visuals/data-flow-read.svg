@@ -11,8 +11,8 @@
       .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 22px; fill: #111827; font-weight: 700; text-anchor: middle; }
       .shadow { filter: url(#drop-shadow); }
     </style>
-    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
-      <polygon points="0 0, 10 5, 0 10" fill="#3b82f6" />
+    <marker id="arrowhead-blue" markerWidth="6" markerHeight="6" refX="5.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <polygon points="0 0, 6 3, 0 6" fill="#3b82f6" />
     </marker>
     <filter id="drop-shadow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
