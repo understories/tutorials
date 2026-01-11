@@ -302,7 +302,7 @@ const concepts: Concept[] = [
   },
   {
     id: 'arkiv',
-    title: '4. Using Arkiv Instead of Traditional App Servers',
+    title: 'Using Arkiv Instead of Traditional App Servers',
     eli5: (
       <>
         <p>Normally, apps have a server that decides what&apos;s allowed.</p>
@@ -374,6 +374,13 @@ const concepts: Concept[] = [
           Arkiv doesn&apos;t eliminate complexity.<br />
           It <strong>moves complexity into places users can see, reason about, and fork</strong>.
         </p>
+        <p className="mt-4">A practical mental model:</p>
+        <ul>
+          <li>Replace: centralized DB + "app server as source of truth"</li>
+          <li>With: signed user actions + shared data layer + thin APIs for convenience (never required)</li>
+          <li>Keep: optional caches/indexers, but ensure they&apos;re replaceable and results are checkable</li>
+        </ul>
+        <p className="mt-4">The manifesto&apos;s warning applies directly: "hosted defaults" quietly become gatekeepers unless you ship alternatives and make them usable.</p>
       </>
     ),
     questions: (
@@ -381,8 +388,11 @@ const concepts: Concept[] = [
         <li>Why do most apps today need a central server at all?</li>
         <li>What risks come from putting too much logic or power on the server side?</li>
         <li>If users could verify actions themselves, what kinds of intermediaries disappear?</li>
-        <li>What new responsibilities fall on users when systems stop &quot;protecting&quot; them by default?</li>
+        <li>What new responsibilities fall on users when systems stop "protecting" them by default?</li>
         <li>Should digital systems prioritize preventing mistakes, or making recovery possible?</li>
+        <li>What parts of an app should be "public infrastructure" vs "private service"?</li>
+        <li>When is it okay to have a centralized component?</li>
+        <li>How do you explain "walkaway" to someone who just wants the app to work?</li>
       </ul>
     ),
   },
@@ -608,43 +618,6 @@ const concepts: Concept[] = [
         <li>What&apos;s the difference between &quot;decentralized in theory&quot; and &quot;available in practice&quot;?</li>
         <li>Should permanent storage be a right, a paid service, or a community job?</li>
         <li>Would you trade a little speed for a lot more resilience?</li>
-      </ul>
-    ),
-  },
-  {
-    id: 'arkiv-manifesto',
-    title: '14. Using Arkiv to Replace Traditional App Servers (For Many Use Cases)',
-    eli5: (
-      <>
-        <p>Instead of one company&apos;s server being &quot;the brain,&quot; the shared network is the brain, and your app is just a window into it.</p>
-      </>
-    ),
-    builder: (
-      <>
-        <p>The idea is to avoid &quot;if AWS/Cloudflare is down, the app is down&quot; by putting core records and logic into a system that others can still read and build against.</p>
-      </>
-    ),
-    engineer: (
-      <>
-        <p>This is basically &quot;minimize indispensable intermediaries&quot; applied to app architecture: fewer single-host dependencies, more verifiable shared state, better walkaway properties.</p>
-      </>
-    ),
-    developer: (
-      <>
-        <p>A practical mental model:</p>
-        <ul>
-          <li>Replace: centralized DB + &quot;app server as source of truth&quot;</li>
-          <li>With: signed user actions + shared data layer + thin APIs for convenience (never required)</li>
-          <li>Keep: optional caches/indexers, but ensure they&apos;re replaceable and results are checkable</li>
-        </ul>
-        <p className="mt-4">The manifesto&apos;s warning applies directly: &quot;hosted defaults&quot; quietly become gatekeepers unless you ship alternatives and make them usable.</p>
-      </>
-    ),
-    questions: (
-      <ul className="space-y-2 list-disc list-inside">
-        <li>What parts of an app should be &quot;public infrastructure&quot; vs &quot;private service&quot;?</li>
-        <li>When is it okay to have a centralized component?</li>
-        <li>How do you explain &quot;walkaway&quot; to someone who just wants the app to work?</li>
       </ul>
     ),
   },
