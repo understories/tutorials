@@ -5,7 +5,7 @@ import { VisualAid } from '../../components/VisualAid';
 
 export default function VisualsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pt-20 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         {/* Introduction */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
