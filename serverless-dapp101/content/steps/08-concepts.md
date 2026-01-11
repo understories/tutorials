@@ -10,6 +10,9 @@ By the end of this step, you'll:
 
 ## Content
 
+> 💡 **Visual Aid:** For a comprehensive visual explanation of these concepts, check out the 
+> [Visual Lesson](/visuals) page. It includes detailed diagrams and explanations that complement this step.
+
 ### What is Arkiv?
 
 Arkiv is a decentralized database built on blockchain. It provides:
@@ -17,6 +20,9 @@ Arkiv is a decentralized database built on blockchain. It provides:
 - **Query interface**: Read data using familiar query patterns
 - **EVM compatibility**: Works with Ethereum wallets and tools
 - **No vendor lock-in**: Your data is independent of any service
+
+> 📄 **Source:** These concepts are explained in detail in the [Arkiv Litepaper](/ARKIV_Litepaper_blue.pdf). 
+> The litepaper provides deeper context on Arkiv's architecture and philosophy.
 
 ### Key Concepts
 
@@ -134,6 +140,25 @@ const result = await walletClient.createEntity({...});
 4. **Handle indexer lag**: Refresh or poll for new data
 5. **Store txHash separately**: Create companion entities for reliable querying
 
+### Building with AI Assistants: Arkiv AI Agent Kit
+
+If you're using AI coding assistants (Cursor, Copilot, Claude, etc.) to build Arkiv apps, 
+check out the **Arkiv AI Agent Kit**. It provides:
+
+- **Drop-in LLM context** for building Arkiv integrations correctly from day one
+- **Patterns and prompts** that prevent common mistakes
+- **Best practices** enforced automatically (wallet normalization, query shapes, timeout handling)
+- **Engineering guidelines** and checklists
+
+The kit helps AI assistants understand Arkiv's unique characteristics:
+- Indexer lag is normal (not an error)
+- Immutable history design patterns
+- Query shape standardization (type + spaceId + limit)
+- Wallet normalization everywhere
+
+> 🤖 **Learn More:** See the [AI Agent Kit section](/visuals#building-with-arkiv) in the Visual Lesson, 
+> or check out the [Next Steps](/11-next-steps) section for links to the kit.
+
 ## Vibe Path (AI-Assisted)
 
 ```prompt
@@ -209,6 +234,9 @@ When you submit a message:
 5. **Indexer** → Processes and indexes the transaction (this takes time!)
 6. **Query** → Returns the new entity
 
+> 💡 **Visual Aid:** See the [Data Flow - Write](/visuals#data-flow-write) diagram in the Visual Lesson 
+> for a detailed visual explanation of this process.
+
 ### Step 8.4: Explore the Explorer
 
 Go back to the explorer and look at a transaction:
@@ -216,6 +244,9 @@ Go back to the explorer and look at a transaction:
 - Understand how your payload is encoded
 - See the attributes in the transaction logs
 - Notice that everything is public and verifiable
+
+> 💡 **Visual Aid:** The [Verification Flow](/visuals#verification-flow) diagram in the Visual Lesson 
+> shows how blockchain verification works step-by-step.
 
 ## Checkpoint
 

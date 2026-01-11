@@ -84,18 +84,37 @@ Here are some ideas for what to build next:
 
 ## Resources
 
+### Visual Learning
+
+- **[Visual Lesson](/visuals)**: Comprehensive visual guide with diagrams and explanations
+  - Architecture comparisons
+  - Data flow diagrams
+  - Entity structure
+  - Verification flow
+  - And more!
+
 ### Official Documentation
 
 - **Arkiv Network**: [arkiv.network](https://arkiv.network)
 - **Dev Portal**: [arkiv.network/dev](https://arkiv.network/dev)
 - **TypeScript SDK Docs**: [arkiv.network/getting-started/typescript](https://arkiv.network/getting-started/typescript)
 - **Explorer**: [explorer.mendoza.hoodi.arkiv.network](https://explorer.mendoza.hoodi.arkiv.network) (Mendoza testnet)
+- **Arkiv Litepaper**: [Download PDF](/ARKIV_Litepaper_blue.pdf) - Deep dive into Arkiv's architecture and philosophy
+  > 📄 *Source for concepts used throughout this tutorial*
 
 ### SDK & Tools
 
 - **@arkiv-network/sdk**: [npmjs.com/package/@arkiv-network/sdk](https://www.npmjs.com/package/@arkiv-network/sdk)
 - **GitHub**: [github.com/arkiv-network](https://github.com/arkiv-network)
 - **Examples**: Check the Arkiv GitHub for example projects
+
+### Development Tools
+
+- **Arkiv AI Agent Kit**: Drop-in LLM context for building Arkiv integrations correctly
+  - Provides prompts and patterns for AI coding assistants
+  - Prevents common mistakes (indexer lag assumptions, wallet casing issues, etc.)
+  - Enforces best practices automatically
+  - See the [Visual Lesson](/visuals#building-with-arkiv) for more details
 
 ### Community
 

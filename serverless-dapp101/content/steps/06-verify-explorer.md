@@ -9,6 +9,9 @@ By the end of this step, you'll:
 
 ## Content
 
+> 💡 **Visual Aid:** For a step-by-step visual explanation of verification, check out the 
+> [Verification Flow](/visuals#verification-flow) diagram in the Visual Lesson.
+
 ### What is the Explorer?
 
 The Arkiv Explorer is a blockchain browser - like Etherscan for Ethereum, but for Arkiv. It lets you:

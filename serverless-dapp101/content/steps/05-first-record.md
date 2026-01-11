@@ -9,6 +9,9 @@ By the end of this step, you'll:
 
 ## Content
 
+> 💡 **Visual Aid:** For a detailed visual explanation of the write flow, check out the 
+> [Data Flow - Write](/visuals#data-flow-write) diagram in the Visual Lesson.
+
 ### What We're Doing
 
 You're about to write your first piece of data to Arkiv! This is a blockchain transaction - your message will be stored on-chain and be independently verifiable.
