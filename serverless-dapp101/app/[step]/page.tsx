@@ -29,7 +29,7 @@ export default async function StepPage({ params }: { params: Promise<{ step: str
   const content = loadStepContent(step.id);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pt-20">
       <div className="max-w-4xl mx-auto p-8">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <ProgressBar currentStepId={stepId} />
