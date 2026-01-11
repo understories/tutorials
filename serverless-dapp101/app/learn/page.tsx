@@ -39,7 +39,16 @@ export default function VisualsPage() {
 
           <div className="text-sm text-gray-600">
             <p className="mb-2">
-              This lesson builds on concepts from the <strong>Vibes to App</strong> workshop, 
+              This lesson builds on concepts from the{' '}
+              <a 
+                href="https://docs.google.com/presentation/d/1G2XZJZIkssoobHlpieMIUDFzfJMC79tL_MehZMvWoPc/edit?usp=sharing&pli=1&authuser=0" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 underline font-semibold"
+              >
+                Vibes to App
+              </a>
+              {' '}workshop (by Ramiro Ramirez), 
               extending traditional app development into the decentralized world. 
               We'll use visual aids to explain how Arkiv, a decentralized database, enables 
               true data ownership and independence.
@@ -94,7 +103,16 @@ export default function VisualsPage() {
             <div className="mb-6">
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">Development Stack Comparison</h3>
               <p className="text-gray-700 mb-4">
-                If you've taken the <strong>Vibes to App</strong> workshop, you're already familiar 
+                If you've taken the{' '}
+                <a 
+                  href="https://docs.google.com/presentation/d/1G2XZJZIkssoobHlpieMIUDFzfJMC79tL_MehZMvWoPc/edit?usp=sharing&pli=1&authuser=0" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline font-semibold"
+                >
+                  Vibes to App
+                </a>
+                {' '}workshop (by Ramiro Ramirez), you're already familiar 
                 with building apps using React, Next.js, and a database. The good news? 
                 <strong> Most of your stack stays the same</strong>. We're just replacing the database layer.
               </p>
