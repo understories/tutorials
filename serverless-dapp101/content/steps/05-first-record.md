@@ -50,25 +50,53 @@ Explain the transaction flow and indexer lag.
 
 ## Manual Path
 
-### Step 5.1: Navigate to Hello World Demo
+### Step 5.1: Understand Your App Architecture
+
+**Important:** Your `arkiv-hello-world` app is **completely standalone** and runs independently.
+
+**How it works:**
+- When you forked `arkiv-hello-world`, you got your own complete Next.js app
+- Your app has its own API route at `/app/api/serverless-dapp101/messages/route.ts`
+- When the frontend calls `/api/serverless-dapp101/messages`, it's calling **your own API route** (relative path), not an external service
+- The API route path name (`serverless-dapp101`) is just a naming convention - it doesn't connect to the tutorial site
+
+**How apps communicate:**
+- Your app and the tutorial demo site (`serverlessdapp101.vercel.app`) are **independent**
+- Both apps read and write directly to **Arkiv** (the blockchain)
+- Both use `SPACE_ID=ns`, so they see the same messages by querying Arkiv
+- **No HTTP calls between apps** - all communication happens through Arkiv
+
+**What this means:**
+- Your app can run completely on its own
+- Messages you create appear on the tutorial demo site (and vice versa) because you're both querying the same Arkiv space
+- You're building a truly decentralized app - no central server needed!
+
+### Step 5.2: Navigate to Hello World Demo
 
 1. Make sure your dev server is running (`npm run dev`)
 2. Open `http://localhost:3000/hello-world` in your browser
 3. You should see the message board interface
 
-### Step 5.2: Write Your First Message
+### Step 5.3: Write Your First Message
 
 1. In the text input field, type a message (e.g., "Hello from Arkiv!")
 2. Click the "Post" button
 3. Wait for the submission to complete
 
 **What's happening:**
-- Your message is being sent to the API route (`/api/serverless-dapp101/messages`)
-- The API creates an entity on Arkiv with your message
+- Your message is being sent to **your app's API route** (`/api/serverless-dapp101/messages`)
+- The API route creates an **entity** on Arkiv with your message (an entity is the data structure stored on-chain)
+- Creating an entity is also a **transaction** (the blockchain operation that records it)
 - The transaction is signed with your private key
-- The transaction is submitted to the blockchain
+- The transaction is submitted to Arkiv (Mendoza testnet)
+- Your message becomes queryable by anyone using the same `SPACE_ID`
 
-### Step 5.3: Wait for Confirmation
+**Note:** Entities and transactions are two aspects of the same operation:
+- **Entity** = the data (your message, attributes like `type`, `wallet`, `spaceId`)
+- **Transaction** = the blockchain operation that creates/records that entity
+- When you call `createEntity()`, you get back both: `entityKey` (identifier for the data) and `txHash` (identifier for the transaction)
+
+### Step 5.5: Wait for Confirmation
 
 After clicking "Post", you may see:
 - "Submitting..." while the transaction is being processed
@@ -76,7 +104,7 @@ After clicking "Post", you may see:
 
 **Important**: Due to indexer lag, your message may not appear immediately. This is normal!
 
-### Step 5.4: Refresh to See Your Message
+### Step 5.6: Refresh to See Your Message
 
 1. Click the "Refresh" button (or wait a few seconds)
 2. Your message should appear in the list
@@ -84,16 +112,31 @@ After clicking "Post", you may see:
    - Your message text
    - Your wallet address (shortened)
    - Timestamp
-   - "View on Explorer" link (once the transaction is indexed)
+   - **Entity link** (view the entity/data on explorer)
+   - **Transaction link** (view the transaction on explorer, once indexed)
 
-### Step 5.5: Verify Transaction Details
+### Step 5.7: Verify Entity and Transaction Details
 
-Click "View on Explorer" to see your transaction on the blockchain explorer. You'll see:
-- Transaction hash
+Each message displays two clickable links:
+- **Entity link**: Shows the entity details (the data structure with your message)
+- **Transaction link**: Shows the transaction details (the blockchain operation that created the entity)
+
+Click either link to explore on the blockchain explorer. You'll see:
+
+**Entity View:**
+- Entity key (unique identifier for your data)
+- Payload (your message content)
+- Attributes (metadata like wallet, spaceId, type)
+- Creation timestamp
+
+**Transaction View:**
+- Transaction hash (unique identifier for the blockchain operation)
 - Block number
 - Gas used
 - Your wallet address
 - The transaction data
+
+**Key Insight:** Creating an entity IS a transaction. The entity is the data, the transaction is how it gets recorded on-chain. Both are linked - you can view either perspective on the explorer!
 
 ## Checkpoint
 
@@ -102,7 +145,8 @@ Before moving to the next step, verify:
 - [ ] I've navigated to the hello-world demo page
 - [ ] I've submitted at least one message
 - [ ] My message appears in the list (after refreshing)
-- [ ] I can see the "View on Explorer" link
+- [ ] I can see both the Entity and Transaction links
+- [ ] I understand the difference between entities (data) and transactions (blockchain operations)
 - [ ] I understand that indexer lag is normal
 
 ## Troubleshooting
