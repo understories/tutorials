@@ -85,6 +85,26 @@ export async function GET() {
     const result = messageResult || { entities: [] };
     const finalTxHashResult = txHashResult || { entities: [] };
     
+    // Debug logging to help diagnose query issues
+    console.log('[messages/route] Query results:', {
+      totalEntities: result.entities?.length || 0,
+      txHashEntities: finalTxHashResult.entities?.length || 0,
+      sampleWallets: result.entities?.slice(0, 3).map((e: any) => {
+        const attrs = e.attributes || {};
+        const getAttr = (key: string) => {
+          if (Array.isArray(attrs)) {
+            return attrs.find((a: any) => a.key === key)?.value;
+          }
+          return attrs[key];
+        };
+        return {
+          wallet: getAttr('wallet'),
+          spaceId: getAttr('spaceId'),
+          type: getAttr('type'),
+        };
+      }),
+    });
+    
     // Build txHash map from companion entities
     const txHashMap: Record<string, string> = {};
     if (finalTxHashResult?.entities && Array.isArray(finalTxHashResult.entities)) {
