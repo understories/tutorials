@@ -10,7 +10,7 @@ By the end of this step, you'll:
 ## Content
 
 > 💡 **Visual Aid:** For a detailed visual explanation of the write flow, check out the 
-> [Data Flow - Write](/visuals#data-flow-write) diagram in the Visual Lesson.
+> [Data Flow - Write](/learn#data-flow-write) diagram in the Visual Lesson.
 
 ### What We're Doing
 

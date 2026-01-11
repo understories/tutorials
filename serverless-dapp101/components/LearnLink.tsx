@@ -3,7 +3,7 @@
 export function LearnLink() {
   return (
     <a
-      href="/visuals"
+      href="/learn"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed top-4 right-[140px] z-50 flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg"

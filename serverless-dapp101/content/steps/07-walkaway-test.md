@@ -10,7 +10,7 @@ By the end of this step, you'll:
 ## Content
 
 > 💡 **Visual Aid:** For a visual comparison of traditional apps vs serverless dapps in the walkaway test, 
-> check out the [Walkaway Test](/visuals#walkaway-test) diagram in the Visual Lesson.
+> check out the [Walkaway Test](/learn#walkaway-test) diagram in the Visual Lesson.
 
 ### What is the Walkaway Test?
 

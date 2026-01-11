@@ -10,7 +10,7 @@ By the end of this step, you'll:
 ## Content
 
 > 💡 **Visual Aid:** For a step-by-step visual explanation of verification, check out the 
-> [Verification Flow](/visuals#verification-flow) diagram in the Visual Lesson.
+> [Verification Flow](/learn#verification-flow) diagram in the Visual Lesson.
 
 ### What is the Explorer?
 

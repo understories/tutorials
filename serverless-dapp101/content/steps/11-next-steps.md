@@ -86,7 +86,7 @@ Here are some ideas for what to build next:
 
 ### Visual Learning
 
-- **[Visual Lesson](/visuals)**: Comprehensive visual guide with diagrams and explanations
+- **[Visual Lesson](/learn)**: Comprehensive visual guide with diagrams and explanations
   - Architecture comparisons
   - Data flow diagrams
   - Entity structure
@@ -99,7 +99,7 @@ Here are some ideas for what to build next:
 - **Dev Portal**: [arkiv.network/dev](https://arkiv.network/dev)
 - **TypeScript SDK Docs**: [arkiv.network/getting-started/typescript](https://arkiv.network/getting-started/typescript)
 - **Explorer**: [explorer.mendoza.hoodi.arkiv.network](https://explorer.mendoza.hoodi.arkiv.network) (Mendoza testnet)
-- **Arkiv Litepaper**: [Download PDF](/ARKIV_Litepaper_blue.pdf) - Deep dive into Arkiv's architecture and philosophy
+- **Arkiv Litepaper**: [Download PDF](https://arkiv.network/pdf/ARKIV_Litepaper_blue.pdf) - Deep dive into Arkiv's architecture and philosophy
   > 📄 *Source for concepts used throughout this tutorial*
 
 ### SDK & Tools
@@ -115,11 +115,11 @@ Here are some ideas for what to build next:
   - Prevents common mistakes (indexer lag assumptions, wallet casing issues, etc.)
   - Enforces best practices automatically
   - **Location**: Available in the tutorial repository's `extractions/arkiv-ai-agent-kit/` folder
-  - See the [Visual Lesson](/visuals#building-with-arkiv) for more details
+  - See the [Visual Lesson](/learn#building-with-arkiv) for more details
 
 ### Community
 
-- **Discord**: Join the Arkiv Discord for help and discussions
+- **Discord**: Join the [Arkiv Discord](https://discord.gg/arkiv) for help and discussions
 - **Twitter/X**: Follow [@arkiv_network](https://twitter.com/arkiv_network) for updates
 - **GitHub Discussions**: Ask questions and share projects
 

@@ -11,7 +11,7 @@ By the end of this step, you'll:
 ## Content
 
 > 💡 **Visual Aid:** For a comprehensive visual explanation of these concepts, check out the 
-> [Visual Lesson](/visuals) page. It includes detailed diagrams and explanations that complement this step.
+> [Visual Lesson](/learn) page. It includes detailed diagrams and explanations that complement this step.
 
 ### What is Arkiv?
 
@@ -156,7 +156,7 @@ The kit helps AI assistants understand Arkiv's unique characteristics:
 - Query shape standardization (type + spaceId + limit)
 - Wallet normalization everywhere
 
-> 🤖 **Learn More:** See the [AI Agent Kit section](/visuals#building-with-arkiv) in the Visual Lesson, 
+> 🤖 **Learn More:** See the [AI Agent Kit section](/learn#building-with-arkiv) in the Visual Lesson, 
 > or check out the [Next Steps](/11-next-steps) section for links to the kit.
 
 ## Vibe Path (AI-Assisted)
@@ -234,7 +234,7 @@ When you submit a message:
 5. **Indexer** → Processes and indexes the transaction (this takes time!)
 6. **Query** → Returns the new entity
 
-> 💡 **Visual Aid:** See the [Data Flow - Write](/visuals#data-flow-write) diagram in the Visual Lesson 
+> 💡 **Visual Aid:** See the [Data Flow - Write](/learn#data-flow-write) diagram in the Visual Lesson 
 > for a detailed visual explanation of this process.
 
 ### Step 8.4: Explore the Explorer
@@ -245,7 +245,7 @@ Go back to the explorer and look at a transaction:
 - See the attributes in the transaction logs
 - Notice that everything is public and verifiable
 
-> 💡 **Visual Aid:** The [Verification Flow](/visuals#verification-flow) diagram in the Visual Lesson 
+> 💡 **Visual Aid:** The [Verification Flow](/learn#verification-flow) diagram in the Visual Lesson 
 > shows how blockchain verification works step-by-step.
 
 ## Checkpoint
