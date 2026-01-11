@@ -6,7 +6,7 @@ export function LearnLink() {
       href="/learn"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed top-4 right-[140px] z-50 flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
+      className="fixed top-4 right-[210px] z-50 flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
       aria-label="View Visual Aids"
     >
       <svg
