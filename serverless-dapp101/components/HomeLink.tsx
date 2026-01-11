@@ -6,7 +6,7 @@ export function HomeLink() {
       href="https://serverlessdapp101.vercel.app"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed top-4 right-[280px] z-50 flex items-center gap-2 px-3 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-lg"
+      className="fixed top-4 right-[320px] z-50 flex items-center gap-2 px-3 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-lg"
       aria-label="Home"
     >
       <svg
