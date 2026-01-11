@@ -1,4 +1,4 @@
-<svg viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Read flow diagram">
+<svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Read flow diagram">
   <title>Data Flow - Read</title>
   <desc>Read flow showing how application data is queried from Arkiv and displayed in the user interface.</desc>
   

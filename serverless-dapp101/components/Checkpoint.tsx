@@ -34,13 +34,15 @@ export function Checkpoint({ stepId, items }: CheckpointProps) {
       <ul className="space-y-3">
         {items.map((item, index) => (
           <li key={index} className="flex items-start">
-            <input
-              type="checkbox"
-              checked={checked[index] || false}
-              onChange={() => handleCheck(index)}
-              className="mt-1 mr-3 w-5 h-5 text-blue-600"
-            />
-            <span className="text-blue-800">{item}</span>
+            <label className="flex items-start cursor-pointer group">
+              <input
+                type="checkbox"
+                checked={checked[index] || false}
+                onChange={() => handleCheck(index)}
+                className="mt-1 mr-3 w-5 h-5 text-blue-600 cursor-pointer flex-shrink-0"
+              />
+              <span className="text-blue-800 group-hover:text-blue-900">{item}</span>
+            </label>
           </li>
         ))}
       </ul>

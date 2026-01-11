@@ -412,16 +412,18 @@ export default function VisualsPage() {
               </p>
             </div>
             <div className="flex gap-4">
-              <Link
-                href="/11-next-steps"
+              <a
+                href="https://github.com/understories/tutorials/tree/main/extractions/arkiv-ai-agent-kit"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
               >
-                Learn More in Next Steps →
-              </Link>
+                View on GitHub →
+              </a>
             </div>
             <p className="text-sm text-gray-600 mt-4">
               <em>The AI Agent Kit is available in the tutorial repository's extractions folder. 
-              See the <Link href="/11-next-steps" className="text-blue-600 hover:underline">Next Steps</Link> section for details.</em>
+              See the <Link href="/11-next-steps" className="text-blue-600 hover:underline">Next Steps</Link> section for more details.</em>
             </p>
           </div>
 
@@ -489,8 +491,9 @@ export default function VisualsPage() {
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Development Tools</h3>
                 <ul className="space-y-2 text-sm">
                   <li>
-                    <span className="text-blue-600">🤖 Arkiv AI Agent Kit</span>
-                    <span className="text-gray-500 ml-2">(Available in tutorial repository - see Next Steps)</span>
+                    <a href="https://github.com/understories/tutorials/tree/main/extractions/arkiv-ai-agent-kit" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                      🤖 Arkiv AI Agent Kit
+                    </a>
                   </li>
                   <li>
                     <a href="https://github.com/arkiv-network" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
