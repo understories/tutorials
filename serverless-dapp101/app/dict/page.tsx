@@ -398,7 +398,7 @@ const concepts: Concept[] = [
   },
   {
     id: 'trustlessness',
-    title: '5. Trustlessness: Verification Over Blind Trust',
+    title: 'Trustlessness: Verification Over Blind Trust',
     eli5: (
       <>
         <p>A trustless system is like a game where <strong>anyone can check the rules</strong> and <strong>no one gets a special &quot;because I said so&quot; button</strong>.</p>
@@ -431,7 +431,7 @@ const concepts: Concept[] = [
   },
   {
     id: 'protocol-platform-drift',
-    title: '6. Protocol → Platform Drift (The &quot;Convenience Trap&quot;)',
+    title: 'Protocol → Platform Drift (The "Convenience Trap")',
     eli5: (
       <>
         <p>A little shortcut becomes a habit. Soon the shortcut is the only way, and someone controls it.</p>
@@ -463,7 +463,7 @@ const concepts: Concept[] = [
   },
   {
     id: 'six-requirements',
-    title: '8. The Six Requirements of a Trustless System',
+    title: 'The Six Requirements of a Trustless System',
     eli5: (
       <>
         <p>You control your moves, anyone can check the scoreboard, nobody can block valid moves, and regular people can actually play.</p>
@@ -502,7 +502,7 @@ const concepts: Concept[] = [
   },
   {
     id: 'three-laws',
-    title: '9. The &quot;Three Laws&quot; of Trustless Design',
+    title: 'The "Three Laws" of Trustless Design',
     eli5: (
       <>
         <ol className="list-decimal list-inside space-y-2">
@@ -547,7 +547,7 @@ const concepts: Concept[] = [
   },
   {
     id: 'ethereum-shared-hard-drive',
-    title: '12. &quot;Ethereum as a Shared Hard Drive&quot; (The Cypherpunk Stack Idea)',
+    title: '"Ethereum as a Shared Hard Drive" (The Cypherpunk Stack Idea)',
     eli5: (
       <>
         <p>Imagine a shared notebook nobody owns, where everyone can read and (if allowed) write.</p>
@@ -585,7 +585,7 @@ const concepts: Concept[] = [
   },
   {
     id: 'ipfs-swarm-storage',
-    title: '13. IPFS, Swarm, and Other &quot;Walkaway-Friendly&quot; Storage Options',
+    title: 'IPFS, Swarm, and Other "Walkaway-Friendly" Storage Options',
     eli5: (
       <>
         <p>You store files by &quot;what they are&quot; (their fingerprint), not &quot;where they live&quot; (one website).</p>
@@ -623,7 +623,7 @@ const concepts: Concept[] = [
   },
   {
     id: 'incentives-social-layer',
-    title: '15. Incentives Aren&apos;t Enough (You Need a &quot;Social Layer&quot;)',
+    title: "Incentives Aren't Enough (You Need a \"Social Layer\")",
     eli5: (
       <>
         <p>Paying people helps, but it doesn&apos;t automatically make them play fair.</p>
