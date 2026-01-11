@@ -24,7 +24,7 @@ interface Concept {
 const concepts: Concept[] = [
   {
     id: 'data-sovereignty',
-    title: '1. Data Sovereignty',
+    title: 'Data Sovereignty',
     eli5: (
       <>
         <p>Your data is like a notebook.</p>
@@ -79,15 +79,25 @@ const concepts: Concept[] = [
           <li>Governance of shared schemas</li>
         </ul>
         <p className="mt-4 italic">
-          This is less &quot;where is my database?&quot; and more &quot;what are the rules of reality for this data?&quot;
+          This is less "where is my database?" and more "what are the rules of reality for this data?"
         </p>
+        <p className="mt-4">In "trustless" terms: data sovereignty is part of <strong>self-sovereignty + walkaway</strong>:</p>
+        <ul>
+          <li>write access must be user-authorized</li>
+          <li>reads shouldn&apos;t require a single vendor</li>
+          <li>the data model should support migration (content addressing, standard schemas, or at least stable export formats)</li>
+          <li>integrity should be checkable (hashes, signatures, receipts)</li>
+        </ul>
       </>
     ),
     questions: (
       <ul className="space-y-2 list-disc list-inside">
         <li>Think about a service you use every day. What would actually happen to <em>you</em> if it disappeared tomorrow?</li>
         <li>When is it acceptable for someone else to control your data on your behalf? When is it not?</li>
-        <li>Is &quot;convenience&quot; a fair trade for losing long-term control? Where is the line?</li>
+        <li>Is "convenience" a fair trade for losing long-term control? Where is the line?</li>
+        <li>What personal data would you most want to be portable?</li>
+        <li>Is "I can download a CSV" enough, or can portability be deeper?</li>
+        <li>Who should be able to delete data, and when?</li>
         <li>Should data ownership feel more like owning a house, renting an apartment, or borrowing a library book? Why?</li>
         <li>If you could move your data freely between apps today, which relationships or institutions would change most?</li>
       </ul>
@@ -531,43 +541,6 @@ const concepts: Concept[] = [
         <li>Where do you see &quot;secret boss keys&quot; in society today?</li>
         <li>What intermediaries feel optional but aren&apos;t?</li>
         <li>What outcomes do you accept on trust today that maybe you shouldn&apos;t?</li>
-      </ul>
-    ),
-  },
-  {
-    id: 'data-sovereignty-manifesto',
-    title: '10. Data Sovereignty (Control and Portability of Your Data)',
-    eli5: (
-      <>
-        <p>Your stuff should stay yours—even if the app disappears.</p>
-      </>
-    ),
-    builder: (
-      <>
-        <p>You should be able to <strong>export</strong>, <strong>move</strong>, and <strong>prove</strong> your data without begging a company.</p>
-      </>
-    ),
-    engineer: (
-      <>
-        <p>Data sovereignty usually implies: user-controlled keys/permissions, clear data ownership, portability, and verifiable history/provenance (especially in shared/public contexts).</p>
-      </>
-    ),
-    developer: (
-      <>
-        <p>In &quot;trustless&quot; terms: data sovereignty is part of <strong>self-sovereignty + walkaway</strong>:</p>
-        <ul>
-          <li>write access must be user-authorized</li>
-          <li>reads shouldn&apos;t require a single vendor</li>
-          <li>the data model should support migration (content addressing, standard schemas, or at least stable export formats)</li>
-          <li>integrity should be checkable (hashes, signatures, receipts)</li>
-        </ul>
-      </>
-    ),
-    questions: (
-      <ul className="space-y-2 list-disc list-inside">
-        <li>What personal data would you most want to be portable?</li>
-        <li>Is &quot;I can download a CSV&quot; enough, or can portability be deeper?</li>
-        <li>Who should be able to delete data, and when?</li>
       </ul>
     ),
   },
