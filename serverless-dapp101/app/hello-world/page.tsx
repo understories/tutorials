@@ -92,10 +92,15 @@ export default function ArkivHelloWorld() {
               a decentralized database. They're not in a traditional database - they're on-chain 
               and independently verifiable!
             </p>
-            <p className="text-xs text-blue-700">
+            <p className="text-xs text-blue-700 mb-2">
               🌐 Connected to <strong>Mendoza Testnet</strong> • 
               Each message is a blockchain transaction • 
               Click "View on Explorer" to verify on-chain
+            </p>
+            <p className="text-xs text-blue-700">
+              <strong>Note:</strong> Messages on this demo page are signed by a wallet saved as an 
+              environmental variable. When you create your own version, you'll use your own wallet 
+              (don't worry; no funds needed), but your messages will still appear here!
             </p>
           </div>
 
