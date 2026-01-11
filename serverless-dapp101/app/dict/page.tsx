@@ -560,7 +560,17 @@ const concepts: Concept[] = [
     ),
     engineer: (
       <>
-        <p>The essay frames Ethereum + p2p messaging + decentralized file storage as a kind of "public shared hard drive" for modern collaborative apps.</p>
+        <p>
+          <a 
+            href="https://vitalik.eth.limo/general/2023/12/28/cypherpunk.html" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 underline"
+          >
+            Make Ethereum Cypherpunk Again
+          </a>
+          {' '}frames Ethereum + p2p messaging + decentralized file storage as a kind of "public shared hard drive" for modern collaborative apps.
+        </p>
       </>
     ),
     developer: (
@@ -636,7 +646,17 @@ const concepts: Concept[] = [
     ),
     engineer: (
       <>
-        <p>The essay argues incentives help (economic security, funding) but don&apos;t reliably produce decentralization; some "decentralized stack" parts lack good business models.</p>
+        <p>
+          <a 
+            href="https://trustlessness.eth.limo/general/2025/11/11/the-trustless-manifesto.html" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 underline"
+          >
+            The Trustless Manifesto
+          </a>
+          {' '}argues incentives help (economic security, funding) but don&apos;t reliably produce decentralization; some "decentralized stack" parts lack good business models.
+        </p>
       </>
     ),
     developer: (
