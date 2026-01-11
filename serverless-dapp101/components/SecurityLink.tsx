@@ -4,7 +4,7 @@ export function SecurityLink() {
   return (
     <a
       href="/security"
-      className="fixed top-4 right-[220px] z-50 flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors shadow-lg"
+      className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors shadow-lg"
       aria-label="Security Guide"
     >
       <svg
