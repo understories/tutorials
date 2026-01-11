@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
 
 interface ProgressContextType {
   completedSteps: string[];
@@ -16,11 +16,21 @@ interface ProgressContextType {
 
 const ProgressContext = createContext<ProgressContextType | null>(null);
 
+// Debounce function for localStorage writes
+function debounce<T extends (...args: any[]) => void>(func: T, wait: number): T {
+  let timeout: NodeJS.Timeout | null = null;
+  return ((...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  }) as T;
+}
+
 export function ProgressProvider({ children }: { children: ReactNode }) {
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [checkpointStates, setCheckpointStates] = useState<Record<string, boolean>>({});
   const [checkboxStates, setCheckboxStates] = useState<Record<string, Record<number, boolean>>>({});
   const [startTime, setStartTime] = useState<number | null>(null);
+  const isInitialized = useRef(false);
 
   useEffect(() => {
     // Load from localStorage
@@ -40,19 +50,34 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       // Start timer
       setStartTime(Date.now());
     }
+    isInitialized.current = true;
   }, []);
 
+  // Debounced save function
+  const saveToLocalStorage = useRef(
+    debounce((data: {
+      completedSteps: string[];
+      checkpointStates: Record<string, boolean>;
+      checkboxStates: Record<string, Record<number, boolean>>;
+      startTime: number | null;
+    }) => {
+      if (isInitialized.current && data.startTime !== null) {
+        localStorage.setItem('workshop-progress', JSON.stringify(data));
+      }
+    }, 300) // 300ms debounce
+  ).current;
+
   useEffect(() => {
-    // Save to localStorage
-    if (startTime !== null) {
-      localStorage.setItem('workshop-progress', JSON.stringify({
+    // Save to localStorage with debouncing
+    if (isInitialized.current && startTime !== null) {
+      saveToLocalStorage({
         completedSteps,
         checkpointStates,
         checkboxStates,
         startTime,
-      }));
+      });
     }
-  }, [completedSteps, checkpointStates, checkboxStates, startTime]);
+  }, [completedSteps, checkpointStates, checkboxStates, startTime, saveToLocalStorage]);
 
   const markStepComplete = (stepId: string) => {
     setCompletedSteps(prev => {
