@@ -114,6 +114,7 @@ Here are some ideas for what to build next:
   - Provides prompts and patterns for AI coding assistants
   - Prevents common mistakes (indexer lag assumptions, wallet casing issues, etc.)
   - Enforces best practices automatically
+  - **Direct Link**: [View on GitHub](https://github.com/understories/tutorials/tree/main/extractions/arkiv-ai-agent-kit)
   - **Location**: Available in the tutorial repository's `extractions/arkiv-ai-agent-kit/` folder
   - See the [Visual Lesson](/learn#building-with-arkiv) for more details
 
