@@ -926,11 +926,11 @@ export default function DictionaryPage() {
           <div className="prose prose-lg max-w-none text-gray-900">
             <ul className="space-y-2 list-disc list-inside">
               <li>
-                <a href="https://etherscan.io/address/0x32aa964746ba2be65c71fe4a5cb3c4a023ca3e20" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                <a href="https://trustlessness.eth.limo/general/2025/11/11/the-trustless-manifesto.html" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
                   The Trustless Manifesto
                 </a>
                 {' '}
-                (Ethereum contract source)
+                by Yoav Weiss, Vitalik Buterin, and Marissa Posner
               </li>
               <li>
                 <a href="https://vitalik.eth.limo/general/2023/12/28/cypherpunk.html" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
