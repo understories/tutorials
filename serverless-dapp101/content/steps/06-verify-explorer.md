@@ -9,9 +9,6 @@ By the end of this step, you'll:
 
 ## Content
 
-> 💡 **Visual Aid:** For a step-by-step visual explanation of verification, check out the 
-> [Verification Flow](/learn#verification-flow) diagram in the Visual Lesson.
-
 ### What is the Explorer?
 
 The Arkiv Explorer is a blockchain browser - like Etherscan for Ethereum, but for Arkiv. It lets you:
@@ -27,6 +24,14 @@ Verifying on the explorer proves that:
 - Your transaction was confirmed by the network
 - Anyone can independently verify your data
 - Your app is truly decentralized
+
+![Data Flow - Write](/visuals/data-flow-write.svg)
+
+This shows how your write operation flows through to blockchain confirmation. Once confirmed, your transaction hash can be used to verify the data on-chain.
+
+![Verification Flow](/visuals/verification-flow.svg)
+
+This step-by-step flow shows how to use a transaction hash to verify data on the blockchain using the Arkiv explorer. Every write operation returns a transaction hash, which you can use to look up and verify the transaction on the explorer.
 
 ## Vibe Path (AI-Assisted)
 
