@@ -20,7 +20,7 @@ Think of it as your "hello world" for decentralized apps.
 
 ![Stack Comparison](/visuals/stack-comparison.svg)
 
-This visual shows how Arkiv fits into the familiar development stack. Instead of PostgreSQL, MongoDB, or Firebase, you use **Arkiv**—a decentralized database that stores data on the blockchain. The query interface feels familiar, but the data lives on-chain.
+This visual shows how Arkiv fits into the familiar development stack. Instead of PostgreSQL, MongoDB, or Firebase, you use **Arkiv**, a decentralized database that stores data on the blockchain. The query interface feels familiar, but the data lives on-chain.
 
 ## Vibe Path (AI-Assisted)
 

@@ -199,7 +199,7 @@ const concepts: Concept[] = [
         <li>When is it okay for a system to be slower, messier, or harder to use in exchange for resilience?</li>
         <li>Who should be responsible for maintaining shared digital infrastructure: companies, governments, communities, or no one?</li>
         <li>Can you think of a real-world system that already works like a decentralized database?</li>
-        <li>What do you think you gain by decentralizing a database—what do you lose?</li>
+        <li>What do you think you gain by decentralizing a database? What do you lose?</li>
         <li>Where is "eventual consistency" acceptable (or not)?</li>
         <li>Should everyone be able to read public records by default?</li>
       </ul>
@@ -423,7 +423,7 @@ const concepts: Concept[] = [
     ),
     questions: (
       <ul className="space-y-2 list-disc list-inside">
-        <li>Where do you rely on "trust me" systems in daily life—and when is that fine vs dangerous?</li>
+        <li>Where do you rely on "trust me" systems in daily life? When is that fine versus dangerous?</li>
         <li>If a system is convenient but unverifiable, what&apos;s the real cost?</li>
         <li>What&apos;s the smallest "trust hook" you&apos;d refuse to accept in a public system?</li>
       </ul>
@@ -610,7 +610,7 @@ const concepts: Concept[] = [
           <li>ensure deterministic builds (so others can reproduce the same content hash)</li>
           <li>decide how persistence is paid for (pinning services, community pinning, incentive layers)</li>
         </ul>
-        <p className="mt-4">Also: make sure critical flows don&apos;t die if a gateway does—gateways are a common "platform drift" trap.</p>
+        <p className="mt-4">Also: make sure critical flows don&apos;t die if a gateway does. Gateways are a common "platform drift" trap.</p>
       </>
     ),
     questions: (
@@ -642,7 +642,7 @@ const concepts: Concept[] = [
     developer: (
       <>
         <p>Implication: budget time for governance, open tooling, public goods funding, and "unsexy" infrastructure.</p>
-        <p className="mt-4">Design systems so "doing the right thing" is the easiest path—because relying on permanent virtue is not an architecture.</p>
+        <p className="mt-4">Design systems so "doing the right thing" is the easiest path. Relying on permanent virtue is not an architecture.</p>
       </>
     ),
     questions: (

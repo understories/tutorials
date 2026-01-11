@@ -41,7 +41,7 @@ export default function VisualsPage() {
             <p className="mb-2">
               This lesson builds on concepts from the <strong>Vibes to App</strong> workshop, 
               extending traditional app development into the decentralized world. 
-              We'll use visual aids to explain how Arkiv—a decentralized database—enables 
+              We'll use visual aids to explain how Arkiv, a decentralized database, enables 
               true data ownership and independence.
             </p>
             <p>
@@ -96,7 +96,7 @@ export default function VisualsPage() {
               <p className="text-gray-700 mb-4">
                 If you've taken the <strong>Vibes to App</strong> workshop, you're already familiar 
                 with building apps using React, Next.js, and a database. The good news? 
-                <strong> Most of your stack stays the same</strong>—we're just replacing the database layer.
+                <strong> Most of your stack stays the same</strong>. We're just replacing the database layer.
               </p>
               <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
                 <p className="text-sm text-gray-700">
@@ -105,7 +105,7 @@ export default function VisualsPage() {
                 </p>
                 <p className="text-sm text-gray-700 mt-2">
                   <strong>What changes:</strong> Instead of PostgreSQL, MongoDB, or Firebase, you use 
-                  <strong> Arkiv</strong>—a decentralized database that stores data on the blockchain. 
+                  <strong> Arkiv</strong>, a decentralized database that stores data on the blockchain. 
                   The query interface feels familiar, but the data lives on-chain.
                 </p>
               </div>
@@ -123,7 +123,7 @@ export default function VisualsPage() {
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">Two Paths, One Destination</h3>
               <p className="text-gray-700 mb-4">
                 This tutorial offers two paths to build your first Arkiv app. Both lead to the same 
-                result—a working decentralized application.
+                result: a working decentralized application.
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
@@ -206,7 +206,7 @@ export default function VisualsPage() {
                 <li><strong>Signing:</strong> The transaction is signed with your private key (wallet)</li>
                 <li><strong>Blockchain Submission:</strong> The signed transaction is submitted to Arkiv (Mendoza testnet)</li>
                 <li><strong>Confirmation:</strong> The transaction is confirmed on-chain (usually within seconds)</li>
-                <li><strong>Indexing:</strong> Indexers process the transaction (5-30 seconds delay—this is normal!)</li>
+                <li><strong>Indexing:</strong> Indexers process the transaction (5-30 seconds delay. This is normal!)</li>
                 <li><strong>Queryable:</strong> Your data becomes queryable and appears in your app</li>
               </ol>
               <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-4">
@@ -229,7 +229,7 @@ export default function VisualsPage() {
             <div className="mb-6">
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">Data Flow: Reading from Arkiv</h3>
               <p className="text-gray-700 mb-4">
-                Reading data from Arkiv is simpler than writing—no authentication needed, and it's free!
+                Reading data from Arkiv is simpler than writing. No authentication is needed, and it's free!
               </p>
               <ol className="list-decimal list-inside text-gray-700 space-y-2 mb-4 ml-4">
                 <li><strong>Query Request:</strong> Your app makes a query request (e.g., "get all messages")</li>
@@ -241,7 +241,7 @@ export default function VisualsPage() {
               <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
                 <p className="text-sm text-gray-700">
                   <strong>Key Points:</strong> Reads are public (anyone can query), free (no gas fees), 
-                  and fast (served by indexers). Queries use attributes for filtering—think of them 
+                  and fast (served by indexers). Queries use attributes for filtering. Think of them 
                   like indexed database columns. <em>(Source: Arkiv Litepaper - Query Interface)</em>
                 </p>
               </div>
@@ -324,7 +324,7 @@ export default function VisualsPage() {
                 <p className="text-sm text-gray-700">
                   <strong>Why This Matters:</strong> With Arkiv, your data lives on the blockchain, 
                   not in a company database. This means you can shut down your server, rebuild your 
-                  app from scratch, or switch hosting providers—your data remains accessible. This is 
+                  app from scratch, or switch hosting providers. Your data remains accessible. This is 
                   true decentralization. <em>(Source: Arkiv Litepaper - Data Persistence)</em>
                 </p>
               </div>

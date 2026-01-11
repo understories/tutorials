@@ -24,11 +24,11 @@ When you submit a message:
 
 ![Data Flow - Write](/visuals/data-flow-write.svg)
 
-This diagram shows the complete write flow: from user action through API route, wallet signing, Arkiv transaction, to final blockchain confirmation. Notice that the transaction is confirmed on-chain immediately, but indexers need time to process it (5-30 seconds delay—this is normal!).
+This diagram shows the complete write flow: from user action through API route, wallet signing, Arkiv transaction, to final blockchain confirmation. Notice that the transaction is confirmed on-chain immediately, but indexers need time to process it (5-30 seconds delay. This is normal!).
 
 ![Data Flow - Read](/visuals/data-flow-read.svg)
 
-Reading data from Arkiv is simpler than writing—no authentication needed, and it's free! Queries go to Arkiv indexers, which filter entities by your criteria and return matching results.
+Reading data from Arkiv is simpler than writing. No authentication is needed, and it's free! Queries go to Arkiv indexers, which filter entities by your criteria and return matching results.
 
 ![Entity Structure](/visuals/entity-structure.svg)
 

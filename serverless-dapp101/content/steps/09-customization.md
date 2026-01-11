@@ -101,7 +101,7 @@ body: JSON.stringify({ text: newMessage, author }),
 ```typescript
 // In the message card, display the author:
 <p className="text-gray-900 mb-2">{msg.text}</p>
-<p className="text-sm text-gray-600 mb-2">— {msg.author || 'Anonymous'}</p>
+<p className="text-sm text-gray-600 mb-2">by {msg.author || 'Anonymous'}</p>
 ```
 
 ### Step 9.2: Add Message Categories

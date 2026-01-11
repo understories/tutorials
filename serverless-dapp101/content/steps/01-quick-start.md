@@ -32,7 +32,7 @@ You can switch between paths at any time!
 
 ![Stack Comparison](/visuals/stack-comparison.svg)
 
-If you've taken the **Vibes to App** workshop, you're already familiar with building apps using React, Next.js, and a database. The good news? **Most of your stack stays the same**—we're just replacing the database layer with Arkiv.
+If you've taken the **Vibes to App** workshop, you're already familiar with building apps using React, Next.js, and a database. The good news? **Most of your stack stays the same**. We're just replacing the database layer with Arkiv.
 
 ## Vibe Path (AI-Assisted)
 

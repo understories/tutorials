@@ -23,7 +23,7 @@ Arkiv is a decentralized database built on blockchain. It provides:
 
 ![Architecture Comparison](/visuals/architecture-comparison.svg)
 
-This comparison shows how serverless dapps with Arkiv differ from traditional apps. The most fundamental difference is where and who owns the data—with Arkiv, data lives on-chain, owned by users.
+This comparison shows how serverless dapps with Arkiv differ from traditional apps. The most fundamental difference is where and who owns the data. With Arkiv, data lives on-chain, owned by users.
 
 ### Key Concepts
 
@@ -249,7 +249,7 @@ When you submit a message:
 
 ![Data Flow - Write](/visuals/data-flow-write.svg)
 
-This diagram shows the complete write flow from user action through to blockchain confirmation. Notice that indexer lag is normal—your transaction is confirmed on-chain immediately, but it takes a few seconds for indexers to process it.
+This diagram shows the complete write flow from user action through to blockchain confirmation. Notice that indexer lag is normal. Your transaction is confirmed on-chain immediately, but it takes a few seconds for indexers to process it.
 
 ### Step 8.4: Explore the Explorer
 
