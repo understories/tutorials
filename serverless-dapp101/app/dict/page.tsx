@@ -348,6 +348,419 @@ const concepts: Concept[] = [
       </ul>
     ),
   },
+  {
+    id: 'trustlessness',
+    title: '5. Trustlessness: Verification Over Blind Trust',
+    eli5: (
+      <>
+        <p>A trustless system is like a game where <strong>anyone can check the rules</strong> and <strong>no one gets a special &quot;because I said so&quot; button</strong>.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>You shouldn&apos;t have to trust a company, admin, or &quot;team wallet&quot; to be fair.</p>
+        <p>You should be able to independently verify what happened.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>&quot;Trustless&quot; means a participant can <strong>join, verify, and act without permission</strong>, and system correctness depends on <strong>publicly verifiable rules</strong> (not operator promises).</p>
+      </>
+    ),
+    developer: (
+      <>
+        <p>Design goal: minimize trusted components across the whole stack (UI, RPC, storage, sequencing, upgrades).</p>
+        <p className="mt-4">Practically: ship <strong>fallbacks</strong>, <strong>open clients</strong>, <strong>reproducible state transitions</strong>, and remove &quot;hidden chokepoints&quot; that can censor or alter outcomes.</p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>Where do you rely on &quot;trust me&quot; systems in daily life—and when is that fine vs dangerous?</li>
+        <li>If a system is convenient but unverifiable, what&apos;s the real cost?</li>
+        <li>What&apos;s the smallest &quot;trust hook&quot; you&apos;d refuse to accept in a public system?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'protocol-platform-drift',
+    title: '6. Protocol → Platform Drift (The &quot;Convenience Trap&quot;)',
+    eli5: (
+      <>
+        <p>A little shortcut becomes a habit. Soon the shortcut is the only way, and someone controls it.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>It often starts with harmless choices (&quot;use the hosted service, it&apos;s easier&quot;), but those become default control points.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>Reliance on hosted RPCs, whitelisted relayers, upgrade keys, centralized sequencers, etc. creates <strong>gatekeepers</strong> and makes neutrality fragile.</p>
+      </>
+    ),
+    developer: (
+      <>
+        <p>&quot;Default dependency&quot; = de facto platform power.</p>
+        <p className="mt-4">You fight this with <strong>redundancy + permissionless alternatives</strong>: multiple RPC options, local/light clients, multiple gateways, content addressing, portable identities, and &quot;escape hatches&quot; for every critical function.</p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>What&apos;s a real-world example of &quot;convenience drift&quot; (tech or non-tech)?</li>
+        <li>When do defaults become coercion?</li>
+        <li>What would &quot;escape hatches everywhere&quot; look like in schools, banks, or social media?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'walkaway-test-manifesto',
+    title: '7. The Walkaway Test (Survive Operator Failure or Betrayal)',
+    eli5: (
+      <>
+        <p>If the grown-up leaves the room, the game should still work.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>If one operator disappears, changes the rules, or blocks you, <strong>you can keep going</strong>—without asking permission.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>Walkaway test: if one operator misbehaves or vanishes, another can replace them, and users can continue.</p>
+      </>
+    ),
+    developer: (
+      <>
+        <p>Define it per layer:</p>
+        <ul>
+          <li>UI: alternative frontends (mirrors, IPFS/Swarm-hosted, downloadable builds)</li>
+          <li>Data: exportable, portable, verifiable state</li>
+          <li>Execution: permissionless transaction inclusion / no single sequencer gate</li>
+          <li>Keys: self-custody + recovery that doesn&apos;t introduce &quot;critical secrets&quot;</li>
+        </ul>
+        <p className="mt-4">Treat &quot;walkaway&quot; as a <strong>system integration test</strong>, not a slogan.</p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>If your main app vanished tomorrow, what would you lose?</li>
+        <li>Which matters more: &quot;can I leave?&quot; or &quot;can I verify?&quot; Why?</li>
+        <li>What&apos;s the difference between &quot;I can leave in theory&quot; vs &quot;I can leave in practice&quot;?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'six-requirements',
+    title: '8. The Six Requirements of a Trustless System',
+    eli5: (
+      <>
+        <p>You control your moves, anyone can check the scoreboard, nobody can block valid moves, and regular people can actually play.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>The checklist is: self-control, proof, anti-censorship, walkaway, usable access, and clear incentives.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>Requirements: <strong>self-sovereignty, verifiability, censorship resistance, walkaway, accessibility, transparency of incentives</strong>.</p>
+      </>
+    ),
+    developer: (
+      <>
+        <p>Make each requirement measurable:</p>
+        <ul>
+          <li>self-sovereignty → user-signed actions; no &quot;operator signs for you&quot;</li>
+          <li>verifiability → deterministic state updates, public data availability</li>
+          <li>censorship resistance → multiple inclusion paths; reasonable cost/time bounds</li>
+          <li>walkaway → replaceable operators; no permissioned handoff</li>
+          <li>accessibility → low hardware/ops burden; sane UX</li>
+          <li>incentive transparency → rules in protocol, not private contracts/APIs</li>
+        </ul>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>Which requirement is easiest to fake?</li>
+        <li>Which requirement do &quot;normal users&quot; notice first?</li>
+        <li>What trade-offs are acceptable between accessibility and maximum decentralization?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'three-laws',
+    title: '9. The &quot;Three Laws&quot; of Trustless Design',
+    eli5: (
+      <>
+        <ol className="list-decimal list-inside space-y-2">
+          <li>No secret boss keys.</li>
+          <li>No irreplaceable middlemen.</li>
+          <li>No magic results you can&apos;t double-check.</li>
+        </ol>
+      </>
+    ),
+    builder: (
+      <>
+        <p>Don&apos;t build systems where one party&apos;s private info, special role, or unverifiable actions can decide outcomes.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>Laws:</p>
+        <ul>
+          <li><strong>No critical secrets</strong> (except the user&apos;s own)</li>
+          <li><strong>No indispensable intermediaries</strong> (replaceable; <em>practically</em> open)</li>
+          <li><strong>No unverifiable outcomes</strong> (state changes reproducible from public data)</li>
+        </ul>
+      </>
+    ),
+    developer: (
+      <>
+        <p>This is a brutal lens for architecture reviews:</p>
+        <ul>
+          <li>&quot;Critical secrets&quot; often hides in admin keys, centralized recovery, proprietary fraud scoring, private allowlists.</li>
+          <li>&quot;Indispensable intermediaries&quot; hides in single RPC defaults, single sequencer/relayer, single gateway/CDN, closed validators.</li>
+          <li>&quot;Unverifiable outcomes&quot; hides in off-chain matching/auctions, opaque bridging, private orderflow, black-box AI decisions.</li>
+        </ul>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>Where do you see &quot;secret boss keys&quot; in society today?</li>
+        <li>What intermediaries feel optional but aren&apos;t?</li>
+        <li>What outcomes do you accept on trust today that maybe you shouldn&apos;t?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'data-sovereignty-manifesto',
+    title: '10. Data Sovereignty (Control and Portability of Your Data)',
+    eli5: (
+      <>
+        <p>Your stuff should stay yours—even if the app disappears.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>You should be able to <strong>export</strong>, <strong>move</strong>, and <strong>prove</strong> your data without begging a company.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>Data sovereignty usually implies: user-controlled keys/permissions, clear data ownership, portability, and verifiable history/provenance (especially in shared/public contexts).</p>
+      </>
+    ),
+    developer: (
+      <>
+        <p>In &quot;trustless&quot; terms: data sovereignty is part of <strong>self-sovereignty + walkaway</strong>:</p>
+        <ul>
+          <li>write access must be user-authorized</li>
+          <li>reads shouldn&apos;t require a single vendor</li>
+          <li>the data model should support migration (content addressing, standard schemas, or at least stable export formats)</li>
+          <li>integrity should be checkable (hashes, signatures, receipts)</li>
+        </ul>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>What personal data would you most want to be portable?</li>
+        <li>Is &quot;I can download a CSV&quot; enough, or can portability be deeper?</li>
+        <li>Who should be able to delete data, and when?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'decentralized-databases-manifesto',
+    title: '11. Decentralized Databases (What They Are <em>and</em> What They Aren&apos;t)',
+    eli5: (
+      <>
+        <p>Instead of one library building holding the books, many libraries share copies—and you can check if pages were changed.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>A decentralized database tries to avoid a single party being able to erase, edit, or gate access—while still letting apps work.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>&quot;Decentralized DB&quot; can mean different things:</p>
+        <ul>
+          <li>decentralized <em>availability</em> (data replicated across many nodes)</li>
+          <li>decentralized <em>authorization</em> (who can write)</li>
+          <li>decentralized <em>verification</em> (others can verify correctness)</li>
+          <li>decentralized <em>indexing/querying</em> (harder than it sounds)</li>
+        </ul>
+      </>
+    ),
+    developer: (
+      <>
+        <p>Key engineering questions:</p>
+        <ul>
+          <li>consistency model (eventual? strong? CRDTs?)</li>
+          <li>indexing and query costs (who runs indexers, and can users verify?)</li>
+          <li>access control patterns (public data vs encrypted private data)</li>
+          <li>performance and UX tradeoffs</li>
+        </ul>
+        <p className="mt-4">Practical rule: don&apos;t call it &quot;trustless&quot; unless it passes the manifesto tests (replaceability + verifiability + walkaway).</p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>What do you think you gain by decentralizing a database—what do you lose?</li>
+        <li>Where is &quot;eventual consistency&quot; acceptable (or not)?</li>
+        <li>Should everyone be able to read public records by default?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'ethereum-shared-hard-drive',
+    title: '12. &quot;Ethereum as a Shared Hard Drive&quot; (The Cypherpunk Stack Idea)',
+    eli5: (
+      <>
+        <p>Imagine a shared notebook nobody owns, where everyone can read and (if allowed) write.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>The &quot;web3&quot; pitch here is broader than money: a base layer for shared state + messaging + files, so apps aren&apos;t secretly controlled by one server.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>The essay frames Ethereum + p2p messaging + decentralized file storage as a kind of &quot;public shared hard drive&quot; for modern collaborative apps.</p>
+      </>
+    ),
+    developer: (
+      <>
+        <p>Treat it as a composable stack:</p>
+        <ul>
+          <li><strong>consensus/state</strong> (Ethereum/L2s)</li>
+          <li><strong>messaging</strong> (p2p)</li>
+          <li><strong>storage</strong> (Swarm/IPFS/etc.)</li>
+          <li><strong>identity/keys</strong></li>
+        </ul>
+        <p className="mt-4">The hard part is the seams: key management, UX, censorship resistance, and making the &quot;decentralized path&quot; the default (not the hobbyist path).</p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>If the internet were rebuilt for user control, what would change first?</li>
+        <li>What should be public infrastructure vs private product?</li>
+        <li>What does &quot;open source&quot; mean if your data still lives on someone else&apos;s server?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'ipfs-swarm-storage',
+    title: '13. IPFS, Swarm, and Other &quot;Walkaway-Friendly&quot; Storage Options',
+    eli5: (
+      <>
+        <p>You store files by &quot;what they are&quot; (their fingerprint), not &quot;where they live&quot; (one website).</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>Content-addressed storage means: if you have the content&apos;s ID, you can fetch it from many places. That helps with resilience.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>IPFS and Swarm are decentralized/content-addressed storage networks frequently used to publish frontends or assets so they aren&apos;t tied to one host.</p>
+        <p className="mt-4">&quot;Walkaway&quot; depends on <em>availability guarantees</em> (pinning, incentives, replication), not just the tech name.</p>
+      </>
+    ),
+    developer: (
+      <>
+        <p>Architect for failure:</p>
+        <ul>
+          <li>publish UI to IPFS/Swarm + multiple gateways + optional local-first caching</li>
+          <li>ensure deterministic builds (so others can reproduce the same content hash)</li>
+          <li>decide how persistence is paid for (pinning services, community pinning, incentive layers)</li>
+        </ul>
+        <p className="mt-4">Also: make sure critical flows don&apos;t die if a gateway does—gateways are a common &quot;platform drift&quot; trap.</p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>What&apos;s the difference between &quot;decentralized in theory&quot; and &quot;available in practice&quot;?</li>
+        <li>Should permanent storage be a right, a paid service, or a community job?</li>
+        <li>Would you trade a little speed for a lot more resilience?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'arkiv-manifesto',
+    title: '14. Using Arkiv to Replace Traditional App Servers (For Many Use Cases)',
+    eli5: (
+      <>
+        <p>Instead of one company&apos;s server being &quot;the brain,&quot; the shared network is the brain, and your app is just a window into it.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>The idea is to avoid &quot;if AWS/Cloudflare is down, the app is down&quot; by putting core records and logic into a system that others can still read and build against.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>This is basically &quot;minimize indispensable intermediaries&quot; applied to app architecture: fewer single-host dependencies, more verifiable shared state, better walkaway properties.</p>
+      </>
+    ),
+    developer: (
+      <>
+        <p>A practical mental model:</p>
+        <ul>
+          <li>Replace: centralized DB + &quot;app server as source of truth&quot;</li>
+          <li>With: signed user actions + shared data layer + thin APIs for convenience (never required)</li>
+          <li>Keep: optional caches/indexers, but ensure they&apos;re replaceable and results are checkable</li>
+        </ul>
+        <p className="mt-4">The manifesto&apos;s warning applies directly: &quot;hosted defaults&quot; quietly become gatekeepers unless you ship alternatives and make them usable.</p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>What parts of an app should be &quot;public infrastructure&quot; vs &quot;private service&quot;?</li>
+        <li>When is it okay to have a centralized component?</li>
+        <li>How do you explain &quot;walkaway&quot; to someone who just wants the app to work?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'incentives-social-layer',
+    title: '15. Incentives Aren&apos;t Enough (You Need a &quot;Social Layer&quot;)',
+    eli5: (
+      <>
+        <p>Paying people helps, but it doesn&apos;t automatically make them play fair.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>Money can fund security and participation, but values like neutrality and openness often need community norms and public support.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>The essay argues incentives help (economic security, funding) but don&apos;t reliably produce decentralization; some &quot;decentralized stack&quot; parts lack good business models.</p>
+      </>
+    ),
+    developer: (
+      <>
+        <p>Implication: budget time for governance, open tooling, public goods funding, and &quot;unsexy&quot; infrastructure.</p>
+        <p className="mt-4">Design systems so &quot;doing the right thing&quot; is the easiest path—because relying on permanent virtue is not an architecture.</p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>What public goods do you rely on that have no obvious business model?</li>
+        <li>When do markets fail to produce the outcome we want?</li>
+        <li>What norms should a &quot;trustless&quot; community enforce, and how?</li>
+      </ul>
+    ),
+  },
 ];
 
 const crossCuttingQuestions = (
@@ -656,6 +1069,29 @@ export default function DictionaryPage() {
               The reward is not decentralization for its own sake.<br />
               It&apos;s <strong>systems that survive their creators</strong>.
             </p>
+          </div>
+        </section>
+
+        {/* Sources */}
+        <section className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
+          <h2 className="text-2xl font-bold mb-4">Sources</h2>
+          <div className="prose prose-lg max-w-none">
+            <ul className="space-y-2 list-disc list-inside">
+              <li>
+                <a href="https://etherscan.io/address/0x32aa964746ba2be65c71fe4a5cb3c4a023ca3e20" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                  The Trustless Manifesto
+                </a>
+                {' '}
+                (Ethereum contract source)
+              </li>
+              <li>
+                <a href="https://vitalik.eth.limo/general/2023/12/28/cypherpunk.html" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                  Make Ethereum Cypherpunk Again
+                </a>
+                {' '}
+                by Vitalik Buterin
+              </li>
+            </ul>
           </div>
         </section>
       </div>
