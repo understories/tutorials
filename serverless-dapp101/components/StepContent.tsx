@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { PathToggle } from './PathToggle';
 import { CodeBlock } from './CodeBlock';
 import { Checkpoint } from './Checkpoint';
@@ -19,11 +19,15 @@ export function StepContent({
   const [currentPath, setCurrentPath] = useState<'vibe' | 'manual'>(path === 'both' ? 'vibe' : path);
   const { setCheckpointState } = useProgress();
   
-  // Parse content sections
-  const sections = parseMarkdownSections(content, currentPath);
+  // Parse content sections - memoized to prevent re-parsing on re-renders
+  const sections = useMemo(() => {
+    return parseMarkdownSections(content, currentPath);
+  }, [content, currentPath]);
   
-  // Check if this step has a checkpoint section
-  const hasCheckpoint = sections.some(s => s.type === 'checkpoint');
+  // Check if this step has a checkpoint section - memoized
+  const hasCheckpoint = useMemo(() => {
+    return sections.some(s => s.type === 'checkpoint');
+  }, [sections]);
   
   // Initialize checkpoint state: if no checkpoint, mark as "complete" (undefined means no requirement)
   useEffect(() => {
