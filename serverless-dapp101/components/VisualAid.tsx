@@ -32,13 +32,13 @@ export function VisualAid({
   return (
     <div className={`my-8 ${className}`}>
       <div className="relative w-full max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
-          <div className="relative w-full" style={{ minHeight: '200px' }}>
+        <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm overflow-visible">
+          <div className="relative w-full overflow-visible" style={{ minHeight: '200px' }}>
             <img
               src={showDetailed && hasDetailedVersion ? detailedSrc : baseSrc}
               alt={alt}
               className="w-full h-auto"
-              style={{ objectFit: 'contain' }}
+              style={{ objectFit: 'contain', maxWidth: '100%' }}
             />
           </div>
           
