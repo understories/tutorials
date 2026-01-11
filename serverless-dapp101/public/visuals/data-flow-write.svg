@@ -1,4 +1,4 @@
-<svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Write flow diagram">
+<svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Write flow diagram">
   <title>Data Flow - Write</title>
   <desc>Write flow showing how a user action becomes a signed Arkiv transaction recorded on the blockchain and visible in the explorer.</desc>
   
@@ -13,11 +13,11 @@
       .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 22px; fill: #111827; font-weight: 700; text-anchor: middle; }
       .shadow { filter: url(#drop-shadow); }
     </style>
-    <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
-      <polygon points="0 0, 10 5, 0 10" fill="#fb923c" />
+    <marker id="arrowhead-orange" markerWidth="6" markerHeight="6" refX="5.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <polygon points="0 0, 6 3, 0 6" fill="#fb923c" />
     </marker>
-    <marker id="arrowhead-gray" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
-      <polygon points="0 0, 10 5, 0 10" fill="#9ca3af" />
+    <marker id="arrowhead-gray" markerWidth="6" markerHeight="6" refX="5.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <polygon points="0 0, 6 3, 0 6" fill="#9ca3af" />
     </marker>
     <filter id="drop-shadow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
@@ -62,5 +62,5 @@
   <text x="300" y="448" text-anchor="middle" class="text-label">Blockchain</text>
   <text x="300" y="468" text-anchor="middle" class="text-subtitle">Permanently recorded</text>
   
-  <text x="300" y="493" text-anchor="middle" class="text-subtitle" font-weight="600" fill="#10b981">✓ Explorer Visible</text>
+  <text x="300" y="505" text-anchor="middle" class="text-subtitle" font-weight="600" fill="#10b981">✓ Explorer Visible</text>
 </svg>
