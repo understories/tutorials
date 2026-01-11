@@ -9,7 +9,7 @@ interface CheckpointProps {
 }
 
 export function Checkpoint({ stepId, items }: CheckpointProps) {
-  const { markStepComplete, setCheckpointState, setCheckboxState, getCheckboxState } = useProgress();
+  const { markStepComplete, setCheckpointState, setCheckboxState, getCheckboxState, checkboxStates } = useProgress();
 
   const handleCheck = (index: number) => {
     const currentChecked = getCheckboxState(stepId, index);
@@ -17,31 +17,21 @@ export function Checkpoint({ stepId, items }: CheckpointProps) {
     
     // Update individual checkbox state
     setCheckboxState(stepId, index, newChecked);
-    
-    // Check if all items are checked (after this update)
-    // We need to check all items including the one we just toggled
-    const allChecked = items.every((_, i) => {
-      if (i === index) {
-        return newChecked;
-      }
-      return getCheckboxState(stepId, i);
-    });
-    
-    // Update checkpoint state (for Next button enable/disable)
+  };
+
+  // Update checkpoint state whenever checkbox states change for this step
+  useEffect(() => {
+    // Calculate if all items are checked by reading directly from checkboxStates
+    const stepCheckboxes = checkboxStates[stepId] || {};
+    const allChecked = items.length > 0 && items.every((_, i) => stepCheckboxes[i] === true);
     setCheckpointState(stepId, allChecked);
     
     // Mark step complete if all items checked
     if (allChecked) {
       markStepComplete(stepId);
     }
-  };
-
-  // Initialize checkpoint state on mount
-  useEffect(() => {
-    const allChecked = items.every((_, i) => getCheckboxState(stepId, i));
-    setCheckpointState(stepId, allChecked);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stepId, items.length]);
+  }, [stepId, items.length, checkboxStates]);
 
   return (
     <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 my-6">
