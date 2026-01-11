@@ -5,15 +5,15 @@
   <defs>
     <style>
       .path-box { fill: #ffffff; stroke: #3b82f6; stroke-width: 2.5; }
-      .arrow { stroke: #3b82f6; stroke-width: 3; fill: none; marker-end: url(#arrowhead-blue); }
+      .arrow { stroke: #3b82f6; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead-blue); }
       .text-label { font-family: system-ui, -apple-system, sans-serif; font-size: 15px; fill: #1f2937; font-weight: 600; }
       .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; fill: #111827; font-weight: 700; }
       .text-subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; fill: #6b7280; font-weight: 400; }
       .emoji { font-size: 28px; }
       .shadow { filter: url(#drop-shadow); }
     </style>
-    <marker id="arrowhead-blue" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto" markerUnits="strokeWidth">
-      <polygon points="0 0, 12 6, 0 12" fill="#3b82f6" />
+    <marker id="arrowhead-blue" markerWidth="6" markerHeight="6" refX="5.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <polygon points="0 0, 6 3, 0 6" fill="#3b82f6" />
     </marker>
     <filter id="drop-shadow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
