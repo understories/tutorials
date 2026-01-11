@@ -4,18 +4,25 @@
 
 By the end of this step, you'll:
 - Know how to use the Arkiv blockchain explorer
-- Understand how to verify your transactions on-chain
-- See the data stored in your transactions
+- Understand the difference between viewing entities and transactions
+- Verify both your entity (data) and transaction (blockchain operation) on-chain
+- See the data stored in your entities and transactions
 
 ## Content
 
 ### What is the Explorer?
 
 The Arkiv Explorer is a blockchain browser - like Etherscan for Ethereum, but for Arkiv. It lets you:
-- View all transactions on Arkiv
+- View all entities (data structures) on Arkiv
+- View all transactions (blockchain operations) on Arkiv
+- See entity details (key, payload, attributes)
 - See transaction details (hash, block, gas, etc.)
-- Verify data stored in transactions
+- Verify data stored in entities and transactions
 - Check wallet addresses and balances
+
+**Key Concept:** You can view your data from two perspectives:
+- **Entity view**: Shows the data structure (your message, attributes, payload)
+- **Transaction view**: Shows the blockchain operation that created that entity
 
 ### Why Verify?
 
@@ -49,16 +56,39 @@ Explain blockchain transparency and on-chain verification.
 
 ## Manual Path
 
-### Step 6.1: Find Your Transaction Link
+### Step 6.1: Find Your Entity and Transaction Links
 
 1. Go to the hello-world demo page (`http://localhost:3000/hello-world`)
 2. Find one of your messages in the list
-3. Look for the "View on Explorer →" link at the bottom right of the message card
-4. Click the link
+3. Look for two links at the bottom of the message card:
+   - **Entity link**: Shows the entity key (identifier for your data)
+   - **Transaction link**: Shows the transaction hash (identifier for the blockchain operation)
+4. Click either link to explore on the blockchain explorer
 
-### Step 6.2: Explore the Transaction Page
+### Step 6.2: Explore the Entity Page
 
-You'll be taken to the Mendoza testnet explorer. On this page, you'll see:
+If you clicked the **Entity link**, you'll see the entity view:
+
+**Entity Overview:**
+- **Entity Key**: Unique identifier for your data
+- **Created**: When the entity was created
+- **Space ID**: Which space the entity belongs to ("ns" for shared space)
+
+**Entity Details:**
+- **Payload**: Your message content (decoded JSON)
+- **Attributes**: Metadata like `type`, `wallet`, `spaceId`, `created_at`
+- **Content Type**: How the payload is encoded (application/json)
+
+**What you'll see:**
+- The text of your message
+- The timestamp when it was created
+- Your wallet address
+- The space ID ("ns")
+- All queryable attributes
+
+### Step 6.3: Explore the Transaction Page
+
+If you clicked the **Transaction link**, you'll see the transaction view:
 
 **Transaction Overview:**
 - **Transaction Hash**: Unique identifier for your transaction
@@ -72,22 +102,20 @@ You'll be taken to the Mendoza testnet explorer. On this page, you'll see:
 - **Gas Used**: How much gas the transaction consumed
 - **Transaction Fee**: Cost of the transaction (in testnet tokens)
 
-### Step 6.3: View Transaction Data
-
-Scroll down to see the transaction data. You'll find:
+**Transaction Data:**
 - **Input Data**: The encoded data you sent (your message)
 - **Logs**: Events emitted by the transaction
-- **Entity Information**: Details about the entity you created
+- **Entity Information**: Details about the entity that was created
 
-### Step 6.4: Verify Your Message Data
+### Step 6.4: Compare Entity vs Transaction Views
 
-Look for your message content in the transaction data. You should be able to see:
-- The text of your message
-- The timestamp when it was created
-- Your wallet address
-- The space ID ("ns")
+**Key Insight:** Both views show the same data, but from different perspectives:
+- **Entity view** focuses on the data structure (what was stored)
+- **Transaction view** focuses on the blockchain operation (how it was stored)
 
-### Step 6.5: Explore Other Transactions
+Try clicking both links for the same message to see the difference! The entity view is optimized for understanding your data, while the transaction view is optimized for understanding the blockchain operation.
+
+### Step 6.5: Explore Other Entities and Transactions
 
 1. Click on your wallet address in the explorer
 2. You'll see all transactions from your wallet
@@ -98,16 +126,18 @@ Look for your message content in the transaction data. You should be able to see
 
 Before moving to the next step, verify:
 
-- [ ] I've clicked "View on Explorer" for at least one message
-- [ ] I can see my transaction on the explorer
-- [ ] I can see my message data in the transaction
+- [ ] I've clicked both the Entity and Transaction links for at least one message
+- [ ] I can see my entity on the explorer (entity view)
+- [ ] I can see my transaction on the explorer (transaction view)
+- [ ] I understand the difference between entity view (data) and transaction view (blockchain operation)
+- [ ] I can see my message data in both views
 - [ ] I understand that this data is on-chain and verifiable
-- [ ] I've explored other transactions to see the public nature of the data
+- [ ] I've explored other entities and transactions to see the public nature of the data
 
 ## Troubleshooting
 
-**Q: The "View on Explorer" link doesn't appear.**
-A: The link only appears after the transaction is indexed. Wait a moment and refresh the page. If it still doesn't appear, check the browser console for errors.
+**Q: The Entity or Transaction links don't appear.**
+A: The Entity link should appear immediately. The Transaction link only appears after the transaction is indexed. Wait a moment and refresh the page. If it still doesn't appear, check the browser console for errors.
 
 **Q: The explorer page shows "Transaction Not Found".**
 A: The transaction may still be pending. Wait a moment and try again. If it persists, check that you're on the correct testnet (Mendoza).
