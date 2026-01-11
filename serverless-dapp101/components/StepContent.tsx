@@ -98,10 +98,21 @@ function parseMarkdownSections(content: string, currentPath: 'vibe' | 'manual'):
       }
       currentSection = { type: 'checkpoint', items: [] };
       i++;
-      while (i < lines.length && lines[i].trim().startsWith('- [')) {
-        const item = lines[i].trim().replace(/^-\s*\[.*?\]\s*/, '');
-        currentSection.items.push(item);
-        i++;
+      // Skip blank lines and non-checklist lines until we find checklist items
+      while (i < lines.length) {
+        const nextLine = lines[i].trim();
+        if (nextLine.startsWith('- [')) {
+          // Found a checklist item
+          const item = nextLine.replace(/^-\s*\[.*?\]\s*/, '');
+          currentSection.items.push(item);
+          i++;
+        } else if (nextLine === '' || !nextLine.startsWith('##')) {
+          // Skip blank lines and regular text (but stop at next section)
+          i++;
+        } else {
+          // Hit next section, stop
+          break;
+        }
       }
       i--;
       sections.push(currentSection);
