@@ -9,12 +9,13 @@ By the end of this step, you'll:
 
 ## Content
 
-> 💡 **Visual Aid:** For a visual comparison of traditional apps vs serverless dapps in the walkaway test, 
-> check out the [Walkaway Test](/learn#walkaway-test) diagram in the Visual Lesson.
-
 ### What is the Walkaway Test?
 
 The "walkaway test" is a simple but powerful concept: **Can your app and data survive if you shut down your server?**
+
+![Architecture Comparison](/visuals/architecture-comparison.svg)
+
+This comparison shows the fundamental difference: in traditional apps, data lives in company databases and is lost if the service shuts down. With Arkiv, data lives on-chain, owned by users, and persists independently.
 
 With traditional apps:
 - ❌ If you shut down the database, data is gone
@@ -26,6 +27,10 @@ With Arkiv:
 - ✅ Anyone can read your data (it's public)
 - ✅ You can rebuild your app from scratch and still access the same data
 - ✅ No vendor lock-in
+
+![Walkaway Test](/visuals/walkaway-test.svg)
+
+This visual demonstrates data independence: data stored in a traditional app is lost when the app shuts down, while data stored on Arkiv remains accessible to new applications.
 
 ### Why This Matters
 

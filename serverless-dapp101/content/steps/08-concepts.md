@@ -10,9 +10,6 @@ By the end of this step, you'll:
 
 ## Content
 
-> 💡 **Visual Aid:** For a comprehensive visual explanation of these concepts, check out the 
-> [Visual Lesson](/learn) page. It includes detailed diagrams and explanations that complement this step.
-
 ### What is Arkiv?
 
 Arkiv is a decentralized database built on blockchain. It provides:
@@ -23,6 +20,10 @@ Arkiv is a decentralized database built on blockchain. It provides:
 
 > 📄 **Source:** These concepts are explained in detail in the [Arkiv Litepaper](/ARKIV_Litepaper_blue.pdf). 
 > The litepaper provides deeper context on Arkiv's architecture and philosophy.
+
+![Architecture Comparison](/visuals/architecture-comparison.svg)
+
+This comparison shows how serverless dapps with Arkiv differ from traditional apps. The most fundamental difference is where and who owns the data—with Arkiv, data lives on-chain, owned by users.
 
 ### Key Concepts
 
@@ -35,6 +36,10 @@ Each entity has:
 - **Payload**: The actual data (can be JSON, text, binary, etc.)
 - **Attributes**: Key-value pairs for querying (like indexed columns)
 - **Content Type**: MIME type of the payload (e.g., `application/json`)
+
+![Entity Structure](/visuals/entity-structure.svg)
+
+This diagram shows the structure of an Arkiv entity: unique ID, queryable attributes, content payload, and transaction hash for verification. Use attributes for anything you want to query on (they're indexed and fast), and store complex data in the payload as JSON.
 
 Example entity:
 ```typescript
@@ -85,6 +90,10 @@ const result = await publicClient
 ```
 
 This reads: "Find entities where type='message' AND spaceId='ns', return up to 100 results, include attributes and payload."
+
+![Data Flow - Read](/visuals/data-flow-read.svg)
+
+This diagram shows how queries work: your app makes a query request, which goes to Arkiv indexers. Indexers filter entities by your criteria and return matching results. Reads are public (anyone can query), free (no gas fees), and fast (served by indexers).
 
 ### Reads vs Writes
 
@@ -155,6 +164,10 @@ The kit helps AI assistants understand Arkiv's unique characteristics:
 - Immutable history design patterns
 - Query shape standardization (type + spaceId + limit)
 - Wallet normalization everywhere
+
+![Concept Bridges](/visuals/concept-bridges.svg)
+
+If you've taken the **Vibes to App** workshop, this visual shows how those concepts extend into the decentralized world. The progression from app ideas to traditional apps to serverless dapps demonstrates how Arkiv builds on familiar development patterns.
 
 > 🤖 **Learn More:** See the [AI Agent Kit section](/learn#building-with-arkiv) in the Visual Lesson, 
 > or check out the [Next Steps](/11-next-steps) section for links to the kit.
@@ -234,8 +247,9 @@ When you submit a message:
 5. **Indexer** → Processes and indexes the transaction (this takes time!)
 6. **Query** → Returns the new entity
 
-> 💡 **Visual Aid:** See the [Data Flow - Write](/learn#data-flow-write) diagram in the Visual Lesson 
-> for a detailed visual explanation of this process.
+![Data Flow - Write](/visuals/data-flow-write.svg)
+
+This diagram shows the complete write flow from user action through to blockchain confirmation. Notice that indexer lag is normal—your transaction is confirmed on-chain immediately, but it takes a few seconds for indexers to process it.
 
 ### Step 8.4: Explore the Explorer
 
@@ -245,8 +259,9 @@ Go back to the explorer and look at a transaction:
 - See the attributes in the transaction logs
 - Notice that everything is public and verifiable
 
-> 💡 **Visual Aid:** The [Verification Flow](/learn#verification-flow) diagram in the Visual Lesson 
-> shows how blockchain verification works step-by-step.
+![Verification Flow](/visuals/verification-flow.svg)
+
+This step-by-step flow shows how to use a transaction hash to verify data on the blockchain. Every write operation returns a transaction hash, which you can use to look up and verify the transaction on the Arkiv explorer.
 
 ## Checkpoint
 
