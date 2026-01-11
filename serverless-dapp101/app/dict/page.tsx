@@ -180,7 +180,6 @@ const concepts: Concept[] = [
   {
     id: 'walkaway-test',
     title: '3. Full Stack Web3 Apps & the &quot;Walkaway Test&quot;',
-    subtitle: '(including IPFS, Swarm, and other options)',
     eli5: (
       <>
         <p>If the people who made the app disappear, <strong>can users still use it?</strong></p>
@@ -774,87 +773,76 @@ const crossCuttingQuestions = (
 );
 
 export default function DictionaryPage() {
-  const [openConcepts, setOpenConcepts] = useState<Set<string>>(new Set());
-  const [openLevels, setOpenLevels] = useState<Map<string, Set<string>>>(new Map());
+  const [openConcept, setOpenConcept] = useState<string | null>(null);
+  const [openLevel, setOpenLevel] = useState<string | null>(null);
   const [openCrossCutting, setOpenCrossCutting] = useState(false);
 
-  const toggleConcept = (conceptId: string) => {
-    setOpenConcepts((prev) => {
-      const next = new Set(prev);
-      if (next.has(conceptId)) {
-        next.delete(conceptId);
-      } else {
-        next.add(conceptId);
-      }
-      return next;
-    });
-  };
-
-  const toggleLevel = (conceptId: string, level: string) => {
-    setOpenLevels((prev) => {
-      const next = new Map(prev);
-      const conceptLevels = next.get(conceptId) || new Set();
-      const updated = new Set(conceptLevels);
-      
-      if (updated.has(level)) {
-        updated.delete(level);
-      } else {
-        updated.add(level);
-      }
-      
-      next.set(conceptId, updated);
-      return next;
-    });
+  const handleEmojiClick = (conceptId: string, level: string) => {
+    const levelKey = `${conceptId}-${level}`;
+    if (openLevel === levelKey) {
+      // If clicking the same level, close it
+      setOpenLevel(null);
+      setOpenConcept(null);
+    } else {
+      // Open the new level (only one at a time)
+      setOpenLevel(levelKey);
+      setOpenConcept(conceptId);
+    }
   };
 
   const isLevelOpen = (conceptId: string, level: string) => {
-    return openLevels.get(conceptId)?.has(level) || false;
+    return openLevel === `${conceptId}-${level}`;
+  };
+
+  const isConceptOpen = (conceptId: string) => {
+    return openConcept === conceptId;
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="max-w-4xl mx-auto px-4 py-8">
       <header className="mb-12">
-        <h1 className="text-4xl font-bold mb-4">Web3 Concepts Dictionary</h1>
+        <h1 className="text-4xl font-bold mb-4 text-gray-900">Web3 Concepts Dictionary</h1>
         <p className="text-lg text-gray-600 mb-8">
           Explore key concepts at four levels of understanding, from simple explanations to deep technical insights.
         </p>
 
         {/* Legend */}
-        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg border-2 border-indigo-200 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Understanding Levels</h2>
+        <div className="bg-white bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg border-2 border-indigo-200 mb-8">
+          <h2 className="text-xl font-semibold mb-4 text-gray-900">Understanding Levels</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-center gap-3">
               <span className="text-2xl">{LEVELS.eli5.emoji}</span>
               <div>
-                <div className="font-semibold">{LEVELS.eli5.name}</div>
+                <div className="font-semibold text-gray-900">{LEVELS.eli5.name}</div>
                 <div className="text-sm text-gray-600">Simple explanation</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-2xl">{LEVELS.builder.emoji}</span>
               <div>
-                <div className="font-semibold">{LEVELS.builder.name}</div>
+                <div className="font-semibold text-gray-900">{LEVELS.builder.name}</div>
                 <div className="text-sm text-gray-600">Practical overview</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-2xl">{LEVELS.engineer.emoji}</span>
               <div>
-                <div className="font-semibold">{LEVELS.engineer.name}</div>
+                <div className="font-semibold text-gray-900">{LEVELS.engineer.name}</div>
                 <div className="text-sm text-gray-600">Technical details</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-2xl">{LEVELS.developer.emoji}</span>
               <div>
-                <div className="font-semibold">{LEVELS.developer.name}</div>
+                <div className="font-semibold text-gray-900">{LEVELS.developer.name}</div>
                 <div className="text-sm text-gray-600">Deep dive</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-2xl">{LEVELS.questions.emoji}</span>
               <div>
-                <div className="font-semibold">{LEVELS.questions.name}</div>
+                <div className="font-semibold text-gray-900">{LEVELS.questions.name}</div>
                 <div className="text-sm text-gray-600">Reflection prompts</div>
               </div>
             </div>
@@ -865,105 +853,73 @@ export default function DictionaryPage() {
       <div className="space-y-6">
         {/* Concepts */}
         {concepts.map((concept) => {
-          const isOpen = openConcepts.has(concept.id);
+          const isOpen = isConceptOpen(concept.id);
           
           return (
             <div
               key={concept.id}
-              className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-md"
+              className="bg-white border border-gray-200 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-md"
             >
               {/* Concept Header */}
-              <button
-                onClick={() => toggleConcept(concept.id)}
-                className="w-full px-6 py-4 bg-gray-50 hover:bg-gray-100 transition-colors flex items-center justify-between text-left"
-              >
+              <div className="w-full px-6 py-4 bg-gray-50 hover:bg-gray-100 transition-colors flex items-center justify-between">
                 <div>
-                  <h2 className="text-2xl font-bold">{concept.title}</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">{concept.title}</h2>
                   {concept.subtitle && (
                     <p className="text-sm text-gray-500 mt-1 italic">{concept.subtitle}</p>
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex gap-1">
-                    <span className="text-lg">{LEVELS.eli5.emoji}</span>
-                    <span className="text-lg">{LEVELS.builder.emoji}</span>
-                    <span className="text-lg">{LEVELS.engineer.emoji}</span>
-                    <span className="text-lg">{LEVELS.developer.emoji}</span>
-                    <span className="text-lg">{LEVELS.questions.emoji}</span>
-                  </div>
-                  <svg
-                    className={`w-5 h-5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                  <button
+                    onClick={() => handleEmojiClick(concept.id, 'eli5')}
+                    className={`text-lg hover:scale-125 transition-transform ${
+                      isLevelOpen(concept.id, 'eli5') ? 'scale-125' : ''
+                    }`}
+                    aria-label="ELI5"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                    {LEVELS.eli5.emoji}
+                  </button>
+                  <button
+                    onClick={() => handleEmojiClick(concept.id, 'builder')}
+                    className={`text-lg hover:scale-125 transition-transform ${
+                      isLevelOpen(concept.id, 'builder') ? 'scale-125' : ''
+                    }`}
+                    aria-label="Curious Builder"
+                  >
+                    {LEVELS.builder.emoji}
+                  </button>
+                  <button
+                    onClick={() => handleEmojiClick(concept.id, 'engineer')}
+                    className={`text-lg hover:scale-125 transition-transform ${
+                      isLevelOpen(concept.id, 'engineer') ? 'scale-125' : ''
+                    }`}
+                    aria-label="Practicing Engineer"
+                  >
+                    {LEVELS.engineer.emoji}
+                  </button>
+                  <button
+                    onClick={() => handleEmojiClick(concept.id, 'developer')}
+                    className={`text-lg hover:scale-125 transition-transform ${
+                      isLevelOpen(concept.id, 'developer') ? 'scale-125' : ''
+                    }`}
+                    aria-label="Full-Stack Web3 Developer"
+                  >
+                    {LEVELS.developer.emoji}
+                  </button>
+                  <button
+                    onClick={() => handleEmojiClick(concept.id, 'questions')}
+                    className={`text-lg hover:scale-125 transition-transform ${
+                      isLevelOpen(concept.id, 'questions') ? 'scale-125' : ''
+                    }`}
+                    aria-label="Discussion Questions"
+                  >
+                    {LEVELS.questions.emoji}
+                  </button>
                 </div>
-              </button>
+              </div>
 
               {/* Concept Content */}
               {isOpen && (
                 <div className="p-6 space-y-4 transition-all duration-200">
-                  {/* Level Buttons */}
-                  <div className="flex flex-wrap gap-2 mb-6 pb-4 border-b border-gray-200">
-                    <button
-                      onClick={() => toggleLevel(concept.id, 'eli5')}
-                      className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
-                        isLevelOpen(concept.id, 'eli5')
-                          ? `${LEVELS.eli5.bgColor} ${LEVELS.eli5.textColor} font-semibold`
-                          : 'bg-gray-100 hover:bg-gray-200'
-                      }`}
-                    >
-                      <span className="text-xl">{LEVELS.eli5.emoji}</span>
-                      <span>{LEVELS.eli5.name}</span>
-                    </button>
-                    <button
-                      onClick={() => toggleLevel(concept.id, 'builder')}
-                      className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
-                        isLevelOpen(concept.id, 'builder')
-                          ? `${LEVELS.builder.bgColor} ${LEVELS.builder.textColor} font-semibold`
-                          : 'bg-gray-100 hover:bg-gray-200'
-                      }`}
-                    >
-                      <span className="text-xl">{LEVELS.builder.emoji}</span>
-                      <span>{LEVELS.builder.name}</span>
-                    </button>
-                    <button
-                      onClick={() => toggleLevel(concept.id, 'engineer')}
-                      className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
-                        isLevelOpen(concept.id, 'engineer')
-                          ? `${LEVELS.engineer.bgColor} ${LEVELS.engineer.textColor} font-semibold`
-                          : 'bg-gray-100 hover:bg-gray-200'
-                      }`}
-                    >
-                      <span className="text-xl">{LEVELS.engineer.emoji}</span>
-                      <span>{LEVELS.engineer.name}</span>
-                    </button>
-                    <button
-                      onClick={() => toggleLevel(concept.id, 'developer')}
-                      className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
-                        isLevelOpen(concept.id, 'developer')
-                          ? `${LEVELS.developer.bgColor} ${LEVELS.developer.textColor} font-semibold`
-                          : 'bg-gray-100 hover:bg-gray-200'
-                      }`}
-                    >
-                      <span className="text-xl">{LEVELS.developer.emoji}</span>
-                      <span>{LEVELS.developer.name}</span>
-                    </button>
-                    <button
-                      onClick={() => toggleLevel(concept.id, 'questions')}
-                      className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
-                        isLevelOpen(concept.id, 'questions')
-                          ? `${LEVELS.questions.bgColor} ${LEVELS.questions.textColor} font-semibold`
-                          : 'bg-gray-100 hover:bg-gray-200'
-                      }`}
-                    >
-                      <span className="text-xl">{LEVELS.questions.emoji}</span>
-                      <span>{LEVELS.questions.name}</span>
-                    </button>
-                  </div>
-
                   {/* Level Content */}
                   <div className="space-y-4">
                     {isLevelOpen(concept.id, 'eli5') && (
@@ -972,7 +928,7 @@ export default function DictionaryPage() {
                           <span>{LEVELS.eli5.emoji}</span>
                           <span>{LEVELS.eli5.name}</span>
                         </h3>
-                        <div className="prose prose-lg">{concept.eli5}</div>
+                        <div className="prose prose-lg text-gray-900">{concept.eli5}</div>
                       </div>
                     )}
                     {isLevelOpen(concept.id, 'builder') && (
@@ -981,7 +937,7 @@ export default function DictionaryPage() {
                           <span>{LEVELS.builder.emoji}</span>
                           <span>{LEVELS.builder.name}</span>
                         </h3>
-                        <div className="prose prose-lg">{concept.builder}</div>
+                        <div className="prose prose-lg text-gray-900">{concept.builder}</div>
                       </div>
                     )}
                     {isLevelOpen(concept.id, 'engineer') && (
@@ -990,7 +946,7 @@ export default function DictionaryPage() {
                           <span>{LEVELS.engineer.emoji}</span>
                           <span>{LEVELS.engineer.name}</span>
                         </h3>
-                        <div className="prose prose-lg">{concept.engineer}</div>
+                        <div className="prose prose-lg text-gray-900">{concept.engineer}</div>
                       </div>
                     )}
                     {isLevelOpen(concept.id, 'developer') && (
@@ -999,7 +955,7 @@ export default function DictionaryPage() {
                           <span>{LEVELS.developer.emoji}</span>
                           <span>{LEVELS.developer.name}</span>
                         </h3>
-                        <div className="prose prose-lg">{concept.developer}</div>
+                        <div className="prose prose-lg text-gray-900">{concept.developer}</div>
                       </div>
                     )}
                     {isLevelOpen(concept.id, 'questions') && (
@@ -1008,7 +964,7 @@ export default function DictionaryPage() {
                           <span>{LEVELS.questions.emoji}</span>
                           <span>{LEVELS.questions.name}</span>
                         </h3>
-                        <div className="prose prose-lg">{concept.questions}</div>
+                        <div className="prose prose-lg text-gray-900">{concept.questions}</div>
                       </div>
                     )}
                   </div>
@@ -1019,14 +975,13 @@ export default function DictionaryPage() {
         })}
 
         {/* Cross-Cutting Questions */}
-        <div className="border border-gray-200 rounded-lg overflow-hidden">
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
           <button
             onClick={() => setOpenCrossCutting(!openCrossCutting)}
             className="w-full px-6 py-4 bg-gray-50 hover:bg-gray-100 transition-colors flex items-center justify-between text-left"
           >
             <div>
-              <h2 className="text-2xl font-bold">Cross-Cutting Questions</h2>
-              <p className="text-sm text-gray-500 mt-1 italic">These work after any concept.</p>
+              <h2 className="text-2xl font-bold text-gray-900">Cross-Cutting Questions</h2>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-lg">{LEVELS.questions.emoji}</span>
@@ -1043,22 +998,22 @@ export default function DictionaryPage() {
           {openCrossCutting && (
             <div className="p-6 transition-all duration-200">
               <div className={`${LEVELS.questions.bgColor} p-6 rounded-lg border-l-4 border-gray-400`}>
-                <div className="prose prose-lg">{crossCuttingQuestions}</div>
+                <div className="prose prose-lg text-gray-900">{crossCuttingQuestions}</div>
               </div>
             </div>
           )}
         </div>
 
         {/* The Big Picture */}
-        <section className="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-lg border-2 border-indigo-200">
-          <h2 className="text-3xl font-bold mb-6">The Big Picture (Compression Layer)</h2>
-          <div className="prose prose-lg max-w-none">
+        <section className="bg-white bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-lg border-2 border-indigo-200">
+          <h2 className="text-3xl font-bold mb-6 text-gray-900">The Big Picture (Compression Layer)</h2>
+          <div className="prose prose-lg max-w-none text-gray-900">
             <p className="text-lg font-semibold mb-4">Traditional stack:</p>
-            <blockquote className="border-l-4 border-indigo-400 pl-4 italic mb-6">
+            <blockquote className="border-l-4 border-indigo-400 pl-4 italic mb-6 text-gray-700">
               App owns users → server owns data → company owns reality
             </blockquote>
             <p className="text-lg font-semibold mb-4">This stack:</p>
-            <blockquote className="border-l-4 border-purple-400 pl-4 italic mb-6">
+            <blockquote className="border-l-4 border-purple-400 pl-4 italic mb-6 text-gray-700">
               Users own keys → data owns history → apps are replaceable views
             </blockquote>
             <p className="mt-6">
@@ -1073,9 +1028,9 @@ export default function DictionaryPage() {
         </section>
 
         {/* Sources */}
-        <section className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-          <h2 className="text-2xl font-bold mb-4">Sources</h2>
-          <div className="prose prose-lg max-w-none">
+        <section className="mt-8 p-6 bg-white rounded-lg border border-gray-200">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900">Sources</h2>
+          <div className="prose prose-lg max-w-none text-gray-900">
             <ul className="space-y-2 list-disc list-inside">
               <li>
                 <a href="https://etherscan.io/address/0x32aa964746ba2be65c71fe4a5cb3c4a023ca3e20" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
@@ -1094,6 +1049,7 @@ export default function DictionaryPage() {
             </ul>
           </div>
         </section>
+      </div>
       </div>
     </div>
   );
