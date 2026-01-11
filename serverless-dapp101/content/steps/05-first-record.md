@@ -9,9 +9,6 @@ By the end of this step, you'll:
 
 ## Content
 
-> 💡 **Visual Aid:** For a detailed visual explanation of the write flow, check out the 
-> [Data Flow - Write](/learn#data-flow-write) diagram in the Visual Lesson.
-
 ### What We're Doing
 
 You're about to write your first piece of data to Arkiv! This is a blockchain transaction - your message will be stored on-chain and be independently verifiable.
@@ -24,6 +21,18 @@ When you submit a message:
 3. The transaction is submitted to Arkiv (Mendoza testnet)
 4. The transaction is confirmed on-chain
 5. Your message becomes queryable (may take a few seconds due to indexer lag)
+
+![Data Flow - Write](/visuals/data-flow-write.svg)
+
+This diagram shows the complete write flow: from user action through API route, wallet signing, Arkiv transaction, to final blockchain confirmation. Notice that the transaction is confirmed on-chain immediately, but indexers need time to process it (5-30 seconds delay—this is normal!).
+
+![Data Flow - Read](/visuals/data-flow-read.svg)
+
+Reading data from Arkiv is simpler than writing—no authentication needed, and it's free! Queries go to Arkiv indexers, which filter entities by your criteria and return matching results.
+
+![Entity Structure](/visuals/entity-structure.svg)
+
+Every piece of data in Arkiv is stored as an **entity**. Understanding entity structure is key to building effective queries. Use attributes for anything you want to query on (they're indexed and fast), and store complex data in the payload as JSON.
 
 ## Vibe Path (AI-Assisted)
 
