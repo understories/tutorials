@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useProgress } from './ProgressProvider';
 
 interface CheckpointProps {
@@ -9,15 +9,23 @@ interface CheckpointProps {
 }
 
 export function Checkpoint({ stepId, items }: CheckpointProps) {
-  const [checked, setChecked] = useState<Record<number, boolean>>({});
-  const { markStepComplete, setCheckpointState } = useProgress();
+  const { markStepComplete, setCheckpointState, setCheckboxState, getCheckboxState } = useProgress();
 
   const handleCheck = (index: number) => {
-    const newChecked = { ...checked, [index]: !checked[index] };
-    setChecked(newChecked);
+    const currentChecked = getCheckboxState(stepId, index);
+    const newChecked = !currentChecked;
     
-    // Check if all items are checked
-    const allChecked = items.every((_, i) => newChecked[i]);
+    // Update individual checkbox state
+    setCheckboxState(stepId, index, newChecked);
+    
+    // Check if all items are checked (after this update)
+    // We need to check all items including the one we just toggled
+    const allChecked = items.every((_, i) => {
+      if (i === index) {
+        return newChecked;
+      }
+      return getCheckboxState(stepId, i);
+    });
     
     // Update checkpoint state (for Next button enable/disable)
     setCheckpointState(stepId, allChecked);
@@ -28,6 +36,13 @@ export function Checkpoint({ stepId, items }: CheckpointProps) {
     }
   };
 
+  // Initialize checkpoint state on mount
+  useEffect(() => {
+    const allChecked = items.every((_, i) => getCheckboxState(stepId, i));
+    setCheckpointState(stepId, allChecked);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stepId, items.length]);
+
   return (
     <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 my-6">
       <h3 className="font-semibold text-blue-900 mb-4">✓ Checkpoint</h3>
@@ -37,7 +52,7 @@ export function Checkpoint({ stepId, items }: CheckpointProps) {
             <label className="flex items-start cursor-pointer group">
               <input
                 type="checkbox"
-                checked={checked[index] || false}
+                checked={getCheckboxState(stepId, index)}
                 onChange={() => handleCheck(index)}
                 className="mt-1 mr-3 w-5 h-5 text-blue-600 cursor-pointer flex-shrink-0"
               />
