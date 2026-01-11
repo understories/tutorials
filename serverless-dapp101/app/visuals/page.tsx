@@ -63,7 +63,7 @@ export default function VisualsPage() {
           </div>
 
           {/* Architecture Comparison */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <div id="architecture-comparison" className="bg-white rounded-lg shadow-sm p-8 mb-8">
             <div className="mb-6">
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">Architecture Comparison</h3>
               <p className="text-gray-700 mb-4">
@@ -212,7 +212,7 @@ export default function VisualsPage() {
           </div>
 
           {/* Data Flow - Write */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <div id="data-flow-write" className="bg-white rounded-lg shadow-sm p-8 mb-8">
             <div className="mb-6">
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">Data Flow: Writing to Arkiv</h3>
               <p className="text-gray-700 mb-4">
@@ -247,7 +247,7 @@ export default function VisualsPage() {
           </div>
 
           {/* Data Flow - Read */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <div id="data-flow-read" className="bg-white rounded-lg shadow-sm p-8 mb-8">
             <div className="mb-6">
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">Data Flow: Reading from Arkiv</h3>
               <p className="text-gray-700 mb-4">
@@ -279,7 +279,7 @@ export default function VisualsPage() {
           </div>
 
           {/* Entity Structure */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <div id="entity-structure" className="bg-white rounded-lg shadow-sm p-8 mb-8">
             <div className="mb-6">
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">Arkiv Entity Structure</h3>
               <p className="text-gray-700 mb-4">
@@ -321,7 +321,7 @@ export default function VisualsPage() {
           </div>
 
           {/* Walkaway Test */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <div id="walkaway-test" className="bg-white rounded-lg shadow-sm p-8 mb-8">
             <div className="mb-6">
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">The Walkaway Test: Data Independence</h3>
               <p className="text-gray-700 mb-4">
@@ -368,7 +368,7 @@ export default function VisualsPage() {
           </div>
 
           {/* Verification Flow */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <div id="verification-flow" className="bg-white rounded-lg shadow-sm p-8 mb-8">
             <div className="mb-6">
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">Verification Flow: Blockchain Transparency</h3>
               <p className="text-gray-700 mb-4">
@@ -413,7 +413,7 @@ export default function VisualsPage() {
           </div>
 
           {/* AI Agent Kit */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <div id="building-with-arkiv" className="bg-white rounded-lg shadow-sm p-8 mb-8">
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">Arkiv AI Agent Kit</h3>
             <p className="text-gray-700 mb-4">
               The <strong>Arkiv AI Agent Kit</strong> is a drop-in LLM context designed to help AI 
@@ -446,21 +446,17 @@ export default function VisualsPage() {
               </p>
             </div>
             <div className="flex gap-4">
-              <a
-                href="https://github.com/your-org/arkiv-ai-agent-kit"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-              >
-                View AI Agent Kit →
-              </a>
               <Link
                 href="/11-next-steps"
-                className="px-4 py-2 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors text-sm"
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
               >
-                Learn More in Next Steps
+                Learn More in Next Steps →
               </Link>
             </div>
+            <p className="text-sm text-gray-600 mt-4">
+              <em>The AI Agent Kit is available in the tutorial repository's extractions folder. 
+              See the <Link href="/11-next-steps" className="text-blue-600 hover:underline">Next Steps</Link> section for details.</em>
+            </p>
           </div>
 
           {/* Best Practices */}
@@ -527,10 +523,8 @@ export default function VisualsPage() {
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Development Tools</h3>
                 <ul className="space-y-2 text-sm">
                   <li>
-                    <a href="https://github.com/your-org/arkiv-ai-agent-kit" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                      🤖 Arkiv AI Agent Kit
-                    </a>
-                    <span className="text-gray-500 ml-2">(For building with AI assistants)</span>
+                    <span className="text-blue-600">🤖 Arkiv AI Agent Kit</span>
+                    <span className="text-gray-500 ml-2">(Available in tutorial repository - see Next Steps)</span>
                   </li>
                   <li>
                     <a href="https://github.com/arkiv-network" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
