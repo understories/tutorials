@@ -193,7 +193,9 @@ Provide clear explanations with examples from the code we've been using.
 
 ### Step 8.1: Review Your Code
 
-Look at the API route you've been using (`app/api/serverless-dapp101/messages/route.ts`):
+Look at **your app's API route** (`app/api/serverless-dapp101/messages/route.ts`):
+
+**Note:** This is your own API route in your forked app. When your frontend calls `/api/serverless-dapp101/messages`, it's making a relative request to this route handler in your own Next.js app. The path name (`serverless-dapp101`) is just a naming convention - it doesn't connect to any external service. Your app is completely standalone and communicates with other apps only through Arkiv.
 
 **Reading (GET):**
 ```typescript
@@ -253,27 +255,39 @@ When you submit a message:
 
 This diagram shows the complete write flow from user action through to blockchain confirmation. Notice that indexer lag is normal. Your transaction is confirmed on-chain immediately, but it takes a few seconds for indexers to process it.
 
-### Step 8.4: Explore the Explorer
+### Step 8.4: Explore the Explorer - Entities vs Transactions
 
-Go back to the explorer and look at a transaction:
+Go back to the hello-world page and click both the **Entity** and **Transaction** links for a message:
+
+**Entity View:**
+- See your entity data structure (payload, attributes)
+- Understand how entities are organized
+- See the entity key (unique identifier for your data)
+- Notice how attributes are indexed for querying
+
+**Transaction View:**
 - See the raw transaction data
-- Understand how your payload is encoded
+- Understand how your payload is encoded in the transaction
 - See the attributes in the transaction logs
-- Notice that everything is public and verifiable
+- Notice the transaction hash (unique identifier for the blockchain operation)
+
+**Key Insight:** Creating an entity IS a transaction. The entity is the data structure, the transaction is the blockchain operation that creates it. Both are linked - you can view your data from either perspective on the explorer!
 
 ![Verification Flow](/visuals/verification-flow.svg)
 
-This step-by-step flow shows how to use a transaction hash to verify data on the blockchain. Every write operation returns a transaction hash, which you can use to look up and verify the transaction on the Arkiv explorer.
+This step-by-step flow shows how to use a transaction hash to verify data on the blockchain. Every write operation returns both an entity key and a transaction hash, which you can use to look up and verify your data on the Arkiv explorer.
 
 ## Checkpoint
 
 Before moving to the next step, verify:
 
 - [ ] I understand what entities, spaces, and attributes are
+- [ ] I understand the relationship between entities (data) and transactions (blockchain operations)
 - [ ] I know how to build queries
 - [ ] I understand the difference between reads and writes
 - [ ] I know why indexer lag happens
 - [ ] I can see how Arkiv differs from traditional databases
+- [ ] I've explored both entity and transaction views on the explorer
 
 ## Troubleshooting
 
