@@ -401,31 +401,31 @@ const concepts: Concept[] = [
     title: 'Trustlessness: Verification Over Blind Trust',
     eli5: (
       <>
-        <p>A trustless system is like a game where <strong>anyone can check the rules</strong> and <strong>no one gets a special &quot;because I said so&quot; button</strong>.</p>
+        <p>A trustless system is like a game where <strong>anyone can check the rules</strong> and <strong>no one gets a special "because I said so" button</strong>.</p>
       </>
     ),
     builder: (
       <>
-        <p>You shouldn&apos;t have to trust a company, admin, or &quot;team wallet&quot; to be fair.</p>
+        <p>You shouldn&apos;t have to trust a company, admin, or "team wallet" to be fair.</p>
         <p>You should be able to independently verify what happened.</p>
       </>
     ),
     engineer: (
       <>
-        <p>&quot;Trustless&quot; means a participant can <strong>join, verify, and act without permission</strong>, and system correctness depends on <strong>publicly verifiable rules</strong> (not operator promises).</p>
+        <p>"Trustless" means a participant can <strong>join, verify, and act without permission</strong>, and system correctness depends on <strong>publicly verifiable rules</strong> (not operator promises).</p>
       </>
     ),
     developer: (
       <>
         <p>Design goal: minimize trusted components across the whole stack (UI, RPC, storage, sequencing, upgrades).</p>
-        <p className="mt-4">Practically: ship <strong>fallbacks</strong>, <strong>open clients</strong>, <strong>reproducible state transitions</strong>, and remove &quot;hidden chokepoints&quot; that can censor or alter outcomes.</p>
+        <p className="mt-4">Practically: ship <strong>fallbacks</strong>, <strong>open clients</strong>, <strong>reproducible state transitions</strong>, and remove "hidden chokepoints" that can censor or alter outcomes.</p>
       </>
     ),
     questions: (
       <ul className="space-y-2 list-disc list-inside">
-        <li>Where do you rely on &quot;trust me&quot; systems in daily life—and when is that fine vs dangerous?</li>
+        <li>Where do you rely on "trust me" systems in daily life—and when is that fine vs dangerous?</li>
         <li>If a system is convenient but unverifiable, what&apos;s the real cost?</li>
-        <li>What&apos;s the smallest &quot;trust hook&quot; you&apos;d refuse to accept in a public system?</li>
+        <li>What&apos;s the smallest "trust hook" you&apos;d refuse to accept in a public system?</li>
       </ul>
     ),
   },
@@ -439,7 +439,7 @@ const concepts: Concept[] = [
     ),
     builder: (
       <>
-        <p>It often starts with harmless choices (&quot;use the hosted service, it&apos;s easier&quot;), but those become default control points.</p>
+        <p>It often starts with harmless choices ("use the hosted service, it&apos;s easier"), but those become default control points.</p>
       </>
     ),
     engineer: (
@@ -449,15 +449,15 @@ const concepts: Concept[] = [
     ),
     developer: (
       <>
-        <p>&quot;Default dependency&quot; = de facto platform power.</p>
-        <p className="mt-4">You fight this with <strong>redundancy + permissionless alternatives</strong>: multiple RPC options, local/light clients, multiple gateways, content addressing, portable identities, and &quot;escape hatches&quot; for every critical function.</p>
+        <p>"Default dependency" = de facto platform power.</p>
+        <p className="mt-4">You fight this with <strong>redundancy + permissionless alternatives</strong>: multiple RPC options, local/light clients, multiple gateways, content addressing, portable identities, and "escape hatches" for every critical function.</p>
       </>
     ),
     questions: (
       <ul className="space-y-2 list-disc list-inside">
-        <li>What&apos;s a real-world example of &quot;convenience drift&quot; (tech or non-tech)?</li>
+        <li>What&apos;s a real-world example of "convenience drift" (tech or non-tech)?</li>
         <li>When do defaults become coercion?</li>
-        <li>What would &quot;escape hatches everywhere&quot; look like in schools, banks, or social media?</li>
+        <li>What would "escape hatches everywhere" look like in schools, banks, or social media?</li>
       </ul>
     ),
   },
@@ -483,7 +483,7 @@ const concepts: Concept[] = [
       <>
         <p>Make each requirement measurable:</p>
         <ul>
-          <li>self-sovereignty → user-signed actions; no &quot;operator signs for you&quot;</li>
+          <li>self-sovereignty → user-signed actions; no "operator signs for you"</li>
           <li>verifiability → deterministic state updates, public data availability</li>
           <li>censorship resistance → multiple inclusion paths; reasonable cost/time bounds</li>
           <li>walkaway → replaceable operators; no permissioned handoff</li>
@@ -495,7 +495,7 @@ const concepts: Concept[] = [
     questions: (
       <ul className="space-y-2 list-disc list-inside">
         <li>Which requirement is easiest to fake?</li>
-        <li>Which requirement do &quot;normal users&quot; notice first?</li>
+        <li>Which requirement do "normal users" notice first?</li>
         <li>What trade-offs are acceptable between accessibility and maximum decentralization?</li>
       </ul>
     ),
@@ -531,15 +531,15 @@ const concepts: Concept[] = [
       <>
         <p>This is a brutal lens for architecture reviews:</p>
         <ul>
-          <li>&quot;Critical secrets&quot; often hides in admin keys, centralized recovery, proprietary fraud scoring, private allowlists.</li>
-          <li>&quot;Indispensable intermediaries&quot; hides in single RPC defaults, single sequencer/relayer, single gateway/CDN, closed validators.</li>
-          <li>&quot;Unverifiable outcomes&quot; hides in off-chain matching/auctions, opaque bridging, private orderflow, black-box AI decisions.</li>
+          <li>"Critical secrets" often hides in admin keys, centralized recovery, proprietary fraud scoring, private allowlists.</li>
+          <li>"Indispensable intermediaries" hides in single RPC defaults, single sequencer/relayer, single gateway/CDN, closed validators.</li>
+          <li>"Unverifiable outcomes" hides in off-chain matching/auctions, opaque bridging, private orderflow, black-box AI decisions.</li>
         </ul>
       </>
     ),
     questions: (
       <ul className="space-y-2 list-disc list-inside">
-        <li>Where do you see &quot;secret boss keys&quot; in society today?</li>
+        <li>Where do you see "secret boss keys" in society today?</li>
         <li>What intermediaries feel optional but aren&apos;t?</li>
         <li>What outcomes do you accept on trust today that maybe you shouldn&apos;t?</li>
       </ul>
@@ -555,12 +555,12 @@ const concepts: Concept[] = [
     ),
     builder: (
       <>
-        <p>The &quot;web3&quot; pitch here is broader than money: a base layer for shared state + messaging + files, so apps aren&apos;t secretly controlled by one server.</p>
+        <p>The "web3" pitch here is broader than money: a base layer for shared state + messaging + files, so apps aren&apos;t secretly controlled by one server.</p>
       </>
     ),
     engineer: (
       <>
-        <p>The essay frames Ethereum + p2p messaging + decentralized file storage as a kind of &quot;public shared hard drive&quot; for modern collaborative apps.</p>
+        <p>The essay frames Ethereum + p2p messaging + decentralized file storage as a kind of "public shared hard drive" for modern collaborative apps.</p>
       </>
     ),
     developer: (
@@ -572,14 +572,14 @@ const concepts: Concept[] = [
           <li><strong>storage</strong> (Swarm/IPFS/etc.)</li>
           <li><strong>identity/keys</strong></li>
         </ul>
-        <p className="mt-4">The hard part is the seams: key management, UX, censorship resistance, and making the &quot;decentralized path&quot; the default (not the hobbyist path).</p>
+        <p className="mt-4">The hard part is the seams: key management, UX, censorship resistance, and making the "decentralized path" the default (not the hobbyist path).</p>
       </>
     ),
     questions: (
       <ul className="space-y-2 list-disc list-inside">
         <li>If the internet were rebuilt for user control, what would change first?</li>
         <li>What should be public infrastructure vs private product?</li>
-        <li>What does &quot;open source&quot; mean if your data still lives on someone else&apos;s server?</li>
+        <li>What does "open source" mean if your data still lives on someone else&apos;s server?</li>
       </ul>
     ),
   },
@@ -588,7 +588,7 @@ const concepts: Concept[] = [
     title: 'IPFS, Swarm, and Other "Walkaway-Friendly" Storage Options',
     eli5: (
       <>
-        <p>You store files by &quot;what they are&quot; (their fingerprint), not &quot;where they live&quot; (one website).</p>
+        <p>You store files by "what they are" (their fingerprint), not "where they live" (one website).</p>
       </>
     ),
     builder: (
@@ -599,7 +599,7 @@ const concepts: Concept[] = [
     engineer: (
       <>
         <p>IPFS and Swarm are decentralized/content-addressed storage networks frequently used to publish frontends or assets so they aren&apos;t tied to one host.</p>
-        <p className="mt-4">&quot;Walkaway&quot; depends on <em>availability guarantees</em> (pinning, incentives, replication), not just the tech name.</p>
+        <p className="mt-4">"Walkaway" depends on <em>availability guarantees</em> (pinning, incentives, replication), not just the tech name.</p>
       </>
     ),
     developer: (
@@ -610,12 +610,12 @@ const concepts: Concept[] = [
           <li>ensure deterministic builds (so others can reproduce the same content hash)</li>
           <li>decide how persistence is paid for (pinning services, community pinning, incentive layers)</li>
         </ul>
-        <p className="mt-4">Also: make sure critical flows don&apos;t die if a gateway does—gateways are a common &quot;platform drift&quot; trap.</p>
+        <p className="mt-4">Also: make sure critical flows don&apos;t die if a gateway does—gateways are a common "platform drift" trap.</p>
       </>
     ),
     questions: (
       <ul className="space-y-2 list-disc list-inside">
-        <li>What&apos;s the difference between &quot;decentralized in theory&quot; and &quot;available in practice&quot;?</li>
+        <li>What&apos;s the difference between "decentralized in theory" and "available in practice"?</li>
         <li>Should permanent storage be a right, a paid service, or a community job?</li>
         <li>Would you trade a little speed for a lot more resilience?</li>
       </ul>
@@ -636,20 +636,20 @@ const concepts: Concept[] = [
     ),
     engineer: (
       <>
-        <p>The essay argues incentives help (economic security, funding) but don&apos;t reliably produce decentralization; some &quot;decentralized stack&quot; parts lack good business models.</p>
+        <p>The essay argues incentives help (economic security, funding) but don&apos;t reliably produce decentralization; some "decentralized stack" parts lack good business models.</p>
       </>
     ),
     developer: (
       <>
-        <p>Implication: budget time for governance, open tooling, public goods funding, and &quot;unsexy&quot; infrastructure.</p>
-        <p className="mt-4">Design systems so &quot;doing the right thing&quot; is the easiest path—because relying on permanent virtue is not an architecture.</p>
+        <p>Implication: budget time for governance, open tooling, public goods funding, and "unsexy" infrastructure.</p>
+        <p className="mt-4">Design systems so "doing the right thing" is the easiest path—because relying on permanent virtue is not an architecture.</p>
       </>
     ),
     questions: (
       <ul className="space-y-2 list-disc list-inside">
         <li>What public goods do you rely on that have no obvious business model?</li>
         <li>When do markets fail to produce the outcome we want?</li>
-        <li>What norms should a &quot;trustless&quot; community enforce, and how?</li>
+        <li>What norms should a "trustless" community enforce, and how?</li>
       </ul>
     ),
   },
@@ -661,7 +661,7 @@ const crossCuttingQuestions = (
     <li>Who benefits most if these systems succeed? Who loses power?</li>
     <li>Are these technologies solving technical problems, social problems, or governance problems?</li>
     <li>What would have to be true for these systems to be widely adopted by people who never think about technology?</li>
-    <li>What does &quot;ownership&quot; mean in a digital world where copying is free?</li>
+    <li>What does "ownership" mean in a digital world where copying is free?</li>
   </ul>
 );
 
