@@ -7,7 +7,7 @@ This is the simplest possible Arkiv app - a message board where messages are sto
 - ✅ **No database** - Messages are stored on Arkiv (decentralized)
 - ✅ **Shared space** - Uses SPACE_ID="ns" so everyone can see all messages
 - ✅ **On-chain** - Each message is a blockchain transaction
-- ✅ **Verifiable** - You can check messages on the explorer
+- ✅ **Verifiable** - You can check messages on the explorer (both entity and transaction views)
 
 ## Setup (2 minutes)
 

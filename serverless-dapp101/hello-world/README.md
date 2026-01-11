@@ -48,7 +48,7 @@ After running this, you can:
 - Customize the message format
 - Add more fields
 - Deploy to Vercel (optional)
-- Explore the explorer to see your transactions
+- Explore the explorer to see your entities and transactions (both views available)
 
 ## Files
 
