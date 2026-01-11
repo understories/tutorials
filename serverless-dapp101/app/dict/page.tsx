@@ -105,7 +105,7 @@ const concepts: Concept[] = [
   },
   {
     id: 'decentralized-databases',
-    title: '2. Decentralized Databases',
+    title: 'Decentralized Databases',
     eli5: (
       <>
         <p>
@@ -150,9 +150,16 @@ const concepts: Concept[] = [
         </ul>
         <p className="mt-4">
           <strong>Important realization:</strong><br />
-          &quot;Decentralized&quot; rarely means &quot;no infrastructure.&quot;<br />
+          "Decentralized" rarely means "no infrastructure."<br />
           It means <strong>replaceable infrastructure</strong>.
         </p>
+        <p className="mt-4">"Decentralized DB" can mean different things:</p>
+        <ul>
+          <li>decentralized <em>availability</em> (data replicated across many nodes)</li>
+          <li>decentralized <em>authorization</em> (who can write)</li>
+          <li>decentralized <em>verification</em> (others can verify correctness)</li>
+          <li>decentralized <em>indexing/querying</em> (harder than it sounds)</li>
+        </ul>
       </>
     ),
     developer: (
@@ -175,6 +182,14 @@ const concepts: Concept[] = [
           A decentralized database is not a drop-in Postgres replacement.<br />
           It is a <strong>different contract with time, trust, and failure</strong>.
         </p>
+        <p className="mt-4">Key engineering questions:</p>
+        <ul>
+          <li>consistency model (eventual? strong? CRDTs?)</li>
+          <li>indexing and query costs (who runs indexers, and can users verify?)</li>
+          <li>access control patterns (public data vs encrypted private data)</li>
+          <li>performance and UX tradeoffs</li>
+        </ul>
+        <p className="mt-4">Practical rule: don&apos;t call it "trustless" unless it passes the manifesto tests (replaceability + verifiability + walkaway).</p>
       </>
     ),
     questions: (
@@ -184,6 +199,9 @@ const concepts: Concept[] = [
         <li>When is it okay for a system to be slower, messier, or harder to use in exchange for resilience?</li>
         <li>Who should be responsible for maintaining shared digital infrastructure: companies, governments, communities, or no one?</li>
         <li>Can you think of a real-world system that already works like a decentralized database?</li>
+        <li>What do you think you gain by decentralizing a database—what do you lose?</li>
+        <li>Where is "eventual consistency" acceptable (or not)?</li>
+        <li>Should everyone be able to read public records by default?</li>
       </ul>
     ),
   },
@@ -541,50 +559,6 @@ const concepts: Concept[] = [
         <li>Where do you see &quot;secret boss keys&quot; in society today?</li>
         <li>What intermediaries feel optional but aren&apos;t?</li>
         <li>What outcomes do you accept on trust today that maybe you shouldn&apos;t?</li>
-      </ul>
-    ),
-  },
-  {
-    id: 'decentralized-databases-manifesto',
-    title: '11. Decentralized Databases (What They Are <em>and</em> What They Aren&apos;t)',
-    eli5: (
-      <>
-        <p>Instead of one library building holding the books, many libraries share copies—and you can check if pages were changed.</p>
-      </>
-    ),
-    builder: (
-      <>
-        <p>A decentralized database tries to avoid a single party being able to erase, edit, or gate access—while still letting apps work.</p>
-      </>
-    ),
-    engineer: (
-      <>
-        <p>&quot;Decentralized DB&quot; can mean different things:</p>
-        <ul>
-          <li>decentralized <em>availability</em> (data replicated across many nodes)</li>
-          <li>decentralized <em>authorization</em> (who can write)</li>
-          <li>decentralized <em>verification</em> (others can verify correctness)</li>
-          <li>decentralized <em>indexing/querying</em> (harder than it sounds)</li>
-        </ul>
-      </>
-    ),
-    developer: (
-      <>
-        <p>Key engineering questions:</p>
-        <ul>
-          <li>consistency model (eventual? strong? CRDTs?)</li>
-          <li>indexing and query costs (who runs indexers, and can users verify?)</li>
-          <li>access control patterns (public data vs encrypted private data)</li>
-          <li>performance and UX tradeoffs</li>
-        </ul>
-        <p className="mt-4">Practical rule: don&apos;t call it &quot;trustless&quot; unless it passes the manifesto tests (replaceability + verifiability + walkaway).</p>
-      </>
-    ),
-    questions: (
-      <ul className="space-y-2 list-disc list-inside">
-        <li>What do you think you gain by decentralizing a database—what do you lose?</li>
-        <li>Where is &quot;eventual consistency&quot; acceptable (or not)?</li>
-        <li>Should everyone be able to read public records by default?</li>
       </ul>
     ),
   },
