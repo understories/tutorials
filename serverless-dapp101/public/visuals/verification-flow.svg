@@ -5,16 +5,16 @@
   <defs>
     <style>
       .step-box { fill: #ffffff; stroke: #3b82f6; stroke-width: 2.5; }
-      .step-number { fill: #3b82f6; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 700; }
+      .step-number { fill: #ffffff; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 700; }
       .step-circle { fill: #3b82f6; stroke: #ffffff; stroke-width: 3; }
-      .arrow { stroke: #3b82f6; stroke-width: 3; fill: none; marker-end: url(#arrowhead-blue); }
+      .arrow { stroke: #3b82f6; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead-blue); }
       .text-label { font-family: system-ui, -apple-system, sans-serif; font-size: 15px; fill: #1f2937; font-weight: 600; }
       .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 22px; fill: #111827; font-weight: 700; text-anchor: middle; }
       .text-subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; fill: #6b7280; font-weight: 400; }
       .shadow { filter: url(#drop-shadow); }
     </style>
-    <marker id="arrowhead-blue" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto" markerUnits="strokeWidth">
-      <polygon points="0 0, 12 6, 0 12" fill="#3b82f6" />
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 10 5, 0 10" fill="#3b82f6" />
     </marker>
     <filter id="drop-shadow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
@@ -36,10 +36,10 @@
   <!-- Step 1: Create Entity -->
   <g id="step-1">
     <circle cx="150" cy="120" r="25" class="step-circle shadow"/>
-    <text x="150" y="128" text-anchor="middle" class="step-number" fill="white">1</text>
+    <text x="150" y="128" text-anchor="middle" class="step-number">1</text>
     <rect x="50" y="160" width="200" height="70" rx="10" class="step-box shadow"/>
-    <text x="150" y="190" text-anchor="middle" class="text-label">Create Entity</text>
-    <text x="150" y="210" text-anchor="middle" class="text-subtitle">Write data to Arkiv</text>
+    <text x="150" y="188" text-anchor="middle" class="text-label">Create Entity</text>
+    <text x="150" y="208" text-anchor="middle" class="text-subtitle">Write data to Arkiv</text>
   </g>
   
   <line x1="150" y1="230" x2="150" y2="260" class="arrow"/>
@@ -47,32 +47,10 @@
   <!-- Step 2: Get Transaction Hash -->
   <g id="step-2">
     <circle cx="150" cy="280" r="25" class="step-circle shadow"/>
-    <text x="150" y="288" text-anchor="middle" class="step-number" fill="white">2</text>
+    <text x="150" y="288" text-anchor="middle" class="step-number">2</text>
     <rect x="50" y="320" width="200" height="70" rx="10" class="step-box shadow"/>
-    <text x="150" y="350" text-anchor="middle" class="text-label">Get Transaction Hash</text>
-    <text x="150" y="370" text-anchor="middle" class="text-subtitle">Unique blockchain identifier</text>
-  </g>
-  
-  <path d="M 250 355 L 400 355 L 400 120" class="arrow"/>
-  
-  <!-- Step 3: Open Explorer -->
-  <g id="step-3">
-    <circle cx="500" cy="120" r="25" class="step-circle shadow"/>
-    <text x="500" y="128" text-anchor="middle" class="step-number" fill="white">3</text>
-    <rect x="400" y="160" width="200" height="70" rx="10" class="step-box shadow"/>
-    <text x="500" y="190" text-anchor="middle" class="text-label">Open Explorer</text>
-    <text x="500" y="210" text-anchor="middle" class="text-subtitle">Navigate to Arkiv explorer</text>
-  </g>
-  
-  <line x1="500" y1="230" x2="500" y2="260" class="arrow"/>
-  
-  <!-- Step 4: Verify Data on Chain -->
-  <g id="step-4">
-    <circle cx="650" cy="280" r="25" class="step-circle shadow"/>
-    <text x="650" y="288" text-anchor="middle" class="step-number" fill="white">4</text>
-    <rect x="550" y="320" width="200" height="70" rx="10" class="step-box shadow"/>
-    <text x="650" y="350" text-anchor="middle" class="text-label">Verify Data on Chain</text>
-    <text x="650" y="370" text-anchor="middle" class="text-subtitle">Confirm transaction exists</text>
+    <text x="150" y="348" text-anchor="middle" class="text-label">Get Transaction Hash</text>
+    <text x="150" y="368" text-anchor="middle" class="text-subtitle">Unique blockchain identifier</text>
   </g>
   
   <!-- Transaction Hash Flow Indicator -->
@@ -80,4 +58,28 @@
     <rect x="260" y="340" width="130" height="30" rx="15" fill="#eff6ff" stroke="#3b82f6" stroke-width="2" stroke-dasharray="3,3"/>
     <text x="325" y="360" text-anchor="middle" class="text-subtitle" fill="#3b82f6" font-weight="600">txHash →</text>
   </g>
+  
+  <path d="M 390 355 L 500 355 L 500 120" class="arrow"/>
+  
+  <!-- Step 3: Open Explorer -->
+  <g id="step-3">
+    <circle cx="500" cy="120" r="25" class="step-circle shadow"/>
+    <text x="500" y="128" text-anchor="middle" class="step-number">3</text>
+    <rect x="400" y="160" width="200" height="70" rx="10" class="step-box shadow"/>
+    <text x="500" y="188" text-anchor="middle" class="text-label">Open Explorer</text>
+    <text x="500" y="208" text-anchor="middle" class="text-subtitle">Navigate to Arkiv explorer</text>
+  </g>
+  
+  <line x1="500" y1="230" x2="500" y2="260" class="arrow"/>
+  
+  <!-- Step 4: Verify Data on Chain -->
+  <g id="step-4">
+    <circle cx="650" cy="280" r="25" class="step-circle shadow"/>
+    <text x="650" y="288" text-anchor="middle" class="step-number">4</text>
+    <rect x="550" y="320" width="200" height="70" rx="10" class="step-box shadow"/>
+    <text x="650" y="348" text-anchor="middle" class="text-label">Verify Data on Chain</text>
+    <text x="650" y="368" text-anchor="middle" class="text-subtitle">Confirm transaction exists</text>
+  </g>
+  
+  <path d="M 500 280 L 625 280" class="arrow"/>
 </svg>

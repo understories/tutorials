@@ -56,9 +56,8 @@ export default function VisualsPage() {
           <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Section 1: The Big Picture</h2>
             <p className="text-lg text-gray-700 mb-6">
-              Before diving into hands-on work, let's understand the fundamental shift from 
-              traditional apps to serverless dapps. These concepts form the foundation for 
-              everything you'll build.
+              Let's understand the fundamental shift from traditional apps to serverless dapps. 
+              These concepts form the foundation for everything you'll build.
             </p>
           </div>
 
@@ -82,10 +81,6 @@ export default function VisualsPage() {
                   data. No vendor lock-in. <em>(Source: Arkiv Litepaper)</em>
                 </p>
               </div>
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>When to use this visual:</strong> Step 1 (Quick Start), Step 8 (Understanding Arkiv), 
-                Step 7 (Walkaway Test)
-              </p>
             </div>
             <VisualAid
               src="/visuals/architecture-comparison.svg"
@@ -114,9 +109,6 @@ export default function VisualsPage() {
                   The query interface feels familiar, but the data lives on-chain.
                 </p>
               </div>
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>When to use this visual:</strong> Step 1 (Quick Start), Step 2 (Fork Setup)
-              </p>
             </div>
             <VisualAid
               src="/visuals/stack-comparison.svg"
@@ -125,7 +117,7 @@ export default function VisualsPage() {
             />
           </div>
 
-          {/* Path Toggle */}
+          {/* Two Paths */}
           <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
             <div className="mb-6">
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">Two Paths, One Destination</h3>
@@ -133,9 +125,9 @@ export default function VisualsPage() {
                 This tutorial offers two paths to build your first Arkiv app. Both lead to the same 
                 result—a working decentralized application.
               </p>
-              <div className="grid md:grid-cols-2 gap-4 mb-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-purple-900 mb-2">🤖 Vibe Path (AI-Assisted)</h4>
+                  <h4 className="font-semibold text-purple-900 mb-2">🤖 AI-Assisted Path</h4>
                   <p className="text-sm text-purple-800">
                     Use AI coding assistants (Cursor, Copilot, Claude) with provided prompts. 
                     Faster if you're comfortable with AI tools.
@@ -148,15 +140,7 @@ export default function VisualsPage() {
                   </p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>When to use this visual:</strong> Throughout the tutorial, Step 1 (Quick Start)
-              </p>
             </div>
-            <VisualAid
-              src="/visuals/path-toggle.svg"
-              alt="Two parallel development paths: an AI-assisted path and a manual tutorial path, both leading to a working application."
-              className="mb-0"
-            />
           </div>
 
           {/* Concept Bridges */}
@@ -188,9 +172,6 @@ export default function VisualsPage() {
                   <li>True data independence (walkaway test)</li>
                 </ul>
               </div>
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>When to use this visual:</strong> Step 1 (Quick Start), Step 8 (Understanding Arkiv)
-              </p>
             </div>
             <VisualAid
               src="/visuals/concept-bridges.svg"
@@ -235,9 +216,6 @@ export default function VisualsPage() {
                   need to refresh to see new data. <em>(Source: Arkiv Litepaper - Indexer Architecture)</em>
                 </p>
               </div>
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>When to use this visual:</strong> Step 5 (Create First Record), Step 6 (Verify on Explorer)
-              </p>
             </div>
             <VisualAid
               src="/visuals/data-flow-write.svg"
@@ -267,9 +245,6 @@ export default function VisualsPage() {
                   like indexed database columns. <em>(Source: Arkiv Litepaper - Query Interface)</em>
                 </p>
               </div>
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>When to use this visual:</strong> Step 5 (Create First Record), Step 8 (Understanding Arkiv)
-              </p>
             </div>
             <VisualAid
               src="/visuals/data-flow-read.svg"
@@ -309,9 +284,6 @@ export default function VisualsPage() {
                   <em>(Source: Arkiv Litepaper - Entity Model)</em>
                 </p>
               </div>
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>When to use this visual:</strong> Step 5 (Create First Record), Step 8 (Understanding Arkiv)
-              </p>
             </div>
             <VisualAid
               src="/visuals/entity-structure.svg"
@@ -356,9 +328,6 @@ export default function VisualsPage() {
                   true decentralization. <em>(Source: Arkiv Litepaper - Data Persistence)</em>
                 </p>
               </div>
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>When to use this visual:</strong> Step 7 (Walkaway Test)
-              </p>
             </div>
             <VisualAid
               src="/visuals/walkaway-test.svg"
@@ -390,9 +359,6 @@ export default function VisualsPage() {
                   <em>(Source: Arkiv Litepaper - Blockchain Verification)</em>
                 </p>
               </div>
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>When to use this visual:</strong> Step 6 (Verify on Explorer)
-              </p>
             </div>
             <VisualAid
               src="/visuals/verification-flow.svg"

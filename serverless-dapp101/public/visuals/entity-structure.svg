@@ -8,7 +8,7 @@
       .section-header { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
       .section-content { fill: #ffffff; stroke: #e5e7eb; stroke-width: 1.5; }
       .text-label { font-family: system-ui, -apple-system, sans-serif; font-size: 15px; fill: #1f2937; font-weight: 600; }
-      .text-content { font-family: 'Courier New', monospace; font-size: 13px; fill: #374151; }
+      .text-content { font-family: 'Courier New', monospace; font-size: 12px; fill: #374151; }
       .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 22px; fill: #111827; font-weight: 700; text-anchor: middle; }
       .shadow { filter: url(#drop-shadow); }
     </style>
@@ -32,23 +32,23 @@
   
   <!-- Entity Key Section -->
   <rect x="70" y="80" width="410" height="60" rx="6" class="section-header"/>
-  <text x="275" y="110" text-anchor="middle" class="text-label">Entity Key (unique ID)</text>
-  <text x="275" y="130" text-anchor="middle" class="text-content">e.g., "record:0x1234..."</text>
+  <text x="275" y="108" text-anchor="middle" class="text-label">Entity Key (unique ID)</text>
+  <text x="275" y="128" text-anchor="middle" class="text-content">e.g., "record:0x1234..."</text>
   
   <!-- Attributes Section -->
   <rect x="70" y="160" width="410" height="110" rx="6" class="section-content"/>
-  <text x="90" y="185" class="text-label">Attributes (queryable)</text>
-  <text x="100" y="210" class="text-content">• type: "record"</text>
-  <text x="100" y="235" class="text-content">• wallet: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"</text>
-  <text x="100" y="255" class="text-content">• spaceId: "ns"</text>
+  <text x="85" y="183" class="text-label">Attributes (queryable)</text>
+  <text x="95" y="208" class="text-content">• type: "record"</text>
+  <text x="95" y="233" class="text-content">• wallet: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"</text>
+  <text x="95" y="253" class="text-content">• spaceId: "ns"</text>
   
   <!-- Payload Section -->
   <rect x="70" y="290" width="410" height="70" rx="6" class="section-content"/>
-  <text x="90" y="320" class="text-label">Payload (content)</text>
-  <text x="100" y="345" class="text-content">{ "message": "Hello, Arkiv!", "timestamp": 1234567890 }</text>
+  <text x="85" y="318" class="text-label">Payload (content)</text>
+  <text x="95" y="343" class="text-content">{ "message": "Hello, Arkiv!", "timestamp": 1234567890 }</text>
   
   <!-- Transaction Hash Section -->
   <rect x="70" y="380" width="410" height="30" rx="6" class="section-content"/>
-  <text x="90" y="400" class="text-label">Transaction Hash</text>
-  <text x="300" y="400" class="text-content" fill="#6b7280">(verification proof)</text>
+  <text x="85" y="398" class="text-label">Transaction Hash</text>
+  <text x="300" y="398" class="text-content" fill="#6b7280">(verification proof)</text>
 </svg>
