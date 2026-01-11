@@ -4,6 +4,7 @@ import { ProgressProvider } from '../components/ProgressProvider';
 import { GitHubLink } from '../components/GitHubLink';
 import { LearnLink } from '../components/LearnLink';
 import { HomeLink } from '../components/HomeLink';
+import { SecurityLink } from '../components/SecurityLink';
 import './globals.css';
 
 export default function WorkshopTutorialLayout({
@@ -16,6 +17,7 @@ export default function WorkshopTutorialLayout({
       <body>
         <ProgressProvider>
           <HomeLink />
+          <SecurityLink />
           <LearnLink />
           <GitHubLink />
           {children}
