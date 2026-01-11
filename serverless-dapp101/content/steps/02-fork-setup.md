@@ -28,8 +28,8 @@ This visual shows how Arkiv fits into the familiar development stack. Instead of
 I'm at step 2: Fork Template & Generate Wallet.
 
 Help me:
-1. Fork the arkiv-nextjs-starter repository on GitHub
-2. Clone it locally
+1. Fork the arkiv-hello-world repository on GitHub: https://github.com/understories/arkiv-hello-world
+2. Clone it locally using: git clone https://github.com/YOUR_USERNAME/arkiv-hello-world.git
 3. Generate a new wallet for Arkiv testnet (Mendoza) using the official Arkiv Getting Started guide at https://arkiv.network/getting-started/typescript
 4. Copy my wallet address and private key from the interactive account generator
 5. Get testnet tokens from the Mendoza faucet at https://mendoza.hoodi.arkiv.network/faucet/ (complete CAPTCHA and wait for tokens)
@@ -43,17 +43,21 @@ Provide clear, step-by-step instructions and emphasize using the official Arkiv 
 
 ### Step 2.1: Fork the Starter Template
 
-1. Go to the starter template repository
+1. Go to the [starter template repository](https://github.com/understories/arkiv-hello-world)
 2. Click "Fork" in the top right
 3. Choose your GitHub account
 4. Wait for the fork to complete
 
 ### Step 2.2: Clone Locally
 
+After forking, clone your fork locally:
+
 ```bash
-git clone https://github.com/YOUR_USERNAME/arkiv-nextjs-starter.git
-cd arkiv-nextjs-starter
+git clone https://github.com/YOUR_USERNAME/arkiv-hello-world.git
+cd arkiv-hello-world
 ```
+
+**Note:** Replace `YOUR_USERNAME` with your GitHub username. The source repository is at [https://github.com/understories/arkiv-hello-world](https://github.com/understories/arkiv-hello-world).
 
 ### Step 2.3: Generate Your Wallet
 
