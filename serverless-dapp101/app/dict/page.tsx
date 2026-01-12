@@ -673,6 +673,463 @@ const concepts: Concept[] = [
       </ul>
     ),
   },
+  {
+    id: 'serverless-nextjs-vercel',
+    title: '"Serverless" Next.js on Vercel: not "no server," "no server you manage"',
+    eli5: (
+      <>
+        <p>A &quot;serverless&quot; website is like a restaurant that doesn&apos;t own a kitchen. When someone orders food, a kitchen appears, cooks the dish, then disappears. You still get food. You just don&apos;t run the kitchen.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>A Next.js app on Vercel can feel like a static website (docs pages), but it&apos;s not automatically &quot;no server.&quot; It&apos;s a blend:</p>
+        <ul>
+          <li>Some pages are <strong>prebuilt</strong> and served from a CDN (no code runs per visit).</li>
+          <li>Some pages run <strong>code on demand</strong> (auth checks, personalization, &quot;fetch then render&quot;).</li>
+          <li>API routes and middleware are <strong>server code</strong>, just packaged as platform functions.</li>
+        </ul>
+        <p className="mt-4">So &quot;serverless apps&quot; + decentralized data (Arkiv) doesn&apos;t remove server-like responsibilities—it <strong>moves them</strong> into functions, middleware, and client logic.</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>Where the &quot;server&quot; exists in Next.js/Vercel:</p>
+        <ol className="list-decimal list-inside space-y-2">
+          <li><strong>Static content (SSG)</strong><br />Prebuilt HTML/JS served via CDN. No per-request compute.</li>
+          <li><strong>Dynamic rendering (SSR / dynamic routes)</strong><br />Per-request logic runs on Vercel as:</li>
+        </ol>
+        <ul className="ml-6 list-disc list-inside">
+          <li><strong>Serverless Functions</strong> (Node runtime), and/or</li>
+          <li><strong>Edge Functions / Middleware</strong> (lighter runtime near the user)</li>
+        </ul>
+        <ol className="list-decimal list-inside space-y-2 mt-4" start={3}>
+          <li><strong>API endpoints</strong><br />Next.js API Routes / Route Handlers compile into serverless/edge functions.</li>
+          <li><strong>Middleware</strong><br />Runs <em>before</em> requests complete: rewrites, auth gating, routing decisions, etc.</li>
+        </ol>
+        <p className="mt-4">Why &quot;server logic&quot; still matters even with no central DB:</p>
+        <ul>
+          <li>Secrets/private keys (anything you can&apos;t ship to the browser)</li>
+          <li>Auth/session handling (e.g., SIWE verification, secure cookies)</li>
+          <li>Abuse controls (rate limiting, validation)</li>
+          <li>Aggregation/proxying (third-party APIs without exposing keys)</li>
+          <li>Performance (heavier compute off the client)</li>
+        </ul>
+        <p className="mt-4">Net model:</p>
+        <p><strong>Client ↔ CDN/static assets</strong></p>
+        <ul className="ml-6 list-disc list-inside">
+          <li>(optional) <strong>Client ↔ serverless/edge functions</strong></li>
+          <li><strong>Client/serverless ↔ Arkiv</strong></li>
+        </ul>
+      </>
+    ),
+    developer: (
+      <>
+        <p>A practical mental model for architecture decisions:</p>
+        <ul>
+          <li>If it&apos;s <strong>public + cacheable</strong> → make it static (CDN wins).</li>
+          <li>If it needs <strong>secrets, trust boundaries, or privileged operations</strong> → a function exists (serverless/edge).</li>
+          <li>If it needs <strong>custom request control</strong> → route handlers / middleware exist.</li>
+        </ul>
+        <p className="mt-4">Implication for &quot;walkaway&quot; thinking:</p>
+        <p>&quot;Serverless&quot; reduces ops burden, but it can still create <strong>platform chokepoints</strong> (build pipeline, function runtime availability, edge routing). Treat those like any other dependency: document them, reduce them, and design escape hatches.</p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>When you hear &quot;serverless,&quot; what do you assume is <em>gone</em>—and what is actually just hidden?</li>
+        <li>Which parts of an app should be static forever, and which parts genuinely need runtime logic?</li>
+        <li>What kinds of features <em>force</em> you to have server-side code (even if your data is decentralized)?</li>
+        <li>Is &quot;no server you manage&quot; good enough for the walkaway test, or does it still feel like a platform dependency?</li>
+        <li>If Vercel vanished tomorrow, what would you need to rebuild first: the frontend hosting, the function layer, or the indexing/caching layer?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'truly-fully-serverless',
+    title: 'Truly Fully Serverless Apps',
+    eli5: (
+      <>
+        <p>A &quot;truly fully serverless&quot; app is like a game that anyone can play, even if the people who made it disappear.</p>
+        <p>You don&apos;t need their special server. You just need the game rules (which are public) and your own game pieces (your keys).</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>A &quot;truly fully serverless&quot; app means: <strong>no privileged backend you control is required for the app to function</strong>. Users can load a client and interact with the system using their own keys, and the system&apos;s state lives on infrastructure that&apos;s <strong>public, replaceable, and verifiable</strong>.</p>
+        <p className="mt-4">That&apos;s a harsh bar. You can get close, but you have to be explicit about what &quot;counts as a server.&quot;</p>
+        <p className="mt-4">A crisp definition (useful in design reviews):</p>
+        <p>A system is &quot;fully serverless&quot; if:</p>
+        <ol className="list-decimal list-inside space-y-2">
+          <li><strong>Any user can obtain a client</strong> without your infrastructure,</li>
+          <li><strong>Users can read and write</strong> without your servers,</li>
+          <li><strong>No privileged operator secrets</strong> are required,</li>
+          <li><strong>Core functions remain possible</strong> if your org disappears.</li>
+        </ol>
+        <p className="mt-4">If any of those fail, it&apos;s not &quot;fully serverless,&quot; it&apos;s &quot;server-minimized.&quot;</p>
+      </>
+    ),
+    engineer: (
+      <>
+        <p>What &quot;fully serverless&quot; would require:</p>
+        <ol className="list-decimal list-inside space-y-4">
+          <li>
+            <strong>Static, mirrorable client distribution</strong>
+            <ul className="ml-6 mt-2 list-disc list-inside">
+              <li>The UI is just files (HTML/JS/CSS) that can be hosted anywhere: IPFS/Swarm, any CDN, even copied on a USB stick.</li>
+              <li>Builds should be reproducible so others can publish the same bytes (same content hash).</li>
+              <li>No dependency on a single domain for &quot;critical path&quot; (multiple gateways/hosts).</li>
+            </ul>
+          </li>
+          <li>
+            <strong>User-owned identity and signing</strong>
+            <ul className="ml-6 mt-2 list-disc list-inside">
+              <li>Users hold keys (wallet or passkey-backed keys).</li>
+              <li>All writes are <strong>user-signed</strong>; no &quot;backend signs on behalf of users.&quot;</li>
+              <li>Recovery has to avoid &quot;critical secrets&quot; held by an operator (or be clearly optional).</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Public, verifiable data layer</strong>
+            <p className="ml-6 mt-2">You need a storage/state system that doesn&apos;t require your server to:</p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>persist data,</li>
+              <li>enforce permissions,</li>
+              <li>or compute &quot;what&apos;s true.&quot;</li>
+            </ul>
+            <p className="ml-6 mt-2">Options (often mixed):</p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>On-chain state (max verifiable, expensive, limited)</li>
+              <li>Decentralized record systems (append-only logs, verifiable events)</li>
+              <li>Content-addressed storage (IPFS/Swarm) for blobs + snapshots</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Replaceable indexing and search</strong>
+            <p className="ml-6 mt-2">This is the big hidden server.</p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Raw decentralized data is often hard to query.</li>
+              <li>If you rely on a single indexer/search API, you reintroduce a chokepoint.</li>
+            </ul>
+            <p className="ml-6 mt-2">So you need either:</p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>client-side querying (limited, but real), or</li>
+              <li>multiple independent indexers with verifiable results, or</li>
+              <li>a protocol-level indexing story (hard), or</li>
+              <li>&quot;good enough&quot; patterns: deterministic snapshots + verify-by-hash.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>No secrets required for core functionality</strong>
+            <p className="ml-6 mt-2">If your app needs:</p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>API keys,</li>
+              <li>private signing keys,</li>
+              <li>proprietary anti-abuse rules,</li>
+              <li>privileged admin actions,</li>
+            </ul>
+            <p className="ml-6 mt-2">then it&apos;s not fully serverless in the strict sense.</p>
+            <p className="ml-6 mt-2">You can still have optional convenience services, but users must be able to route around them.</p>
+          </li>
+          <li>
+            <strong>Anti-abuse without a gatekeeper</strong>
+            <p className="ml-6 mt-2">Spam and botting are where &quot;no server&quot; fantasies go to die.</p>
+            <p className="ml-6 mt-2">Serverless approaches include:</p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>fees (micro-payments, staking, burn)</li>
+              <li>rate limits enforced by the protocol (per-identity/per-resource)</li>
+              <li>proof-of-personhood / attestations (with all the tradeoffs)</li>
+              <li>local-first social moderation (clients choose filters; no global censor)</li>
+            </ul>
+            <p className="ml-6 mt-2">You&apos;re basically replacing &quot;backend moderation&quot; with &quot;protocol economics + client policy.&quot;</p>
+          </li>
+          <li>
+            <strong>Upgrades without an admin god-mode</strong>
+            <p className="ml-6 mt-2">You need a governance/upgrade path that doesn&apos;t rely on you pushing silent changes:</p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>versioned clients</li>
+              <li>explicit migration tools</li>
+              <li>backward-compatible schemas</li>
+              <li>users can keep using old clients, or community can ship new ones</li>
+            </ul>
+          </li>
+        </ol>
+      </>
+    ),
+    developer: (
+      <>
+        <p>What this looks like as an architecture:</p>
+        <ul>
+          <li><strong>Client</strong> (static bundle) hosted on IPFS/Swarm + mirrors</li>
+          <li><strong>Identity</strong> via user keys (wallet/passkey)</li>
+          <li><strong>State</strong> via Arkiv / chain / verifiable log</li>
+          <li><strong>Assets</strong> via content-addressed storage</li>
+          <li><strong>Indexing</strong> via multiple community-run indexers (optional) + client verification</li>
+          <li><strong>Convenience services</strong> (optional): caching, push notifications, fiat onramps</li>
+        </ul>
+        <p className="mt-4">The honest catch:</p>
+        <p>The hardest parts to make truly serverless are:</p>
+        <ul>
+          <li>fast search and feeds,</li>
+          <li>push notifications,</li>
+          <li>spam/abuse handling,</li>
+          <li>UX-friendly recovery,</li>
+          <li>and &quot;normal&quot; performance without central caches.</li>
+        </ul>
+        <p className="mt-4">You can still do it, but you&apos;ll make tradeoffs: slower, more complex clients, or heavier protocol constraints.</p>
+        <p className="mt-4">A practical target you can actually ship:</p>
+        <p>Aim for: <strong>&quot;Walkaway-safe serverless.&quot;</strong></p>
+        <ul>
+          <li>Your Vercel functions exist only for convenience (caching/proxying)</li>
+          <li>The app remains usable without them</li>
+          <li>Multiple frontends can exist</li>
+          <li>Data is verifiable and portable</li>
+        </ul>
+        <p className="mt-4">That&apos;s the sweet spot: maximum resilience without requiring every user to run a node on a laptop from 2009.</p>
+        <p className="mt-4 italic">
+          If you want, you can translate this into a checklist you can run against any feature (&quot;does this introduce a chokepoint?&quot;), aligned with the trustless/walkaway requirements you&apos;re using elsewhere.
+        </p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>What&apos;s the difference between &quot;serverless&quot; and &quot;truly fully serverless&quot;?</li>
+        <li>Which of the seven requirements feels hardest to achieve in practice?</li>
+        <li>Is &quot;walkaway-safe serverless&quot; a reasonable compromise, or should we aim for the full bar?</li>
+        <li>What features would you be willing to give up to achieve true serverlessness?</li>
+        <li>How do you handle spam and abuse in a system with no gatekeeper?</li>
+        <li>Can you think of any apps today that are &quot;truly fully serverless&quot;? What makes them so?</li>
+        <li>What would break first if you tried to make your current app fully serverless?</li>
+        <li>Is indexing/search the biggest hidden server in most decentralized apps?</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'real-world-serverless-examples',
+    title: 'Real-World Examples of Serverless Systems',
+    eli5: (
+      <>
+        <p>Short answer: <strong>yes, but only in pieces</strong>.</p>
+        <p>There are <strong>real systems in production</strong> that meet most of the &quot;fully serverless / walkaway-safe&quot; criteria—but no mainstream app yet that hits <em>every</em> requirement without tradeoffs.</p>
+        <p>Reality is lumpy. That&apos;s instructive.</p>
+      </>
+    ),
+    builder: (
+      <>
+        <p>Below are <strong>real-world examples</strong>, grouped by <em>what part of the problem they actually solved</em>, with clear notes on where servers still sneak back in.</p>
+        <p className="mt-4">A realistic definition (based on real examples):</p>
+        <p>A system counts as <strong>successfully serverless</strong> if:</p>
+        <ul>
+          <li>The original operators disappear</li>
+          <li>Users can still read their data</li>
+          <li>Writes are still possible somewhere</li>
+          <li>New clients can be built independently</li>
+        </ul>
+        <p className="mt-4">By that definition:</p>
+        <ul>
+          <li>Bitcoin: ✅</li>
+          <li>Ethereum (protocol): ✅</li>
+          <li>Many Ethereum apps: ❌</li>
+          <li>Nostr: ✅ (with caveats)</li>
+          <li>Typical Web2 apps: ❌❌❌</li>
+        </ul>
+      </>
+    ),
+    engineer: (
+      <>
+        <ol className="list-decimal list-inside space-y-6">
+          <li>
+            <strong>BitTorrent (the original &quot;walkaway-safe&quot; app)</strong>
+            <p className="mt-2"><strong>What it got right:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>No central server required to function</li>
+              <li>Clients discover each other directly</li>
+              <li>Data addressed by content hashes</li>
+              <li>If the original site disappears, files still circulate</li>
+            </ul>
+            <p className="mt-2"><strong>What it didn&apos;t solve:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Search and discovery (people relied on centralized index sites)</li>
+              <li>Incentives for long-term persistence</li>
+              <li>UX beyond power users</li>
+            </ul>
+            <p className="mt-2 italic">Lesson: Core protocol: serverless | Ecosystem: recentralized around convenience</p>
+          </li>
+          <li>
+            <strong>Bitcoin</strong>
+            <p className="mt-2"><strong>What it got right:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>No servers you need permission from</li>
+              <li>Anyone can run a node</li>
+              <li>Fully verifiable state</li>
+              <li>Walkaway test passed repeatedly (forks, hostile governments, founder disappearance)</li>
+            </ul>
+            <p className="mt-2"><strong>What it didn&apos;t solve:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Rich application logic</li>
+              <li>Cheap or expressive state</li>
+              <li>User-friendly clients without trusted infrastructure</li>
+            </ul>
+            <p className="mt-2 italic">Lesson: Maximum trustlessness trades away UX and flexibility</p>
+          </li>
+          <li>
+            <strong>Ethereum (base layer)</strong>
+            <p className="mt-2"><strong>What it got right:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Shared global state</li>
+              <li>Deterministic execution</li>
+              <li>Permissionless deployment</li>
+              <li>Anyone can rebuild tooling</li>
+            </ul>
+            <p className="mt-2"><strong>Where servers creep in:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Most users rely on hosted RPC providers</li>
+              <li>Indexing is usually centralized</li>
+              <li>Frontends are often hosted traditionally</li>
+            </ul>
+            <p className="mt-2 italic">Lesson: The protocol is serverless; applications often are not</p>
+          </li>
+          <li>
+            <strong>IPFS (content-addressed storage)</strong>
+            <p className="mt-2"><strong>What it got right:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Files addressed by hash, not location</li>
+              <li>Anyone can host content</li>
+              <li>Static sites can be fully mirrorable</li>
+            </ul>
+            <p className="mt-2"><strong>Where it falls short:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Availability is not guaranteed by default</li>
+              <li>&quot;Pinning&quot; often relies on paid services</li>
+              <li>Gateways become chokepoints</li>
+            </ul>
+            <p className="mt-2 italic">Lesson: Storage can be serverless; persistence still needs incentives</p>
+          </li>
+          <li>
+            <strong>Secure Scuttlebutt (SSB)</strong>
+            <p className="mt-2"><strong>What it got right:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Peer-to-peer social network</li>
+              <li>Data replicated directly between peers</li>
+              <li>Offline-first</li>
+              <li>No central servers required</li>
+            </ul>
+            <p className="mt-2"><strong>Why it didn&apos;t go mainstream:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Hard onboarding</li>
+              <li>Limited discovery</li>
+              <li>Performance constraints</li>
+              <li>Social moderation is complex without central authority</li>
+            </ul>
+            <p className="mt-2 italic">Lesson: Serverless social apps are possible, but socially expensive</p>
+          </li>
+          <li>
+            <strong>Nostr</strong>
+            <p className="mt-2"><strong>What it got right:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Simple protocol</li>
+              <li>User-owned keys</li>
+              <li>Anyone can run a relay</li>
+              <li>Clients can switch relays freely</li>
+            </ul>
+            <p className="mt-2"><strong>Where it compromises:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Relays are servers (but replaceable)</li>
+              <li>Moderation is client-side</li>
+              <li>Spam is an ongoing problem</li>
+            </ul>
+            <p className="mt-2 italic">Lesson: Replaceable servers are compatible with serverlessness</p>
+          </li>
+          <li>
+            <strong>Mastodon / ActivityPub (federation)</strong>
+            <p className="mt-2"><strong>What it got right:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>No single owner</li>
+              <li>Users can migrate between servers</li>
+              <li>Protocol-level interoperability</li>
+            </ul>
+            <p className="mt-2"><strong>Where it falls short:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Users depend on specific instances</li>
+              <li>Admins still have significant power</li>
+              <li>Migration is non-trivial</li>
+            </ul>
+            <p className="mt-2 italic">Lesson: Federation reduces centralization, but doesn&apos;t eliminate servers</p>
+          </li>
+          <li>
+            <strong>ENS + static frontends (real pattern today)</strong>
+            <p className="mt-2"><strong>What actually happens:</strong></p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>Frontend hosted on IPFS/Swarm</li>
+              <li>Name resolution via ENS</li>
+              <li>Data on-chain or decentralized storage</li>
+              <li>Optional hosted indexers</li>
+            </ul>
+            <p className="mt-2">If the original team disappears:</p>
+            <ul className="ml-6 list-disc list-inside">
+              <li>The site can still be loaded</li>
+              <li>Data can still be read</li>
+              <li>Another frontend can be built</li>
+            </ul>
+            <p className="mt-2 italic">Lesson: &quot;Serverless enough&quot; is already achievable for many use cases</p>
+          </li>
+        </ol>
+      </>
+    ),
+    developer: (
+      <>
+        <p>The honest synthesis:</p>
+        <p className="mt-4"><strong>Systems that are <em>truly</em> serverless exist:</strong></p>
+        <ul>
+          <li>BitTorrent</li>
+          <li>Bitcoin</li>
+          <li>Low-level protocols</li>
+        </ul>
+        <p className="mt-4"><strong>Systems that are <em>usable</em> exist:</strong></p>
+        <ul>
+          <li>Ethereum apps with serverless cores</li>
+          <li>Nostr</li>
+          <li>ENS + IPFS frontends</li>
+        </ul>
+        <p className="mt-4"><strong>What no one has fully solved yet:</strong></p>
+        <ul>
+          <li>Fast, global search without trusted indexers</li>
+          <li>Spam-resistant social apps without moderation authorities</li>
+          <li>Push notifications without servers</li>
+          <li>Mass-market UX without convenience infrastructure</li>
+        </ul>
+        <p className="mt-4">Why this matters for your work:</p>
+        <p>You are not trying to invent something that has <em>never</em> existed.</p>
+        <p>You are trying to <strong>compose known working pieces</strong> into something that:</p>
+        <ul>
+          <li>normal users can tolerate,</li>
+          <li>builders can fork,</li>
+          <li>and institutions can&apos;t quietly capture.</li>
+        </ul>
+        <p className="mt-4">That&apos;s a harder problem than &quot;no servers.&quot;</p>
+        <p>It&apos;s the problem of <strong>durable freedom under real constraints</strong>.</p>
+        <p className="mt-4 italic">
+          If you want, the next useful move is to map <strong>your current architecture</strong> against these examples and explicitly say:
+        </p>
+        <blockquote className="border-l-4 border-purple-400 pl-4 italic mt-2">
+          &quot;We are BitTorrent-like here, Ethereum-like here, and Web2-like here—and here&apos;s why.&quot;
+        </blockquote>
+        <p className="mt-4">That level of honesty is rare—and powerful.</p>
+      </>
+    ),
+    questions: (
+      <ul className="space-y-2 list-disc list-inside">
+        <li>Which of these examples surprised you most? Why?</li>
+        <li>What patterns do you see across the examples that &quot;got it right&quot;?</li>
+        <li>Why do you think BitTorrent succeeded where SSB didn&apos;t go mainstream?</li>
+        <li>Is &quot;serverless enough&quot; a reasonable goal, or should we aim for the full bar?</li>
+        <li>What would it take for a truly serverless social app to reach mass adoption?</li>
+        <li>How do you map your current architecture against these examples?</li>
+        <li>Which unsolved problems (search, spam, notifications) feel most urgent to you?</li>
+        <li>What can we learn from systems that passed the walkaway test repeatedly?</li>
+      </ul>
+    ),
+  },
 ];
 
 const crossCuttingQuestions = (
