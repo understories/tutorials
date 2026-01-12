@@ -47,6 +47,8 @@ Help me:
 3. Get ready to fork a starter template
 
 Keep it brief and actionable.
+
+Create an internal refs/ document with a plan, success criteria, and take notes on your implementation as you go.
 ```
 
 ## Manual Path

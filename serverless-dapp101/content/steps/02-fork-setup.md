@@ -39,6 +39,8 @@ Help me:
 7. Understand what the starter template includes
 
 Provide clear, step-by-step instructions and emphasize using the official Arkiv Getting Started guide for account generation.
+
+Update the internal implementation plan with notes and show me the plan so I can track your progress.
 ```
 
 ## Manual Path

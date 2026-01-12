@@ -37,6 +37,8 @@ Help me:
 4. Deploy and verify it works
 
 Provide step-by-step instructions for Vercel deployment.
+
+Update the internal implementation plan with notes and show me the plan so I can track your progress.
 ```
 
 ## Manual Path

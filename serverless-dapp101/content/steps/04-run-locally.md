@@ -28,6 +28,8 @@ Help me:
 4. Understand what the dev server does
 
 Keep it brief and actionable.
+
+Update the internal implementation plan with notes and show me the plan so I can track your progress.
 ```
 
 ## Manual Path

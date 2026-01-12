@@ -33,6 +33,8 @@ Help me:
 4. Understand why we keep these values secret
 
 Provide clear instructions and explain security best practices.
+
+Update the internal implementation plan with notes and show me the plan so I can track your progress.
 ```
 
 ## Manual Path

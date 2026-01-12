@@ -187,6 +187,8 @@ Help me understand:
 5. Why indexer lag happens
 
 Provide clear explanations with examples from the code we've been using.
+
+Update the internal implementation plan with notes and show me the plan so I can track your progress.
 ```
 
 ## Manual Path

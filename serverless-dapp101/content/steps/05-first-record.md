@@ -46,6 +46,8 @@ Help me:
 4. Verify my message appears in the list
 
 Explain the transaction flow and indexer lag.
+
+Update the internal implementation plan with notes and show me the plan so I can track your progress.
 ```
 
 ## Manual Path

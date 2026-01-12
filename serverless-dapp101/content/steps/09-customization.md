@@ -43,6 +43,8 @@ Help me:
 4. Update queries if needed
 
 Provide code examples and explain the changes.
+
+Update the internal implementation plan with notes and show me the plan so I can track your progress.
 ```
 
 ## Manual Path

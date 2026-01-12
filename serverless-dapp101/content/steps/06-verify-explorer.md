@@ -52,6 +52,8 @@ Help me:
 4. Explain what makes this verification important
 
 Explain blockchain transparency and on-chain verification.
+
+Update the internal implementation plan with notes and show me the plan so I can track your progress.
 ```
 
 ## Manual Path
