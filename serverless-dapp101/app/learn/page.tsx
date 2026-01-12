@@ -199,6 +199,81 @@ export default function VisualsPage() {
           </div>
         </div>
 
+        {/* Key Takeaways: Serverless Systems */}
+        <div className="mb-16">
+          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Key Takeaways: What Makes a System Serverless</h2>
+            <p className="text-lg text-gray-700 mb-6">
+              Understanding the difference between "serverless" and "truly fully serverless" helps you make better architecture decisions.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">"Serverless" Next.js on Vercel</h3>
+            <p className="text-gray-700 mb-4">
+              A "serverless" website is like a restaurant that doesn't own a kitchen. When someone orders food, a kitchen appears, cooks the dish, then disappears. You still get food. You just don't run the kitchen.
+            </p>
+            <p className="text-gray-700 mb-4">
+              A Next.js app on Vercel can feel like a static website, but it's not automatically "no server." It's a blend:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4 ml-4">
+              <li>Some pages are <strong>prebuilt</strong> and served from a CDN (no code runs per visit)</li>
+              <li>Some pages run <strong>code on demand</strong> (auth checks, personalization, "fetch then render")</li>
+              <li>API routes and middleware are <strong>server code</strong>, just packaged as platform functions</li>
+            </ul>
+            <p className="text-gray-700">
+              So "serverless apps" plus decentralized data (Arkiv) doesn't remove server-like responsibilities. It <strong>moves them</strong> into functions, middleware, and client logic.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">Truly Fully Serverless Apps</h3>
+            <p className="text-gray-700 mb-4">
+              A "truly fully serverless" app means: <strong>no privileged backend you control is required for the app to function</strong>. Users can load a client and interact with the system using their own keys, and the system's state lives on infrastructure that's <strong>public, replaceable, and verifiable</strong>.
+            </p>
+            <p className="text-gray-700 mb-4">
+              A system is "fully serverless" if:
+            </p>
+            <ol className="list-decimal list-inside text-gray-700 space-y-2 mb-4 ml-4">
+              <li><strong>Any user can obtain a client</strong> without your infrastructure</li>
+              <li><strong>Users can read and write</strong> without your servers</li>
+              <li><strong>No privileged operator secrets</strong> are required</li>
+              <li><strong>Core functions remain possible</strong> if your org disappears</li>
+            </ol>
+            <p className="text-gray-700 mb-4">
+              If any of those fail, it's not "fully serverless," it's "server-minimized."
+            </p>
+            <p className="text-gray-700">
+              A practical target you can actually ship: <strong>"Walkaway-safe serverless."</strong> Your Vercel functions exist only for convenience (caching/proxying). The app remains usable without them. Multiple frontends can exist. Data is verifiable and portable.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">Real-World Examples</h3>
+            <p className="text-gray-700 mb-4">
+              Real systems in production meet most of the "fully serverless / walkaway-safe" criteria, but no mainstream app yet hits every requirement without tradeoffs. Reality is lumpy. That's instructive.
+            </p>
+            <p className="text-gray-700 mb-4">
+              Systems that are <strong>truly serverless</strong> exist: BitTorrent, Bitcoin, low-level protocols.
+            </p>
+            <p className="text-gray-700 mb-4">
+              Systems that are <strong>usable</strong> exist: Ethereum apps with serverless cores, Nostr, ENS plus IPFS frontends.
+            </p>
+            <p className="text-gray-700 mb-4">
+              What no one has fully solved yet:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4 ml-4">
+              <li>Fast, global search without trusted indexers</li>
+              <li>Spam-resistant social apps without moderation authorities</li>
+              <li>Push notifications without servers</li>
+              <li>Mass-market UX without convenience infrastructure</li>
+            </ul>
+            <p className="text-gray-700">
+              You are not trying to invent something that has never existed. You are trying to <strong>compose known working pieces</strong> into something that normal users can tolerate, builders can fork, and institutions can't quietly capture. That's a harder problem than "no servers." It's the problem of <strong>durable freedom under real constraints</strong>.
+            </p>
+          </div>
+        </div>
+
         {/* Section 2: Hands-On Experience */}
         <div className="mb-16">
           <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
