@@ -21,7 +21,7 @@ For this tutorial, you need:
 
 Your private key is like a password - if someone has it, they can sign transactions as you. That's why `.env` files are never committed to git.
 
-## Vibe Path (AI-Assisted)
+## AI-Assisted Path
 
 ```prompt
 I'm at step 3: Set Environment Variables.

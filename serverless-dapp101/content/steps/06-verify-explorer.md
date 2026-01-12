@@ -40,7 +40,7 @@ This shows how your write operation flows through to blockchain confirmation. On
 
 This step-by-step flow shows how to use a transaction hash to verify data on the blockchain using the Arkiv explorer. Every write operation returns a transaction hash, which you can use to look up and verify the transaction on the explorer.
 
-## Vibe Path (AI-Assisted)
+## AI-Assisted Path
 
 ```prompt
 I'm at step 6: Verify on Explorer.

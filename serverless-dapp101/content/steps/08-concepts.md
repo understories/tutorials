@@ -174,7 +174,7 @@ If you've taken the **Vibes to App** workshop, this visual shows how those conce
 > 🤖 **Learn More:** See the [AI Agent Kit section](/learn#building-with-arkiv) in the Visual Lesson, 
 > or check out the [Next Steps](/11-next-steps) section for links to the kit.
 
-## Vibe Path (AI-Assisted)
+## AI-Assisted Path
 
 ```prompt
 I'm at step 8: Understanding Arkiv (Optional).

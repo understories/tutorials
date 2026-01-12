@@ -25,7 +25,7 @@ Deploying makes your app:
 - **Always online**: No need to run your local server
 - **Production-ready**: See how it performs in the real world
 
-## Vibe Path (AI-Assisted)
+## AI-Assisted Path
 
 ```prompt
 I'm at step 10: Optional: Deploy to Vercel.

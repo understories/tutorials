@@ -40,7 +40,7 @@ This demonstrates true decentralization:
 - You can migrate between hosting providers easily
 - Your data persists even if your app goes offline
 
-## Vibe Path (AI-Assisted)
+## AI-Assisted Path
 
 ```prompt
 I'm at step 7: Walkaway Test.

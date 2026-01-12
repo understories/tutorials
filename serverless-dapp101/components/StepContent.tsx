@@ -125,13 +125,13 @@ function parseMarkdownSections(content: string, currentPath: 'vibe' | 'manual'):
     }
     
     // Filter by path
-    if (line.startsWith('## Vibe Path') || line.startsWith('## Manual Path')) {
+    if (line.startsWith('## AI-Assisted Path') || line.startsWith('## Manual Path')) {
       if (currentSection.content.trim()) {
         sections.push(currentSection);
       }
       currentSection = { type: 'text', content: '' };
       
-      const isVibePath = line.includes('Vibe Path');
+      const isVibePath = line.includes('AI-Assisted Path');
       if ((currentPath === 'vibe' && !isVibePath) || (currentPath === 'manual' && isVibePath)) {
         // Skip this section
         i++;

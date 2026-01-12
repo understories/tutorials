@@ -34,7 +34,7 @@ Reading data from Arkiv is simpler than writing. No authentication is needed, an
 
 Every piece of data in Arkiv is stored as an **entity**. Understanding entity structure is key to building effective queries. Use attributes for anything you want to query on (they're indexed and fast), and store complex data in the payload as JSON.
 
-## Vibe Path (AI-Assisted)
+## AI-Assisted Path
 
 ```prompt
 I'm at step 5: Create Your First Record.

@@ -28,11 +28,11 @@
     </filter>
   </defs>
   
-  <!-- Vibe Path -->
+  <!-- AI-Assisted Path -->
   <g id="vibe-path">
     <rect x="50" y="30" width="350" height="140" rx="12" class="path-box shadow"/>
     <text x="225" y="65" text-anchor="middle" class="text-title">
-      <tspan class="emoji">🤖</tspan> Vibe Path (AI-Assisted)
+      <tspan class="emoji">🤖</tspan> AI-Assisted Path
     </text>
     
     <text x="225" y="95" text-anchor="middle" class="text-label">You</text>

@@ -24,7 +24,7 @@ Think of it as your "hello world" for decentralized apps.
 
 This visual shows how Arkiv fits into the familiar development stack. Instead of PostgreSQL, MongoDB, or Firebase, you use **Arkiv**, a decentralized database that stores data on the blockchain. The query interface feels familiar, but the data lives on-chain.
 
-## Vibe Path (AI-Assisted)
+## AI-Assisted Path
 
 ```prompt
 I'm at step 2: Fork Template & Generate Wallet.

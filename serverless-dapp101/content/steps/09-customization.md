@@ -31,7 +31,7 @@ Now that you understand the basics, you can customize:
 - Change the color scheme
 - Add dark mode
 
-## Vibe Path (AI-Assisted)
+## AI-Assisted Path
 
 ```prompt
 I'm at step 9: Customize Your App.

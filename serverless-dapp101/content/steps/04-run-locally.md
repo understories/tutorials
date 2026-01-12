@@ -16,7 +16,7 @@ You're about to start a Next.js development server. This will:
 - Start a local server (usually on port 3000)
 - Enable hot-reloading (changes appear instantly)
 
-## Vibe Path (AI-Assisted)
+## AI-Assisted Path
 
 ```prompt
 I'm at step 4: Run Locally.

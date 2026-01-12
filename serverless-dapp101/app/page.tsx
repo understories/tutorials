@@ -43,7 +43,7 @@ export default function WorkshopTutorialHome() {
 
           <div className="grid md:grid-cols-2 gap-4 mb-6">
             <div className="border rounded-lg p-4">
-              <h3 className="font-semibold mb-2">🤖 Vibe Path</h3>
+              <h3 className="font-semibold mb-2">🤖 AI-Assisted Path</h3>
               <p className="text-sm text-gray-600">
                 Use AI coding assistants (Cursor, Copilot, Claude) to help you build. Copy-paste prompts provided.
               </p>

@@ -34,7 +34,7 @@ You can switch between paths at any time!
 
 If you've taken the **Vibes to App** workshop, you're already familiar with building apps using React, Next.js, and a database. The good news? **Most of your stack stays the same**. We're just replacing the database layer with Arkiv.
 
-## Vibe Path (AI-Assisted)
+## AI-Assisted Path
 
 If you're using an AI coding assistant, use this prompt:
 

@@ -27,7 +27,7 @@ export function PathToggle({ defaultPath, onPathChange }: PathToggleProps) {
             : 'bg-white text-gray-700 hover:bg-gray-50'
         }`}
       >
-        🤖 Vibe Path (AI-Assisted)
+        🤖 AI-Assisted Path
       </button>
       <button
         onClick={() => handleChange('manual')}
