@@ -56,6 +56,5 @@
     
     <rect x="550" y="300" width="300" height="60" rx="8" class="stack-item-new shadow"/>
     <text x="700" y="340" text-anchor="middle" class="text-label">Arkiv</text>
-    <text x="700" y="380" text-anchor="middle" class="text-new">← NEW</text>
   </g>
 </svg>
