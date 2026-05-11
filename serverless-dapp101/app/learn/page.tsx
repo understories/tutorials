@@ -297,7 +297,7 @@ export default function VisualsPage() {
                 <li><strong>API Route:</strong> Your Next.js API route receives the request</li>
                 <li><strong>Transaction Creation:</strong> The API creates an Arkiv entity with your data</li>
                 <li><strong>Signing:</strong> The transaction is signed with your private key (wallet)</li>
-                <li><strong>Blockchain Submission:</strong> The signed transaction is submitted to Arkiv (Mendoza testnet)</li>
+                <li><strong>Blockchain Submission:</strong> The signed transaction is submitted to Arkiv (Braga testnet)</li>
                 <li><strong>Confirmation:</strong> The transaction is confirmed on-chain (usually within seconds)</li>
                 <li><strong>Indexing:</strong> Indexers process the transaction (5-30 seconds delay. This is normal!)</li>
                 <li><strong>Queryable:</strong> Your data becomes queryable and appears in your app</li>
@@ -574,8 +574,8 @@ export default function VisualsPage() {
                     </a>
                   </li>
                   <li>
-                    <a href="https://explorer.mendoza.hoodi.arkiv.network" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                      🔍 Arkiv Explorer (Mendoza Testnet)
+                    <a href="https://explorer.braga.hoodi.arkiv.network" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                      🔍 Arkiv Explorer (Braga Testnet)
                     </a>
                   </li>
                 </ul>
