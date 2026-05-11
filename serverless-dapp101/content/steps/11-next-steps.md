@@ -98,7 +98,7 @@ Here are some ideas for what to build next:
 - **Arkiv Network**: [arkiv.network](https://arkiv.network)
 - **Dev Portal**: [arkiv.network/dev](https://arkiv.network/dev)
 - **TypeScript SDK Docs**: [arkiv.network/getting-started/typescript](https://arkiv.network/getting-started/typescript)
-- **Explorer**: [explorer.mendoza.hoodi.arkiv.network](https://explorer.mendoza.hoodi.arkiv.network) (Mendoza testnet)
+- **Explorer**: [explorer.braga.hoodi.arkiv.network](https://explorer.braga.hoodi.arkiv.network) (Braga testnet)
 - **Arkiv Litepaper**: [Download PDF](https://arkiv.network/pdf/ARKIV_Litepaper_blue.pdf) - Deep dive into Arkiv's architecture and philosophy
   > 📄 *Source for concepts used throughout this tutorial*
 

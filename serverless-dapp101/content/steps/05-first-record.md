@@ -18,7 +18,7 @@ You're about to write your first piece of data to Arkiv! This is a blockchain tr
 When you submit a message:
 1. Your app creates a transaction with your message data
 2. The transaction is signed with your private key
-3. The transaction is submitted to Arkiv (Mendoza testnet)
+3. The transaction is submitted to Arkiv (Braga testnet)
 4. The transaction is confirmed on-chain
 5. Your message becomes queryable (may take a few seconds due to indexer lag)
 
@@ -90,7 +90,7 @@ Update the internal implementation plan with notes and show me the plan so I can
 - The API route creates an **entity** on Arkiv with your message (an entity is the data structure stored on-chain)
 - Creating an entity is also a **transaction** (the blockchain operation that records it)
 - The transaction is signed with your private key
-- The transaction is submitted to Arkiv (Mendoza testnet)
+- The transaction is submitted to Arkiv (Braga testnet)
 - Your message becomes queryable by anyone using the same `SPACE_ID`
 
 **Note:** Entities and transactions are two aspects of the same operation:
@@ -160,10 +160,10 @@ A: Make sure you've completed step 3 (Set Environment Variables) and your `.env`
 A: This is normal! Due to indexer lag, it can take 5-30 seconds for messages to appear. Click "Refresh" after waiting a moment.
 
 **Q: I get a transaction timeout error.**
-A: The testnet can be slow. Your transaction may still be processing. Wait 30 seconds and refresh. If it persists, check that you have testnet tokens in your wallet. If you need more tokens, visit the [Mendoza Testnet Faucet](https://mendoza.hoodi.arkiv.network/faucet/).
+A: The testnet can be slow. Your transaction may still be processing. Wait 30 seconds and refresh. If it persists, check that you have testnet tokens in your wallet. If you need more tokens, visit the [Braga Testnet Faucet](https://braga.hoodi.arkiv.network/faucet/).
 
 **Q: I get an "insufficient funds" error.**
-A: You need testnet tokens to pay for gas fees. Visit the [Mendoza Testnet Faucet](https://mendoza.hoodi.arkiv.network/faucet/) to get 0.001 ETH test tokens. Make sure you're using the wallet address that matches your `ARKIV_PRIVATE_KEY` in your `.env` file.
+A: You need testnet tokens to pay for gas fees. Visit the [Braga Testnet Faucet](https://braga.hoodi.arkiv.network/faucet/) to get test GLM tokens. Make sure you're using the wallet address that matches your `ARKIV_PRIVATE_KEY` in your `.env` file.
 
 **Q: How do I know if my transaction succeeded?**
 A: Check the browser console for any errors. If you see a success message or the form clears, the transaction was submitted. Use "View on Explorer" to verify on-chain.

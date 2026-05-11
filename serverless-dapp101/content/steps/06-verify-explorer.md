@@ -142,7 +142,7 @@ Before moving to the next step, verify:
 A: The Entity link should appear immediately. The Transaction link only appears after the transaction is indexed. Wait a moment and refresh the page. If it still doesn't appear, check the browser console for errors.
 
 **Q: The explorer page shows "Transaction Not Found".**
-A: The transaction may still be pending. Wait a moment and try again. If it persists, check that you're on the correct testnet (Mendoza).
+A: The transaction may still be pending. Wait a moment and try again. If it persists, check that you're on the correct testnet (Braga).
 
 **Q: I can't find my message data in the transaction.**
 A: The data is encoded in the transaction. Look in the "Input Data" or "Logs" section. The explorer may have a decoder that shows the decoded data.

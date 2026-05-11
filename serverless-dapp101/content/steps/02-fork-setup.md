@@ -32,9 +32,9 @@ I'm at step 2: Fork Template & Generate Wallet.
 Help me:
 1. Fork the arkiv-hello-world repository on GitHub: https://github.com/understories/arkiv-hello-world
 2. Clone it locally using: git clone https://github.com/YOUR_USERNAME/arkiv-hello-world.git
-3. Generate a new wallet for Arkiv testnet (Mendoza) using the official Arkiv Getting Started guide at https://arkiv.network/getting-started/typescript
+3. Generate a new wallet for Arkiv testnet (Braga) using the official Arkiv Getting Started guide at https://arkiv.network/getting-started/typescript
 4. Copy my wallet address and private key from the interactive account generator
-5. **PAUSE HERE** - When you reach the step of getting testnet tokens, you must pause and have the human complete the faucet step manually. Display the wallet address that was generated in step 4, and provide clear instructions: "I've generated your wallet address: [WALLET_ADDRESS]. Now you need to get testnet tokens by visiting the Mendoza faucet. Please: (1) Go to https://mendoza.hoodi.arkiv.network/faucet/, (2) Paste your wallet address [WALLET_ADDRESS] into the 'Wallet Address' field, (3) Complete the Proof of Work CAPTCHA, (4) Wait for the tokens to arrive (you'll receive 0.001 ETH test tokens via Optimism Bridge). Once you've completed the CAPTCHA and received the tokens, let me know and I'll continue with verification."
+5. **PAUSE HERE** - When you reach the step of getting testnet tokens, you must pause and have the human complete the faucet step manually. Display the wallet address that was generated in step 4, and provide clear instructions: "I've generated your wallet address: [WALLET_ADDRESS]. Now you need to get testnet tokens by visiting the Braga faucet. Please: (1) Go to https://braga.hoodi.arkiv.network/faucet/, (2) Paste your wallet address [WALLET_ADDRESS] into the 'Wallet Address' field, (3) Complete the Proof of Work CAPTCHA, (4) Wait for the tokens to arrive (you'll receive test GLM tokens via the Standard Bridge). Once you've completed the CAPTCHA and received the tokens, let me know and I'll continue with verification."
 6. After the human confirms they've received the testnet tokens, verify the wallet has a balance
 7. Understand what the starter template includes
 
@@ -84,13 +84,13 @@ You'll need a wallet to sign transactions on Arkiv. The easiest way is to use th
    - Copy your **private key** - e.g., `0x1234567890abcdef...` (keep this secret!)
    - Save both securely - you'll need the private key in the next step
 
-4. **Get testnet tokens from the Mendoza faucet:**
-   - Visit the [Mendoza Testnet Faucet](https://mendoza.hoodi.arkiv.network/faucet/)
+4. **Get testnet tokens from the Braga faucet:**
+   - Visit the [Braga Testnet Faucet](https://braga.hoodi.arkiv.network/faucet/)
    - Paste your **wallet address** into the "Wallet Address" field
    - Complete the Proof of Work CAPTCHA (this prevents abuse)
    - Click to request tokens
-   - You'll receive 0.001 ETH test tokens (these have no real value)
-   - Tokens will be sent through an Optimism Bridge and should appear in your wallet within a few seconds
+   - You'll receive test GLM tokens (these have no real value)
+   - Tokens will be sent through the Standard Bridge and should appear in your wallet within a few seconds
    - **Important:** You need these testnet tokens to pay for gas fees when writing to Arkiv
 
 **Alternative Options:**
@@ -116,7 +116,7 @@ node -e "const { ethers } = require('ethers'); const wallet = ethers.Wallet.crea
 
 **Important:** 
 - Save your private key securely - you'll need it for the next step where we'll add it to your `.env` file
-- This wallet will be used on Mendoza testnet only
+- This wallet will be used on Braga testnet only
 - Never share your private key - treat it like a password
 - The `.env` file (where you'll store the private key) is automatically gitignored for security
 
@@ -128,8 +128,8 @@ Before moving to the next step, verify:
 - [ ] I've cloned it locally
 - [ ] I've generated a wallet using the [Arkiv Getting Started guide](https://arkiv.network/getting-started/typescript)
 - [ ] I've copied my wallet address and private key
-- [ ] I've visited the [Mendoza Testnet Faucet](https://mendoza.hoodi.arkiv.network/faucet/) and requested testnet tokens
-- [ ] I've completed the CAPTCHA and received 0.001 ETH test tokens
+- [ ] I've visited the [Braga Testnet Faucet](https://braga.hoodi.arkiv.network/faucet/) and requested testnet tokens
+- [ ] I've completed the CAPTCHA and received test GLM tokens
 - [ ] I've verified my wallet has a balance (check the faucet page or explorer)
 - [ ] I've saved my private key securely (we'll add it to `.env` in the next step)
 - [ ] I understand that `.env` files are gitignored for security
@@ -144,18 +144,18 @@ A: If you're new to Web3, here's what you need to know:
 - **Testnet tokens** are fake cryptocurrency used only for testing and learning. They have **no real value** and cannot be converted to real money.
 - Think of them like play money in a game - you use them to practice without risking real funds.
 - On blockchain networks, every action (like writing data) costs a small fee called "gas" - similar to paying a small transaction fee. Testnet tokens pay for these fees during testing.
-- The Mendoza testnet is a practice version of the Arkiv network where you can experiment safely.
+- The Braga testnet is a practice version of the Arkiv network where you can experiment safely.
 - You get testnet tokens for free from a "faucet" (like a water fountain, but for tokens) - just visit the faucet website, paste your wallet address, complete a CAPTCHA to prevent abuse, and receive free test tokens.
 - These tokens only work on the testnet and cannot be used on the real (mainnet) blockchain.
 
 **Q: How do I get testnet tokens for my wallet?**
 A: 
-1. Visit the [Mendoza Testnet Faucet](https://mendoza.hoodi.arkiv.network/faucet/)
+1. Visit the [Braga Testnet Faucet](https://braga.hoodi.arkiv.network/faucet/)
 2. Paste your wallet address (the one you generated in step 2.3)
 3. Complete the Proof of Work CAPTCHA
 4. Click to request tokens
-5. Wait a few seconds for the tokens to arrive via the Optimism Bridge
-6. You'll receive 0.001 ETH test tokens (no real value, just for testing)
+5. Wait a few seconds for the tokens to arrive via the Standard Bridge
+6. You'll receive test GLM tokens (no real value, just for testing)
 
 **Q: The faucet says "Enter valid address and complete CAPTCHA" but I did both.**
 A: Make sure:
@@ -165,10 +165,10 @@ A: Make sure:
 - If it still doesn't work, try refreshing the page and trying again
 
 **Q: How do I check if I received the testnet tokens?**
-A: You can check your balance on the faucet page itself (it shows "Address Balance" at the top), or use the [Mendoza Explorer](https://explorer.mendoza.hoodi.arkiv.network) to view your wallet address.
+A: You can check your balance on the faucet page itself (it shows "Address Balance" at the top), or use the [Braga Explorer](https://explorer.braga.hoodi.arkiv.network) to view your wallet address.
 
 **Q: Can I use MetaMask?**
-A: Yes! MetaMask works perfectly with Arkiv. Just make sure to add Mendoza testnet to MetaMask (the Dev Portal has a link to add it automatically). However, we recommend using the [Arkiv Getting Started guide](https://arkiv.network/getting-started/typescript) for the simplest experience.
+A: Yes! MetaMask works perfectly with Arkiv. Just make sure to add Braga testnet to MetaMask (the Dev Portal has a link to add it automatically). However, we recommend using the [Arkiv Getting Started guide](https://arkiv.network/getting-started/typescript) for the simplest experience.
 
 **Q: Is my private key safe in the .env file?**
 A: Yes! The `.env` file is automatically gitignored (it's in `.gitignore`), so it will never be committed to git. This is a standard security practice. Never commit your private key to version control.
