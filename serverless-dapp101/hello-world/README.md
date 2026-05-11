@@ -14,7 +14,7 @@ A minimal "hello world" app demonstrating Arkiv basics.
 1. **Set environment variables:**
    ```bash
    SPACE_ID=ns
-   ARKIV_TARGET=mendoza
+   ARKIV_TARGET=braga
    ARKIV_PRIVATE_KEY=0x...  # Your wallet private key
    ```
 
@@ -58,7 +58,7 @@ After running this, you can:
 ## Environment Variables
 
 - `SPACE_ID` - Set to "ns" for workshop
-- `ARKIV_TARGET` - "mendoza" for testnet
+- `ARKIV_TARGET` - "braga" for testnet
 - `ARKIV_PRIVATE_KEY` - Your wallet private key (generate one for the workshop)
 
 
