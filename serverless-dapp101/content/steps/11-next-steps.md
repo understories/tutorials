@@ -82,118 +82,115 @@ Here are some ideas for what to build next:
    - Store IPFS hashes on Arkiv
    - Hybrid storage solution
 
+## Production Patterns to Explore Next
+
+You now have one app working end to end. Below are the patterns to learn next, any one of which turns a workshop project into something that could ship. The optional **[step 12](/12-production-patterns)** in this tutorial walks through five of them with working code snippets you can copy.
+
+- **Bring your own wallet.** Replace server-side signing with wagmi or RainbowKit and EIP-1193. Users pay their own gas, the wallet on the entity is theirs, you do not manage a hot wallet on your server.
+- **Real-time updates.** Replace the Refresh button with `subscribeEntityEvents`. Six event types: created, updated, deleted, expired, expires-in-extended, owner-changed.
+- **Encrypt sensitive payloads.** Arkiv stores bytes. If you encrypt them client-side, only key-holders can read them. Combine with `expiresIn` and you get auto-revoking access.
+- **Lifecycle tiers.** When you ingest a lot of data over time (sensor readings, telemetry, prices), the idiomatic pattern is raw entities with short `expiresIn`, aggregated entities with longer `expiresIn`. Use `mutateEntities` to batch creates.
+- **Memory layer for an LLM.** Store each agent thought or document as an entity, tag with the agent's wallet via `$creator`, retrieve by tag or time window. Memory survives the model, the chat session, and the tool that wrote it.
+
+Then go build something with at least two entity types, parent and child relationships, differentiated expiration, and one of the patterns above. That is the shape of every real Arkiv app.
+
 ## Resources
 
 ### Visual Learning
 
-- **[Visual Lesson](/learn)**: Comprehensive visual guide with diagrams and explanations
-  - Architecture comparisons
-  - Data flow diagrams
-  - Entity structure
-  - Verification flow
-  - And more!
+- **[Visual Lesson](/learn)**: comprehensive visual guide with diagrams and explanations
 
-### Official Documentation
+### Official documentation
 
-- **Arkiv Network**: [arkiv.network](https://arkiv.network)
-- **Dev Portal**: [arkiv.network/dev](https://arkiv.network/dev)
-- **TypeScript SDK Docs**: [arkiv.network/getting-started/typescript](https://arkiv.network/getting-started/typescript)
-- **Explorer**: [explorer.braga.hoodi.arkiv.network](https://explorer.braga.hoodi.arkiv.network) (Braga testnet)
-- **Arkiv Litepaper**: [Download PDF](https://arkiv.network/pdf/ARKIV_Litepaper_blue.pdf) - Deep dive into Arkiv's architecture and philosophy
-  > 📄 *Source for concepts used throughout this tutorial*
+- [Arkiv Docs](https://docs.arkiv.network/): Starlight site, kept in sync with the SDK
+- [Networks / Braga](https://docs.arkiv.network/networks/braga/): chain id, RPC, faucet
+- [TS SDK / Querying Data](https://docs.arkiv.network/typescript-sdk/querying-data/)
+- [TS SDK / Mutating Data](https://docs.arkiv.network/typescript-sdk/mutating-data/)
+- [TS SDK / Live Events](https://docs.arkiv.network/typescript-sdk/live-events/)
+- [TS SDK / React integration](https://docs.arkiv.network/typescript-sdk/react-integration/)
+- [TS SDK / Best Practices](https://docs.arkiv.network/typescript-sdk/best-practices/): the 15-item checklist this tutorial is built around
+- [Braga Explorer](https://explorer.braga.hoodi.arkiv.network): verify on-chain
+- [Braga Faucet](https://braga.hoodi.arkiv.network/faucet/): free test GLM
+- [Arkiv Litepaper](https://arkiv.network/pdf/ARKIV_Litepaper.pdf): architecture and philosophy
 
-### SDK & Tools
+### Code references
 
-- **@arkiv-network/sdk**: [npmjs.com/package/@arkiv-network/sdk](https://www.npmjs.com/package/@arkiv-network/sdk)
-- **GitHub**: [github.com/arkiv-network](https://github.com/arkiv-network)
-- **Examples**: Check the Arkiv GitHub for example projects
+- [`@arkiv-network/sdk` on npm](https://www.npmjs.com/package/@arkiv-network/sdk): the TypeScript client library
+- [`Arkiv-Network/arkiv-sdk-js`](https://github.com/Arkiv-Network/arkiv-sdk-js): SDK source and `sample/` directory with canonical patterns
+- [`Arkiv-Network/builders-challenge-online-forum-example`](https://github.com/Arkiv-Network/builders-challenge-online-forum-example): full Next.js + RainbowKit + wagmi reference
+- [`Arkiv-Network/dashboard-demo`](https://github.com/Arkiv-Network/dashboard-demo): Bun/Hono streaming-ingestion pattern
+- [`Arkiv-Network/learn-arkiv`](https://github.com/Arkiv-Network/learn-arkiv): MDX tutorial content
 
-### Development Tools
+### Official Learn tutorials
 
-- **Arkiv AI Agent Kit**: Drop-in LLM context for building Arkiv integrations correctly
-  - Provides prompts and patterns for AI coding assistants
-  - Prevents common mistakes (indexer lag assumptions, wallet casing issues, etc.)
-  - Enforces best practices automatically
-  - **Direct Link**: [View on GitHub](https://github.com/understories/tutorials/tree/main/extractions/arkiv-ai-agent-kit)
-  - **Location**: Available in the tutorial repository's `extractions/arkiv-ai-agent-kit/` folder
-  - See the [Visual Lesson](/learn#building-with-arkiv) for more details
+- [MetaMask Sketch App](https://docs.arkiv.network/learn/metamask-sketch-app/): p5.js drawing app, EIP-1193 wallet path
+- [Fullstack Dashboard](https://docs.arkiv.network/learn/fullstack-dashboard/): Node.js backend writing prices into Arkiv every 60s
+
+### Give your AI assistant Arkiv context
+
+Install Arkiv's official agent skill once and your AI assistant (Claude Code, Cursor, Copilot, Cline, Windsurf) stops inventing SDK calls:
+
+```bash
+npx skills add https://github.com/arkiv-network/skills --skill arkiv-best-practices
+```
+
+Pair it with the feedback skill so you can file issues directly from your AI agent when something does not match the docs:
+
+```bash
+npx skills add https://github.com/arkiv-network/skills --skill arkiv-feedback
+```
+
+Then invoke `/arkiv-feedback` in your agent.
 
 ### Community
 
-- **Discord**: Join the [Arkiv Discord](https://discord.gg/arkiv) for help and discussions
-- **Twitter/X**: Follow [@arkiv_network](https://twitter.com/arkiv_network) for updates
-- **GitHub Discussions**: Ask questions and share projects
-
-### Learning More
-
-1. **Read the SDK Documentation**
-   - Understand all query methods
-   - Learn about advanced features
-   - See code examples
-
-2. **Explore the Explorer**
-   - Look at different transactions
-   - Understand transaction structure
-   - See how data is stored on-chain
-
-3. **Join the Community**
-   - Ask questions
-   - Share your projects
-   - Learn from others
-
-4. **Experiment**
-   - Try different data structures
-   - Test query patterns
-   - Build something unique
+- [Arkiv Discord](https://discord.gg/arkiv): help, discussions, and project showcases
+- [@arkiv_network on X](https://twitter.com/arkiv_network): release announcements
+- [Arkiv-Network/reported-issues](https://github.com/Arkiv-Network/reported-issues): public issue intake
 
 ## Key Concepts to Remember
 
 ### Data Independence
 
-Your data lives on-chain, independent of:
-- Your hosting provider
-- Your server infrastructure
-- Any single service
+Your data lives on-chain, independent of your hosting provider, your server infrastructure, and any single service.
 
 ### Public by Default
 
-Arkiv data is public on-chain. For privacy:
-- Use unique space IDs
-- Encrypt sensitive payloads
-- Don't store secrets in attributes
+Arkiv data is public on-chain by default. For confidentiality, encrypt payload bytes client-side before calling `createEntity` and combine with `expiresIn` for auto-revoking access. There is no public/private toggle at the protocol level.
 
-### Query Patterns
+### Query and Mutation Patterns
 
-- Use attributes for filtering (fast)
-- Store complex data in payload (JSON)
-- Create companion entities for relationships
+- Use the right attribute type: numeric for range queries, string for tags and equality
+- Stamp `PROJECT_ATTRIBUTE` on every entity and every query
+- Use shared attribute keys as foreign keys to link parent and child entity types
+- `createEntity`, `updateEntity` (full replace), `deleteEntity`, `extendEntity`, `mutateEntities` (batch)
+- `$owner` controls writes (mutable); `$creator` proves attribution (immutable)
 
-### Best Practices
+### Production Checklist (short version)
 
-1. **Always handle errors gracefully**
-2. **Account for indexer lag**
-3. **Use meaningful attribute names**
-4. **Store txHash separately for reliability**
-5. **Test on testnet before mainnet**
+1. Pin the SDK exactly in production
+2. Stamp `PROJECT_ATTRIBUTE` on every entity and every query
+3. Right-size `expiresIn` per entity type with `ExpirationTime.fromDays/fromHours`
+4. Catch named SDK error classes (`EntityMutationError`, `NoMoreResultsError`)
+5. Subscribe with `subscribeEntityEvents` instead of polling
+6. Validate input at the API edge
+7. Rotate environment variables when Arkiv announces a new testnet
 
 ## Getting Help
 
 ### Common Issues
 
-**Transaction timeouts**: Normal on testnet. Wait and retry.
-
-**Indexer lag**: Messages may take 5-30 seconds to appear. This is expected.
-
-**Query returns empty**: Check your space ID and attribute names.
-
-**Build errors**: Check TypeScript types and dependencies.
+- **Transaction timeouts.** Normal on testnet. Wait a few seconds and retry.
+- **Indexer lag.** New entities take 5 to 30 seconds to become queryable. This is expected.
+- **Query returns empty.** Check that you are filtering on `PROJECT_ATTRIBUTE` and that the value matches what you write.
+- **Build errors.** Run `npm run typecheck`. The SDK ships typed; if your call does not match the signature, the typechecker will tell you why.
 
 ### Where to Ask
 
-1. **Discord**: Best for quick questions
-2. **GitHub Issues**: For bugs and feature requests
-3. **Documentation**: Check the official docs first
-4. **Community**: Other developers may have solved similar problems
+1. **Discord**: best for quick questions
+2. **`arkiv-feedback` skill**: best for reporting something broken
+3. **Documentation**: check the official docs first
+4. **Community**: other developers may have solved similar problems
 
 ## Final Checkpoint
 
