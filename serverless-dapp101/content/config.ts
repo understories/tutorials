@@ -96,5 +96,13 @@ export const steps: Step[] = [
     order: 11,
     file: '11-next-steps.md',
   },
+  {
+    id: '12-production-patterns',
+    title: 'Production Patterns (Bonus)',
+    duration: 15,
+    path: 'both',
+    order: 12,
+    file: '12-production-patterns.md',
+  },
 ];
 
