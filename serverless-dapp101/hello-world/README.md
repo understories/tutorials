@@ -1,103 +1,106 @@
 # Arkiv Hello World
 
-A minimal "hello world" app demonstrating Arkiv basics.
+A minimal hello-world app demonstrating Arkiv basics on the Braga testnet.
 
 ## What It Does
 
 - **Reads messages** from Arkiv (decentralized database)
 - **Writes messages** to Arkiv
 - **No central database** - all data is on-chain
-- **Shared space** - uses SPACE_ID="ns" so all participants can see each other's messages
+- **Project-namespaced** - every entity is stamped with `PROJECT_ATTRIBUTE` so this app's queries are isolated from other Arkiv apps on shared Braga
 
 ## How to Run
 
 1. **Set environment variables:**
+
    ```bash
-   SPACE_ID=ns
-   ARKIV_TARGET=braga
-   ARKIV_PRIVATE_KEY=0x...  # Your wallet private key
+   ARKIV_PRIVATE_KEY=0x...    # your wallet private key, funded on Braga
+   # SPACE_ID=ns              # optional secondary grouping inside the project namespace
    ```
 
 2. **Start the dev server:**
+
    ```bash
    npm run dev
    ```
 
-3. **Visit:**
-   ```
-   http://localhost:3000/hello-world
-   ```
+3. **Visit:** `http://localhost:3000/hello-world`
 
 ## What You'll See
 
 - A simple message board
-- Post messages that get stored on Arkiv
-- See messages from other participants (same SPACE_ID)
-- Each message is a blockchain transaction
+- Post messages that get stored on Arkiv (Braga testnet)
+- See messages from anyone else running this app with the same `PROJECT_ATTRIBUTE`
+- Each message is a blockchain transaction; click Entity or Transaction to verify on the explorer
 
 ## Key Concepts Demonstrated
 
-1. **Decentralized Storage** - Data lives on Arkiv, not in a database
-2. **Shared Space** - All participants use SPACE_ID="ns"
-3. **Read/Write Operations** - Basic CRUD on Arkiv
-4. **Indexer Lag** - Messages may take a moment to appear (normal!)
+1. **Decentralized storage** - data lives on Arkiv, not in a database
+2. **Project namespacing** - `PROJECT_ATTRIBUTE = { key: 'project', value: 'serverless-dapp101' }` stamped on every write and filtered on every read
+3. **Read/write operations** - `buildQuery` for reads, `createEntity` for writes, both via `@arkiv-network/sdk`
+4. **Indexer lag** - new entities take 5 to 30 seconds to become queryable (normal)
 
 ## Next Steps
 
 After running this, you can:
-- Customize the message format
-- Add more fields
-- Deploy to Vercel (optional)
-- Explore the explorer to see your entities and transactions (both views available)
+
+- Add a second entity type (reactions, comments, tags) linked via a shared FK attribute
+- Differentiate `expiresIn` per entity type with `ExpirationTime.fromDays/fromHours`
+- Replace the Refresh button with `subscribeEntityEvents` for real-time updates
+- Move to a browser-wallet (EIP-1193) signing path
+- Deploy to Vercel and share with others
 
 ## Files
 
-- `page.tsx` - Frontend UI
-- `app/api/serverless-dapp101/messages/route.ts` - API routes for read/write
+- `lib/config.ts` - defines `PROJECT_ATTRIBUTE` and reads the private key from env
+- `lib/arkiv/client.ts` - public and wallet client factories (Braga chain)
+- `app/api/serverless-dapp101/messages/route.ts` - GET/POST handlers
+- `app/hello-world/page.tsx` - frontend UI with last-write banner
 
 ## Environment Variables
 
-- `SPACE_ID` - Set to "ns" for workshop
-- `ARKIV_TARGET` - "braga" for testnet
-- `ARKIV_PRIVATE_KEY` - Your wallet private key (generate one for the workshop)
+- `ARKIV_PRIVATE_KEY` - your wallet private key, funded on Braga via the faucet
+- `SPACE_ID` *(optional)* - secondary grouping inside the project namespace, defaults to `'ns'`
 
+## Project Namespacing and Message Visibility
 
-## Shared Space and Message Visibility
-
-This hello-world demo uses a shared space (`SPACE_ID=ns`) so all participants can see each other's messages. This works because Arkiv queries return all entities matching a space ID, regardless of which wallet created them.
+This demo uses `PROJECT_ATTRIBUTE = { key: 'project', value: 'serverless-dapp101' }` (see `lib/config.ts`). Every entity is stamped with it on creation and every query filters on it. This works because Arkiv queries return only entities whose attributes match the predicates you pass.
 
 ### How Messages Appear Across Deployments
 
 When users go through the tutorial and create messages locally:
 
-1. **Local Development**: Users set `SPACE_ID=ns` in their `.env` file. When they post messages, each entity is created with the `spaceId='ns'` attribute.
-
-2. **Deployed Application**: The deployed hello-world page queries for all entities with `spaceId='ns'`. Since Arkiv queries are space-scoped, all messages written with the same space ID will appear together.
-
-3. **Cross-Wallet Visibility**: Messages from different wallets appear in the same list because they share the same `spaceId` attribute. The query filters by space ID, not by wallet address.
+1. **Local development.** Users post messages from their fork. Each entity is created with `project = 'serverless-dapp101'` plus other attributes.
+2. **Deployed application.** The deployed hello-world page queries for every entity with `project = 'serverless-dapp101'`. Since both environments use the same project value, all messages appear together.
+3. **Cross-wallet visibility.** Messages from different wallets appear in the same list because the query filters by project attribute, not by wallet address.
 
 ### Configuration Requirements
 
 For messages to appear on the deployed hello-world page:
 
-- **Tutorial users** must set `SPACE_ID=ns` in their local `.env` file (as instructed in step 3)
-- **Deployed application** must have `SPACE_ID=ns` configured in Vercel environment variables (or use the default value of `'ns'`)
+- **Tutorial users** keep the default `PROJECT_ATTRIBUTE` value in `lib/config.ts` unchanged (which is the case if they fork without editing).
+- **Deployed application** uses the same `PROJECT_ATTRIBUTE` value (which lives in source, so Vercel does not need an env var for it).
 
-The API route uses this logic to determine the space ID:
+The API route reads the project namespace directly from `lib/config.ts`:
 
 ```typescript
-const querySpaceId = process.env.BETA_SPACE_ID || SPACE_ID;
-```
+import { PROJECT_ATTRIBUTE } from '../../../../lib/config';
 
-Where `SPACE_ID` defaults to `'ns'` if not set in the environment.
+const result = await publicClient
+  .buildQuery()
+  .where([eq(PROJECT_ATTRIBUTE.key, PROJECT_ATTRIBUTE.value), eq('type', 'workshop_message')])
+  .withPayload(true)
+  .limit(100)
+  .fetch();
+```
 
 ### Verification
 
 To verify your messages will appear on the deployed page:
 
-1. Check that your local `.env` has `SPACE_ID=ns`
-2. Post a message locally and wait for indexer lag (a few seconds)
+1. Confirm your fork's `lib/config.ts` still has `value: 'serverless-dapp101'`
+2. Post a message locally and wait 5 to 30 seconds for indexer lag
 3. Visit the deployed hello-world page
 4. Your message should appear alongside messages from other tutorial participants
 
-If messages don't appear, verify that both environments are using the same `SPACE_ID` value.
+If messages do not appear, check that you have not changed `PROJECT_ATTRIBUTE.value`, that your wallet is funded on Braga, and that you allowed enough time for indexer lag.
