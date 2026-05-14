@@ -6,6 +6,7 @@ import { LearnLink } from '../components/LearnLink';
 import { DictLink } from '../components/DictLink';
 import { HomeLink } from '../components/HomeLink';
 import { SecurityLink } from '../components/SecurityLink';
+import { FAQLink } from '../components/FAQLink';
 import { TryLink } from '../components/TryLink';
 import './globals.css';
 
@@ -23,6 +24,7 @@ export default function WorkshopTutorialLayout({
             <LearnLink />
             <DictLink />
             <SecurityLink />
+            <FAQLink />
             <TryLink />
             <GitHubLink />
           </nav>
