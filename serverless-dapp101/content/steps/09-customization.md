@@ -1,211 +1,251 @@
-# Customize Your App
+# Add a Second Entity Type
 
 ## Learning Objectives
 
 By the end of this step, you'll:
-- Understand how to customize the message format
-- Know how to add new attributes
-- Be able to modify the UI
-- Have ideas for extending the app
+- Know why real Arkiv apps use multiple entity types
+- Have added a second entity type linked to the first
+- Understand foreign-key style relationships via shared attributes
+- Have set differentiated `expiresIn` per entity type
 
 ## Content
 
-### What Can You Customize?
+### Why a second entity type?
 
-Now that you understand the basics, you can customize:
-- **Message format**: Add more fields (author, tags, etc.)
-- **Attributes**: Add custom attributes for filtering
-- **UI/UX**: Change the design, add features
-- **Functionality**: Add editing, deletion markers, reactions, etc.
+Real Arkiv apps almost never have one entity type. The basic shape is **a parent and one or more child types linked by a shared attribute**. Think:
 
-### Ideas for Customization
+- Posts and comments
+- Documents and access grants
+- Devices and readings
+- Agents and memories
+- Notes and tags
 
-- Add user names or avatars
-- Add message categories or tags
-- Add timestamps in different formats
-- Add a character counter
-- Add message editing (via new entities)
-- Add reactions or likes
-- Add search functionality
-- Add pagination
-- Change the color scheme
-- Add dark mode
+In this step we add **reactions** to messages. Each reaction is its own entity, linked back to the message it reacts to. Once you can do this, you can model anything else.
+
+### The pattern
+
+Arkiv has no built-in foreign-key field. You make a relationship by putting the parent's entity key into a shared attribute on the child.
+
+```typescript
+import { jsonToPayload, ExpirationTime } from '@arkiv-network/sdk/utils';
+import { PROJECT_ATTRIBUTE } from '../../../../lib/config';
+
+// 1. The parent (a message)
+const { entityKey: messageKey } = await walletClient.createEntity({
+  payload: jsonToPayload({ text: 'Hello workshop' }),
+  contentType: 'application/json',
+  attributes: [
+    PROJECT_ATTRIBUTE,
+    { key: 'type', value: 'workshop_message' },
+    { key: 'createdAtMs', value: Date.now() },
+  ],
+  expiresIn: ExpirationTime.fromDays(180),
+});
+
+// 2. The child (a reaction) shares the project and points at the parent
+await walletClient.createEntity({
+  payload: jsonToPayload({ emoji: 'heart' }),
+  contentType: 'application/json',
+  attributes: [
+    PROJECT_ATTRIBUTE,
+    { key: 'type', value: 'workshop_reaction' },
+    { key: 'messageKey', value: messageKey },   // <-- the foreign key
+    { key: 'createdAtMs', value: Date.now() },
+  ],
+  expiresIn: ExpirationTime.fromDays(30),
+});
+```
+
+Two details worth pausing on:
+
+1. **Reactions expire faster than messages.** Reactions are ephemeral interactions; messages are durable content. **Differentiated `expiresIn` per entity type** is a signature mark of an Arkiv app that knows what it is doing.
+2. **Both have `PROJECT_ATTRIBUTE` and a `type` discriminator.** Project namespacing always; type lets you filter the right shape.
+
+### Querying the children of a parent
+
+To load all reactions for a specific message in one round trip:
+
+```typescript
+import { eq } from '@arkiv-network/sdk/query';
+
+const reactions = await publicClient.buildQuery()
+  .where([
+    eq(PROJECT_ATTRIBUTE.key, PROJECT_ATTRIBUTE.value),
+    eq('type', 'workshop_reaction'),
+    eq('messageKey', messageKey),
+  ])
+  .withPayload(true)
+  .limit(200)
+  .fetch();
+```
+
+One round trip, one query. This same shape works for any parent and child: posts and comments, agents and memories, devices and readings, documents and access grants.
 
 ## AI-Assisted Path
 
 ```prompt
-I'm at step 9: Customize Your App.
+I'm at step 9: Add a Second Entity Type.
+
+The workshop has me adding "reactions" to messages, where each reaction is its own
+Arkiv entity linked back to the parent message via a shared "messageKey" attribute.
 
 Help me:
-1. Add a new field to messages (like "author" or "category")
-2. Update the entity creation to include the new field
-3. Update the UI to display the new field
-4. Update queries if needed
+1. Add a POST endpoint at /api/serverless-dapp101/reactions that takes { messageKey, emoji }
+   and creates a workshop_reaction entity. Include the project attribute and a 30-day
+   expiresIn using ExpirationTime.fromDays.
+2. Add a GET endpoint that lists reactions for a given messageKey by querying with
+   eq('type', 'workshop_reaction') and eq('messageKey', ...).
+3. In the hello-world page, add three emoji buttons under each message that POST a
+   reaction and refresh the list.
 
-Provide code examples and explain the changes.
+Constraints I want enforced:
+- PROJECT_ATTRIBUTE on every write and every query
+- Reactions expire after 30 days (messages stay 180)
+- Use jsonToPayload and ExpirationTime helpers (not raw seconds)
+- Catch EntityMutationError by name on writes
 
 Update the internal implementation plan with notes and show me the plan so I can track your progress.
 ```
 
 ## Manual Path
 
-### Step 9.1: Add a New Field to Messages
+### Step 9.1: Add a reactions API route
 
-Let's add an "author" field to messages. This will demonstrate how to extend the data model.
-
-**1. Update the API route** (`app/api/serverless-dapp101/messages/route.ts`):
-
-In the POST handler, modify the payload and attributes:
+Create `app/api/serverless-dapp101/reactions/route.ts`:
 
 ```typescript
-// In the POST function, update the body parsing:
-const { text, author } = body; // Add author
+import { NextRequest, NextResponse } from 'next/server';
+import { getPublicClient, getWalletClientFromPrivateKey } from '../../../../lib/arkiv/client';
+import { PROJECT_ATTRIBUTE, getPrivateKey } from '../../../../lib/config';
+import { eq } from '@arkiv-network/sdk/query';
+import { jsonToPayload, ExpirationTime } from '@arkiv-network/sdk/utils';
+import { EntityMutationError } from '@arkiv-network/sdk';
 
-// Update the payload:
-const payload = JSON.stringify({
-  text: text.trim(),
-  author: author || 'Anonymous', // Add author with default
-  createdAt: new Date().toISOString(),
-});
+const REACTION_TYPE = 'workshop_reaction';
+const ALLOWED_EMOJIS = new Set(['heart', 'fire', 'sparkles']);
 
-// Optionally add author as an attribute for querying:
-const attributes = [
-  { key: 'type', value: 'workshop_message' },
-  { key: 'wallet', value: walletAddress },
-  { key: 'spaceId', value: querySpaceId },
-  { key: 'author', value: author || 'Anonymous' }, // Add as attribute
-  { key: 'created_at', value: new Date().toISOString() },
-];
+export async function GET(request: NextRequest) {
+  const messageKey = new URL(request.url).searchParams.get('messageKey');
+  if (!messageKey) {
+    return NextResponse.json({ ok: false, error: 'messageKey query param is required' }, { status: 400 });
+  }
+
+  const publicClient = getPublicClient();
+  const result = await publicClient
+    .buildQuery()
+    .where([
+      eq(PROJECT_ATTRIBUTE.key, PROJECT_ATTRIBUTE.value),
+      eq('type', REACTION_TYPE),
+      eq('messageKey', messageKey),
+    ])
+    .withPayload(true)
+    .limit(200)
+    .fetch();
+
+  const reactions = result.entities.map((e) => {
+    const data = (() => {
+      try { return e.toJson() as { emoji?: string }; } catch { return {}; }
+    })();
+    return { id: e.key, wallet: (e.owner ?? '').toLowerCase(), emoji: data.emoji ?? '' };
+  });
+
+  return NextResponse.json({ ok: true, reactions });
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const { messageKey, emoji } = await request.json();
+    if (!messageKey || !emoji || !ALLOWED_EMOJIS.has(emoji)) {
+      return NextResponse.json({ ok: false, error: 'messageKey and a valid emoji are required' }, { status: 400 });
+    }
+
+    const walletClient = getWalletClientFromPrivateKey(getPrivateKey());
+    const { entityKey, txHash } = await walletClient.createEntity({
+      payload: jsonToPayload({ emoji }),
+      contentType: 'application/json',
+      attributes: [
+        PROJECT_ATTRIBUTE,
+        { key: 'type', value: REACTION_TYPE },
+        { key: 'messageKey', value: messageKey },
+        { key: 'createdAtMs', value: Date.now() },
+      ],
+      expiresIn: ExpirationTime.fromDays(30),
+    });
+
+    return NextResponse.json({ ok: true, entityKey, txHash });
+  } catch (error: any) {
+    if (error instanceof EntityMutationError) {
+      return NextResponse.json({ ok: false, error: error.message }, { status: 502 });
+    }
+    return NextResponse.json({ ok: false, error: error?.message || 'Failed to create reaction' }, { status: 500 });
+  }
+}
 ```
 
-**2. Update the frontend** (`app/hello-world/page.tsx`):
+### Step 9.2: Add reaction buttons to the UI
 
-Add an author input field:
+In `app/hello-world/page.tsx`, under each message in the message list, add three emoji buttons:
 
-```typescript
-const [author, setAuthor] = useState('');
+```tsx
+const react = async (messageKey: string, emoji: string) => {
+  await fetch('/api/serverless-dapp101/reactions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messageKey, emoji }),
+  });
+};
 
-// In the form, add an author input:
-<input
-  type="text"
-  value={author}
-  onChange={(e) => setAuthor(e.target.value)}
-  placeholder="Your name (optional)"
-  className="px-4 py-2 border border-gray-300 rounded-lg"
-/>
-
-// Update the submit handler:
-body: JSON.stringify({ text: newMessage, author }),
-```
-
-**3. Update the message display:**
-
-```typescript
-// In the message card, display the author:
-<p className="text-gray-900 mb-2">{msg.text}</p>
-<p className="text-sm text-gray-600 mb-2">by {msg.author || 'Anonymous'}</p>
-```
-
-### Step 9.2: Add Message Categories
-
-Let's add categories so you can filter messages:
-
-**1. Add category to attributes:**
-
-```typescript
-const attributes = [
-  { key: 'type', value: 'workshop_message' },
-  { key: 'wallet', value: walletAddress },
-  { key: 'spaceId', value: querySpaceId },
-  { key: 'category', value: category || 'general' }, // Add category
-  { key: 'created_at', value: new Date().toISOString() },
-];
-```
-
-**2. Add category filter in the UI:**
-
-```typescript
-const [selectedCategory, setSelectedCategory] = useState('all');
-
-// Add filter dropdown
-<select 
-  value={selectedCategory}
-  onChange={(e) => setSelectedCategory(e.target.value)}
->
-  <option value="all">All Categories</option>
-  <option value="general">General</option>
-  <option value="question">Question</option>
-  <option value="answer">Answer</option>
-</select>
-
-// Filter messages:
-const filteredMessages = selectedCategory === 'all' 
-  ? messages 
-  : messages.filter(msg => msg.category === selectedCategory);
-```
-
-### Step 9.3: Improve the UI
-
-**Add better styling:**
-
-```typescript
-// Add hover effects, better spacing, colors
-<div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-  {/* Message content */}
+// ...inside the message card, after the existing entity links:
+<div className="flex gap-2 mt-2">
+  {['heart', 'fire', 'sparkles'].map((emoji) => (
+    <button
+      key={emoji}
+      onClick={() => react(msg.id, emoji)}
+      className="px-2 py-1 text-xs bg-gray-100 rounded hover:bg-gray-200"
+    >
+      {emoji === 'heart' ? '❤️' : emoji === 'fire' ? '🔥' : '✨'}
+    </button>
+  ))}
 </div>
 ```
 
-**Add loading states:**
+For the workshop you can keep the read side simple: a "Load reactions" link per message that calls the GET endpoint and displays the count. The full optimistic-UI pattern (server returns immediately, indexer catches up in seconds) is the same as for messages.
 
-```typescript
-{loading && <div className="text-center py-8">Loading messages...</div>}
-{submitting && <div className="text-sm text-blue-600">Submitting to Arkiv...</div>}
-```
+### Step 9.3: Try the variations
 
-### Step 9.4: Add Search Functionality
+Once it works end to end, try these on your own. Each is one small change:
 
-Add client-side search:
+- **Filter your own reactions:** add `.ownedBy(walletAddress)` to the reactions query to see only the reactions you posted (vs everyone's).
+- **Filter by creator instead of owner:** swap `.ownedBy` for `.createdBy`. Since reactions are never transferred, they behave the same, but on a real app where ownership can change, `.createdBy` is the tamper-proof choice.
+- **Range-query recent reactions:** import `gte` from `@arkiv-network/sdk/query` and filter `gte('createdAtMs', Date.now() - 60 * 60 * 1000)` to see only reactions from the last hour.
+- **Add a third entity type:** an `agent_response` that points at a message via `messageKey` (same FK pattern). Now you have a tree.
 
-```typescript
-const [searchQuery, setSearchQuery] = useState('');
+## Three rules to remember
 
-// Filter messages by search query:
-const filteredMessages = messages.filter(msg => 
-  msg.text.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  (msg.author && msg.author.toLowerCase().includes(searchQuery.toLowerCase()))
-);
-```
-
-### Step 9.5: Test Your Customizations
-
-1. Restart your dev server
-2. Submit a message with your new fields
-3. Verify it appears correctly
-4. Test filtering/searching if you added those features
+1. **Project tag every entity, in every type.** Always.
+2. **Use a shared attribute key to link parent and child.** Always.
+3. **Right-size `expiresIn` per entity type.** Ephemeral types live shorter; durable types live longer.
 
 ## Checkpoint
 
 Before moving to the next step, verify:
 
-- [ ] I've added at least one customization (new field, UI change, etc.)
-- [ ] My customizations work correctly
-- [ ] I understand how to extend the data model
-- [ ] I know how to update both the API and frontend
-- [ ] I have ideas for more customizations
+- [ ] I have added a second entity type to my app
+- [ ] My second entity type uses `PROJECT_ATTRIBUTE`, a distinct `type` value, and a shared FK attribute pointing at the parent
+- [ ] My second entity type has a shorter `expiresIn` than the parent
+- [ ] I can query children of a specific parent in one round trip
+- [ ] I have tried at least one of the variations in step 9.3
 
 ## Troubleshooting
 
-**Q: My new field doesn't appear.**
-A: Make sure you've updated both the API (to store it) and the frontend (to display it). Also, check that you're reading it from the payload or attributes correctly.
+**Q: My reactions return as an empty list even though I posted some.**
+A: Indexer lag, give it 5 to 30 seconds and refresh. If they still do not appear, check (a) that you stamped `PROJECT_ATTRIBUTE` on both the write and the read, and (b) that the `messageKey` value on the write exactly matches the entity key you are querying for.
 
-**Q: How do I query by my new attribute?**
-A: Add a `.where(eq('yourAttribute', value))` clause to your query. Make sure you're storing it as an attribute, not just in the payload.
+**Q: Can I model many-to-many relationships?**
+A: Yes, but not with an array attribute on either side. Use a third entity type that represents the link itself (for example `workshop_message_tag` with `messageKey` and `tag` attributes). Then a many-to-many is two `eq` filters on that link type.
 
-**Q: Can I change the message format for existing messages?**
-A: No, existing entities can't be modified. But new messages will use the new format. You can handle both formats in your code for backward compatibility.
+**Q: Should `messageKey` be a string or a number attribute?**
+A: String. Entity keys are hex strings, not numbers. Only store numerics as numbers (timestamps, scores, counts) so you can range-query them.
 
-**Q: How do I add validation?**
-A: Add validation in the API route before creating the entity. Return an error response if validation fails.
-
-**Q: Can I add images or files?**
-A: Yes! You can store binary data in the payload. For large files, consider storing a hash on-chain and the file on IPFS or similar.
+**Q: What if I want to "edit" a message instead of adding a reaction?**
+A: Use `walletClient.updateEntity({ entityKey, ... })`. Two caveats from step 8: only the current `$owner` can update, and any attribute you omit is dropped (it is a full replace).
