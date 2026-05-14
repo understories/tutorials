@@ -34,6 +34,25 @@ Reading data from Arkiv is simpler than writing. No authentication is needed, an
 
 Every piece of data in Arkiv is stored as an **entity**. Understanding entity structure is key to building effective queries. Use attributes for anything you want to query on (they're indexed and fast), and store complex data in the payload as JSON.
 
+### One concept before we write: PROJECT_ATTRIBUTE
+
+Braga is a **shared, public testnet**. Every Arkiv project writes into the same global store, so without a project namespace, your queries would pick up data from every other tutorial student and every other Arkiv app on Braga.
+
+The canonical pattern is to define one constant in your code and **stamp it on every entity you create**, and **filter on it in every query you run**.
+
+Open `lib/config.ts` in your fork and you will see:
+
+```typescript
+export const PROJECT_ATTRIBUTE = {
+  key: 'project',
+  value: 'serverless-dapp101',
+} as const;
+```
+
+If you are starting a brand new Arkiv app, change `value` to something globally unique (your project name plus a short random suffix is fine). For this tutorial we share the same value so everyone's messages land in the same project namespace.
+
+Every Arkiv app you build from here will start this way. It is the single most important pattern on a shared testnet.
+
 ## AI-Assisted Path
 
 ```prompt
