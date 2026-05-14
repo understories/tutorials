@@ -471,53 +471,59 @@ export default function VisualsPage() {
             </p>
           </div>
 
-          {/* AI Agent Kit */}
+          {/* Arkiv Skills */}
           <div id="building-with-arkiv" className="bg-white rounded-lg shadow-sm p-8 mb-8">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">Arkiv AI Agent Kit</h3>
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">Arkiv Skills for AI Coding Assistants</h3>
             <p className="text-gray-700 mb-4">
-              The <strong>Arkiv AI Agent Kit</strong> is a drop-in LLM context designed to help AI 
-              coding assistants (Cursor, Copilot, Claude, etc.) build Arkiv integrations correctly 
-              from day one.
+              Arkiv publishes official <strong>agent skills</strong> that teach your AI coding assistant
+              (Claude Code, Cursor, Copilot, Cline, Windsurf) the current SDK, query patterns, and best
+              practices. Install them once and your agent stops inventing SDK calls or suggesting deprecated
+              chain names.
             </p>
             <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
-              <p className="text-sm font-semibold text-gray-900 mb-2">What It Does:</p>
+              <p className="text-sm font-semibold text-gray-900 mb-2">What's in the skills:</p>
               <ul className="list-disc list-inside text-sm text-gray-700 space-y-1 ml-4">
-                <li>Provides prompts and patterns for AI agents working with Arkiv</li>
-                <li>Prevents common mistakes (like assuming immediate read-your-writes)</li>
-                <li>Enforces best practices (wallet normalization, query shapes, timeout handling)</li>
-                <li>Includes engineering guidelines and checklists</li>
+                <li>Current SDK conventions and idiomatic patterns</li>
+                <li>Best practices: PROJECT_ATTRIBUTE namespacing, typed attributes, differentiated expirations</li>
+                <li>Integration patterns for backend, React, and wagmi/EIP-1193</li>
+                <li>Error handling using named SDK error classes</li>
               </ul>
             </div>
             <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-4">
-              <p className="text-sm font-semibold text-gray-900 mb-2">How to Use:</p>
-              <ol className="list-decimal list-inside text-sm text-gray-700 space-y-1 ml-4">
-                <li>Copy the kit into your AI coding tool's context</li>
-                <li>Reference the prompts when building Arkiv features</li>
-                <li>Let the AI agent follow the patterns automatically</li>
-                <li>Use the precommit checks to ensure compliance</li>
-              </ol>
+              <p className="text-sm font-semibold text-gray-900 mb-2">How to install:</p>
+              <pre className="bg-gray-900 text-gray-100 text-xs rounded p-3 overflow-x-auto"><code>npx skills add https://github.com/arkiv-network/skills --skill arkiv-best-practices
+npx skills add https://github.com/arkiv-network/skills --skill arkiv-feedback</code></pre>
+              <p className="text-xs text-gray-600 mt-2">
+                The second skill (<code>arkiv-feedback</code>) lets you file an issue against the Arkiv team
+                from inside your AI agent with <code>/arkiv-feedback</code>.
+              </p>
             </div>
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
               <p className="text-sm text-gray-700">
-                <strong>Key Principles from the Kit:</strong> Indexer lag is normal (not an error), 
-                wallet normalization everywhere, query shape standardization (type + spaceId + limit), 
-                immutable history design, and timeout handling for all writes.
+                <strong>Why this matters:</strong> Indexer lag is normal (not an error). PROJECT_ATTRIBUTE
+                on every entity and every query. Right-typed attributes (numerics for range queries).
+                Differentiated <code>expiresIn</code> per entity type. These are the patterns the skills
+                enforce automatically.
               </p>
             </div>
             <div className="flex gap-4">
               <a
-                href="https://github.com/understories/tutorials/tree/main/extractions/arkiv-ai-agent-kit"
+                href="https://github.com/arkiv-network/skills"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
               >
-                View on GitHub →
+                Arkiv Skills on GitHub →
+              </a>
+              <a
+                href="https://docs.arkiv.network/start-here/agent-skill/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+              >
+                Setup guide →
               </a>
             </div>
-            <p className="text-sm text-gray-600 mt-4">
-              <em>The AI Agent Kit is available in the tutorial repository's extractions folder. 
-              See the <Link href="/11-next-steps" className="text-blue-600 hover:underline">Next Steps</Link> section for more details.</em>
-            </p>
           </div>
 
           {/* Best Practices */}
@@ -527,29 +533,31 @@ export default function VisualsPage() {
               <div className="border-l-4 border-green-500 pl-4">
                 <h4 className="font-semibold text-gray-900 mb-2">✅ Do This</h4>
                 <ul className="list-disc list-inside text-sm text-gray-700 space-y-1 ml-4">
-                  <li>Always include <code className="bg-gray-100 px-1 rounded">type</code>, <code className="bg-gray-100 px-1 rounded">spaceId</code>, and <code className="bg-gray-100 px-1 rounded">limit</code> in queries</li>
-                  <li>Normalize wallet addresses to lowercase in writes and queries</li>
-                  <li>Handle indexer lag gracefully (show "submitted" state, poll for updates)</li>
-                  <li>Use stable entity keys for mutable state (Pattern B)</li>
-                  <li>Create companion txHash entities for observability</li>
-                  <li>Wrap all writes in timeout handlers</li>
+                  <li>Stamp <code className="bg-gray-100 px-1 rounded">PROJECT_ATTRIBUTE</code> on every entity and every query</li>
+                  <li>Use the right attribute type: numeric for range queries, string for tags and equality</li>
+                  <li>Differentiate <code className="bg-gray-100 px-1 rounded">expiresIn</code> per entity type with <code className="bg-gray-100 px-1 rounded">ExpirationTime.fromDays/fromHours</code></li>
+                  <li>Use <code className="bg-gray-100 px-1 rounded">jsonToPayload</code> and <code className="bg-gray-100 px-1 rounded">stringToPayload</code> for encoding</li>
+                  <li>Catch named SDK error classes (<code className="bg-gray-100 px-1 rounded">EntityMutationError</code>, <code className="bg-gray-100 px-1 rounded">NoMoreResultsError</code>)</li>
+                  <li>Subscribe with <code className="bg-gray-100 px-1 rounded">subscribeEntityEvents</code> instead of polling</li>
+                  <li>Use <code className="bg-gray-100 px-1 rounded">$creator</code> (immutable) for tamper-proof attribution</li>
                 </ul>
               </div>
               <div className="border-l-4 border-red-500 pl-4">
                 <h4 className="font-semibold text-gray-900 mb-2">❌ Avoid This</h4>
                 <ul className="list-disc list-inside text-sm text-gray-700 space-y-1 ml-4">
-                  <li>Query-first upserts for mutable entities (races under indexer lag)</li>
-                  <li>Assuming immediate read-your-writes (indexer lag is normal!)</li>
-                  <li>Treating indexer lag as an exceptional error</li>
-                  <li>Querying without type/spaceId/limit</li>
-                  <li>Wallet casing inconsistencies</li>
-                  <li>Putting queryable fields only in payload</li>
+                  <li>Querying without <code className="bg-gray-100 px-1 rounded">PROJECT_ATTRIBUTE</code> on a shared testnet</li>
+                  <li>Storing numerics as strings (you lose range queries forever)</li>
+                  <li>Hardcoded <code className="bg-gray-100 px-1 rounded">expiresIn</code> seconds instead of <code className="bg-gray-100 px-1 rounded">ExpirationTime</code> helpers</li>
+                  <li>Treating indexer lag (5 to 30 seconds) as an error</li>
+                  <li>Array attributes for many-to-many (use a link entity type instead)</li>
+                  <li>String-matching error messages (use the named error classes)</li>
+                  <li>Forgetting that <code className="bg-gray-100 px-1 rounded">updateEntity</code> is a full replace, not a patch</li>
                 </ul>
               </div>
             </div>
             <p className="text-sm text-gray-600 mt-4">
-              <em>These patterns come from arkiv-app-kit and arkiv-ai-agent-kit. 
-              See the <Link href="/11-next-steps" className="text-blue-600 hover:underline">Next Steps</Link> section for more resources.</em>
+              <em>These patterns come from the official <a href="https://docs.arkiv.network/typescript-sdk/best-practices/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">TS SDK Best Practices</a> page.
+              See the <Link href="/11-next-steps" className="text-blue-600 hover:underline">Next Steps</Link> section for the full resource list.</em>
             </p>
           </div>
         </div>
@@ -584,13 +592,18 @@ export default function VisualsPage() {
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Development Tools</h3>
                 <ul className="space-y-2 text-sm">
                   <li>
-                    <a href="https://github.com/understories/tutorials/tree/main/extractions/arkiv-ai-agent-kit" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                      🤖 Arkiv AI Agent Kit
+                    <a href="https://github.com/arkiv-network/skills" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                      🤖 Arkiv Skills (official agent skills)
                     </a>
                   </li>
                   <li>
-                    <a href="https://github.com/arkiv-network" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                      📦 Arkiv SDK & Examples
+                    <a href="https://docs.arkiv.network/typescript-sdk/best-practices/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                      📋 TS SDK Best Practices
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Arkiv-Network/arkiv-sdk-js" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                      📦 Arkiv SDK source &amp; samples
                     </a>
                   </li>
                 </ul>
