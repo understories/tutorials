@@ -151,4 +151,4 @@ A: The data is encoded in the transaction. Look in the "Input Data" or "Logs" se
 A: Yes! That's the beauty of blockchain - anyone can verify your data by visiting the explorer link. Share it to show your message is on-chain!
 
 **Q: What if I want to see all messages from the workshop?**
-A: You can query the explorer for all transactions to the Arkiv contract, or use the API to query all messages with `spaceId='ns'`.
+A: The app's `/api/serverless-dapp101/messages` endpoint queries every entity stamped with the workshop's `PROJECT_ATTRIBUTE`, so it returns all participants' messages by default. You can also use the explorer to inspect any entity directly via its entity key.
