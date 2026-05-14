@@ -41,55 +41,115 @@ Each entity has:
 
 This diagram shows the structure of an Arkiv entity: unique ID, queryable attributes, content payload, and transaction hash for verification. Use attributes for anything you want to query on (they're indexed and fast), and store complex data in the payload as JSON.
 
-Example entity:
+Example entity (as returned by `buildQuery`):
+
 ```typescript
 {
-  key: "0xabc123...",
-  payload: JSON.stringify({ text: "Hello", createdAt: "2024-01-01" }),
+  key: "0xabc123...",                   // unique entity key
+  owner: "0x742d35...",                 // current $owner (mutable, can be transferred)
+  creator: "0x742d35...",               // original $creator (immutable, set at creation)
+  createdAtBlock: 12345n,               // bigint
+  expiresAtBlock: 12345n + 86400n,
+  contentType: "application/json",
+  payload: Uint8Array,                  // raw bytes; use e.toJson() to decode JSON
   attributes: [
-    { key: "type", value: "message" },
-    { key: "spaceId", value: "ns" },
-    { key: "wallet", value: "0x742d35..." }
+    { key: "project",     value: "serverless-dapp101" },
+    { key: "type",        value: "workshop_message" },
+    { key: "createdAtMs", value: 1715652800000 },   // numeric, enables range queries
   ],
-  contentType: "application/json"
 }
 ```
 
-#### Spaces
+Call `entity.toJson()` to decode the payload when `contentType` is `application/json`.
 
-A **space** is like a namespace or database. It isolates your data from other apps.
+#### PROJECT_ATTRIBUTE: the canonical multi-tenant pattern
 
-- Use `SPACE_ID` to organize data
-- All entities in the same space can query each other
-- Different spaces are isolated from each other
-- In this workshop, we use `SPACE_ID=ns` (shared space)
+Braga is a **shared, public testnet**: every Arkiv app reads and writes against the same global store. The single most important pattern is to define a unique `PROJECT_ATTRIBUTE` and stamp it on every entity and every query. Look at `lib/config.ts`:
+
+```typescript
+export const PROJECT_ATTRIBUTE = {
+  key: 'project',
+  value: 'serverless-dapp101',
+} as const;
+```
+
+Every Arkiv project you build will start this way. Pick a value globally unique to your project. Without it, your queries return everyone else's data.
 
 #### Attributes
 
-**Attributes** are key-value pairs that you can query on. Think of them like indexed columns.
+**Attributes** are key-value pairs you can filter on. They come in two flavors:
 
-Common attributes:
-- `type`: What kind of entity this is (e.g., "message", "user", "post")
-- `spaceId`: Which space this entity belongs to
-- `wallet`: The wallet address that created it
-- Custom attributes: Anything you want to query on
+- **String attributes** support equality (`eq`, `neq`) and glob matching (`~`, `!~`). Use for tags, statuses, names, identifiers.
+- **Numeric attributes** support equality plus range (`gt`, `gte`, `lt`, `lte`). Use for any value you want to sort or filter by range: timestamps, scores, counts, priorities.
 
-#### Queries
+If you store `priority` as the string `"5"`, you lose range queries forever. Always store numerics as numbers.
 
-You query Arkiv using a builder pattern:
+#### Two synthetic attributes you always get for free
+
+Every Arkiv entity has two metadata attributes set by the protocol itself, not by you:
+
+- **`$owner`** — the wallet that currently controls the entity. It is **mutable**: the owner can transfer ownership with `changeOwnership`. Only the current `$owner` can `updateEntity`, `deleteEntity`, or `extendEntity`.
+- **`$creator`** — the wallet that originally created the entity. It is **immutable**: set at creation, never changes, cannot be spoofed. Useful when you need tamper-proof attribution.
+
+You can filter on either with `.ownedBy(addr)` or `.createdBy(addr)`:
 
 ```typescript
-const result = await publicClient
-  .buildQuery()
-  .where(eq('type', 'message'))
-  .where(eq('spaceId', 'ns'))
-  .withAttributes(true)
-  .withPayload(true)
-  .limit(100)
+publicClient.buildQuery()
+  .where(eq('project', 'serverless-dapp101'))
+  .ownedBy('0xabc...')   // entities currently owned by this wallet
+  .fetch();
+
+publicClient.buildQuery()
+  .where(eq('project', 'serverless-dapp101'))
+  .createdBy('0xabc...') // entities originally created by this wallet
   .fetch();
 ```
 
-This reads: "Find entities where type='message' AND spaceId='ns', return up to 100 results, include attributes and payload."
+#### Queries
+
+You query Arkiv using a builder pattern. Two ways to AND predicates:
+
+```typescript
+// Implicit AND (pass an array)
+const result = await publicClient
+  .buildQuery()
+  .where([eq('project', 'serverless-dapp101'), eq('type', 'workshop_message')])
+  .withAttributes(true)
+  .withPayload(true)
+  .withMetadata(true)
+  .limit(100)
+  .fetch();
+
+// Explicit AND
+.where(and([eq('project', 'serverless-dapp101'), eq('type', 'workshop_message')]))
+```
+
+The `@arkiv-network/sdk/query` module exports nine predicates:
+
+| Operator | Use |
+| --- | --- |
+| `eq`, `neq` | String or number equality |
+| `gt`, `gte`, `lt`, `lte` | Numeric range (string attributes only support equality) |
+| `and`, `or` | Compose predicates |
+| `not` | Negate a predicate |
+
+Plus `asc(field)` and `desc(field)` for ordering. Range query example, find messages from the last 24 hours by `createdAtMs`:
+
+```typescript
+import { eq, gte, desc } from '@arkiv-network/sdk/query';
+
+const recent = await publicClient.buildQuery()
+  .where([
+    eq('project', 'serverless-dapp101'),
+    gte('createdAtMs', Date.now() - 24 * 60 * 60 * 1000),
+  ])
+  .orderBy(desc('createdAtMs'))
+  .withPayload(true)
+  .limit(50)
+  .fetch();
+```
+
+For `gte` to work, `createdAtMs` must be stored as a **number**, not a string.
 
 ![Data Flow - Read](/visuals/data-flow-read.svg)
 
@@ -121,6 +181,45 @@ const walletClient = getWalletClientFromPrivateKey(privateKey);
 const result = await walletClient.createEntity({...});
 ```
 
+#### Mutations: more than just create
+
+The wallet client exposes a full set of write operations. You are not limited to `createEntity`:
+
+```typescript
+import { jsonToPayload, ExpirationTime } from '@arkiv-network/sdk/utils';
+
+// Create returns both the entity key and the transaction hash
+const { entityKey, txHash } = await walletClient.createEntity({
+  payload: jsonToPayload({ text: 'Hello' }),
+  contentType: 'application/json',
+  attributes: [PROJECT_ATTRIBUTE, { key: 'type', value: 'workshop_message' }],
+  expiresIn: ExpirationTime.fromDays(180),
+});
+
+// Full replace of payload and attributes (any attribute you omit is dropped)
+await walletClient.updateEntity({
+  entityKey,
+  payload: jsonToPayload({ text: 'edited' }),
+  contentType: 'application/json',
+  attributes: [PROJECT_ATTRIBUTE, { key: 'type', value: 'workshop_message' }],
+  expiresIn: ExpirationTime.fromDays(180),
+});
+
+// Delete removes the entity entirely
+await walletClient.deleteEntity({ entityKey });
+
+// Extend pushes back the expiration
+await walletClient.extendEntity({ entityKey, expiresIn: ExpirationTime.fromDays(365) });
+
+// Batch creates in one transaction
+await walletClient.mutateEntities({ creates: [/* ... */] });
+```
+
+Two rules to remember:
+
+1. **Only the current `$owner` can `updateEntity`, `deleteEntity`, `extendEntity`, or `changeOwnership`.** `$creator` is for attribution only; it gives no write rights.
+2. **`updateEntity` is a full replace.** It is not a patch. Any attribute you do not include is dropped. Read the current entity first if you only want to change one field.
+
 ### How It Differs from Traditional Databases
 
 | Traditional Database | Arkiv |
@@ -145,11 +244,12 @@ This comparison highlights the fundamental differences between traditional datab
 
 ### Best Practices
 
-1. **Use meaningful attributes**: Make queries efficient
-2. **Store structured data in payload**: Use JSON for complex data
-3. **Use unique space IDs in production**: Don't use "ns" for real apps
-4. **Handle indexer lag**: Refresh or poll for new data
-5. **Store txHash separately**: Create companion entities for reliable querying
+1. **Stamp `PROJECT_ATTRIBUTE` on every entity and every query.** Always. This is the canonical multi-tenant pattern on a shared testnet.
+2. **Pick the right attribute type.** Numerics for any value you will range-query (timestamps, counts, scores); strings for tags and identifiers.
+3. **Use `$creator` for tamper-proof attribution.** When you need to prove a write came from a specific wallet, filter with `.createdBy(addr)` instead of trusting a custom attribute.
+4. **Differentiate `expiresIn` per entity type.** Use `ExpirationTime.fromDays/fromHours/fromMinutes`. Ephemeral types live shorter; durable types live longer.
+5. **Catch named SDK error classes.** `EntityMutationError`, `NoMoreResultsError`, `NoCursorOrLimitError`, `NoEntityFoundError`. String-matching error messages breaks on every SDK upgrade.
+6. **Handle indexer lag.** Confirmations are immediate; query visibility takes 5 to 30 seconds. Refresh or subscribe with `subscribeEntityEvents`.
 
 ### Building with AI Assistants: Arkiv AI Agent Kit
 
@@ -200,39 +300,42 @@ Look at **your app's API route** (`app/api/serverless-dapp101/messages/route.ts`
 **Note:** This is your own API route in your forked app. When your frontend calls `/api/serverless-dapp101/messages`, it's making a relative request to this route handler in your own Next.js app. The path name (`serverless-dapp101`) is just a naming convention - it doesn't connect to any external service. Your app is completely standalone and communicates with other apps only through Arkiv.
 
 **Reading (GET):**
+
 ```typescript
 const result = await publicClient
   .buildQuery()
-  .where(eq('type', 'workshop_message'))
-  .where(eq('spaceId', SPACE_ID))
+  .where([eq(PROJECT_ATTRIBUTE.key, PROJECT_ATTRIBUTE.value), eq('type', 'workshop_message')])
   .withAttributes(true)
   .withPayload(true)
+  .withMetadata(true)
   .limit(100)
   .fetch();
 ```
 
 This queries for entities with:
+- `project = 'serverless-dapp101'` (PROJECT_ATTRIBUTE, isolates this app from other Braga users)
 - `type = 'workshop_message'`
-- `spaceId = 'ns'` (or your SPACE_ID)
 
 **Writing (POST):**
+
 ```typescript
-const result = await walletClient.createEntity({
-  payload: enc.encode(JSON.stringify({ text, createdAt })),
-  attributes: [
-    { key: 'type', value: 'workshop_message' },
-    { key: 'wallet', value: walletAddress },
-    { key: 'spaceId', value: SPACE_ID },
-  ],
+const { entityKey, txHash } = await walletClient.createEntity({
+  payload: jsonToPayload({ text: text.trim(), createdAt: new Date().toISOString() }),
   contentType: 'application/json',
-  expiresIn: 15768000, // 6 months
+  attributes: [
+    PROJECT_ATTRIBUTE,
+    { key: 'type', value: 'workshop_message' },
+    { key: 'createdAtMs', value: Date.now() },     // numeric, indexable for range queries
+  ],
+  expiresIn: ExpirationTime.fromDays(180),
 });
 ```
 
 This creates an entity with:
-- Payload: Your message data (encoded as JSON)
-- Attributes: Metadata for querying
-- Content type: Tells Arkiv how to interpret the payload
+- **Payload:** encoded by `jsonToPayload` (the SDK helper, no manual `TextEncoder`)
+- **Attributes:** `PROJECT_ATTRIBUTE`, a `type` discriminator, and a numeric timestamp for range queries
+- **`expiresIn`:** uses the `ExpirationTime` helper instead of raw seconds
+- **`createEntity` returns both `entityKey` and `txHash`**, so you can deep-link to either explorer view
 
 ### Step 8.2: Experiment with Queries
 
@@ -283,30 +386,30 @@ This step-by-step flow shows how to use a transaction hash to verify data on the
 
 Before moving to the next step, verify:
 
-- [ ] I understand what entities, spaces, and attributes are
+- [ ] I understand what entities and attributes are, and the role of `PROJECT_ATTRIBUTE`
+- [ ] I understand the difference between `$owner` (mutable) and `$creator` (immutable)
+- [ ] I can name the string operators (`eq`, `neq`, glob) and numeric operators (`gt`, `gte`, `lt`, `lte`)
+- [ ] I know the four mutation operations: `createEntity`, `updateEntity`, `deleteEntity`, `extendEntity` (plus `mutateEntities` for batch)
 - [ ] I understand the relationship between entities (data) and transactions (blockchain operations)
-- [ ] I know how to build queries
-- [ ] I understand the difference between reads and writes
 - [ ] I know why indexer lag happens
-- [ ] I can see how Arkiv differs from traditional databases
-- [ ] I've explored both entity and transaction views on the explorer
+- [ ] I have explored both entity and transaction views on the Braga explorer
 
 ## Troubleshooting
 
 **Q: Can I update or delete entities?**
-A: Arkiv is append-only. You can't update or delete entities, but you can create new ones that reference old ones (like marking a message as "deleted" with an attribute).
+A: Yes. The wallet client exposes `createEntity`, `updateEntity` (full replace of payload and attributes), `deleteEntity`, `extendEntity` (push back expiration), `changeOwnership`, and `mutateEntities` (batch creates). Only the current `$owner` can update, delete, extend, or transfer. A common pattern is still to model history as separate entities (audit trail, immutable ledger), but it is no longer a hard constraint.
 
 **Q: How do I make data private?**
-A: Use a unique `SPACE_ID` that only you know. While technically public on-chain, it's only discoverable if someone knows your space ID. For truly private data, encrypt the payload before storing.
+A: Arkiv is public by default. Two options for confidentiality: (1) encrypt the payload bytes client-side before calling `createEntity`, so only key-holders can decrypt; (2) combine encryption with `expiresIn` for auto-revoking access. There is no public/private toggle at the protocol level; the encryption layer is yours to design.
 
-**Q: What's the cost of storing data?**
-A: On testnet, it's free. On mainnet, you pay gas fees (similar to Ethereum). The cost depends on the size of your payload and current gas prices.
+**Q: What does storing data cost?**
+A: On Braga testnet you pay gas in test GLM, which you get free from the faucet, so for learning purposes it is effectively free. There is no Arkiv mainnet yet, so workshop content stays on Braga. Gas scales with payload size and current network conditions.
 
 **Q: How much data can I store?**
-A: There are practical limits based on gas costs. For large files, consider storing a hash on-chain and the actual file elsewhere (IPFS, Arweave, etc.).
+A: There are practical limits based on gas costs. For large files, store a hash on Arkiv and the file on IPFS or similar.
 
-**Q: Can I query across multiple spaces?**
-A: No, queries are scoped to a single space. If you need data from multiple spaces, make separate queries and combine the results.
+**Q: How do I keep my queries from picking up other Arkiv apps' data?**
+A: Use the `PROJECT_ATTRIBUTE` pattern. Define a unique constant in `lib/config.ts` and stamp it on every entity and every query. Without it, your queries return everyone else's data on Braga.
 
-**Q: How do shared spaces work?**
-A: When multiple users use the same `SPACE_ID`, all entities with that space ID are queryable by anyone. Queries filter by `spaceId` attribute, not by wallet address. This means messages from different wallets appear together if they share the same space ID. In this tutorial, we use `SPACE_ID=ns` as a shared space so all participants can see each other's messages on the deployed hello-world page.
+**Q: What is the difference between `$owner` and `$creator`?**
+A: `$owner` is the wallet that currently controls the entity (mutable, can be transferred, controls writes). `$creator` is the wallet that originally created the entity (immutable, never changes, useful for tamper-proof attribution). Filter on either with `.ownedBy(addr)` or `.createdBy(addr)`.
