@@ -453,7 +453,7 @@ export default function VisualsPage() {
               </div>
             </div>
             <p className="text-sm text-gray-600 mt-4">
-              <em>These patterns come from arkiv-app-kit and arkiv-ai-agent-kit. 
+              <em>These patterns come from the official <a href="https://docs.arkiv.network/typescript-sdk/best-practices/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">TS SDK Best Practices</a> page.
               See the <Link href="/11-next-steps" className="text-blue-600 hover:underline">Next Steps</Link> section for more resources.</em>
             </p>
           </div>
