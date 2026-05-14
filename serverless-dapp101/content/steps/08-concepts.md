@@ -88,8 +88,8 @@ If you store `priority` as the string `"5"`, you lose range queries forever. Alw
 
 Every Arkiv entity has two metadata attributes set by the protocol itself, not by you:
 
-- **`$owner`** — the wallet that currently controls the entity. It is **mutable**: the owner can transfer ownership with `changeOwnership`. Only the current `$owner` can `updateEntity`, `deleteEntity`, or `extendEntity`.
-- **`$creator`** — the wallet that originally created the entity. It is **immutable**: set at creation, never changes, cannot be spoofed. Useful when you need tamper-proof attribution.
+- **`$owner`**: the wallet that currently controls the entity. It is **mutable**, the owner can transfer ownership with `changeOwnership`. Only the current `$owner` can `updateEntity`, `deleteEntity`, or `extendEntity`.
+- **`$creator`**: the wallet that originally created the entity. It is **immutable**, set at creation, never changes, cannot be spoofed. Useful when you need tamper-proof attribution.
 
 You can filter on either with `.ownedBy(addr)` or `.createdBy(addr)`:
 
