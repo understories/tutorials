@@ -19,9 +19,11 @@ A 1-hour hands-on workshop to build your first decentralized app with Arkiv.
 2. **Set environment variables:**
    Create `.env.local`:
    ```bash
-   SPACE_ID=ns
-   ARKIV_PRIVATE_KEY=0x...  # Your testnet wallet private key
+   ARKIV_PRIVATE_KEY=0x...   # your testnet wallet private key, funded on Braga via the faucet
+   # SPACE_ID=ns             # optional secondary grouping inside the project namespace
    ```
+
+   The project namespace itself (`PROJECT_ATTRIBUTE`) is defined in `lib/config.ts`, not in env. It is the canonical multi-tenant pattern on shared Braga.
 
 3. **Run development server:**
    ```bash
@@ -76,15 +78,19 @@ Deploy to Vercel:
 
 1. Connect your GitHub repository
 2. Set environment variables:
-   - `SPACE_ID=ns`
-   - `ARKIV_PRIVATE_KEY=0x...`
+   - `ARKIV_PRIVATE_KEY=0x...` (the wallet that signs server-side writes; fund it on the Braga faucet)
+   - `SPACE_ID=ns` (optional; defaults to `'ns'`)
 3. Deploy
+
+`PROJECT_ATTRIBUTE` lives in source (`lib/config.ts`) so does not need a Vercel env var.
 
 ## Resources
 
-- [Arkiv Network](https://arkiv.network)
-- [Arkiv Dev Portal](https://arkiv.network/dev)
-- [Arkiv TypeScript Getting Started](https://arkiv.network/getting-started/typescript)
+- [Arkiv Docs](https://docs.arkiv.network/)
+- [Networks / Braga](https://docs.arkiv.network/networks/braga/)
+- [TS SDK / Best Practices](https://docs.arkiv.network/typescript-sdk/best-practices/)
+- [Braga Faucet](https://braga.hoodi.arkiv.network/faucet/)
+- [Braga Explorer](https://explorer.braga.hoodi.arkiv.network)
 
 ## Status
 
