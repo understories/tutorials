@@ -1,16 +1,27 @@
 /**
- * Configuration for tutorial app
- * 
+ * Configuration for tutorial app.
+ *
+ * PROJECT_ATTRIBUTE is the canonical multi-tenant pattern on Arkiv.
+ * Braga is a shared, public testnet, so every entity from every project lives
+ * in the same store. Every Arkiv project should stamp a unique attribute on
+ * every write and filter on it in every query. Without it, your queries return
+ * everyone else's data.
+ *
  * Environment variables:
- * - SPACE_ID: Space ID for data isolation (default: 'ns' for workshop)
- * - ARKIV_PRIVATE_KEY: Private key for signing transactions (required for writes)
+ * - SPACE_ID: optional secondary grouping inside the project (default: 'ns')
+ * - ARKIV_PRIVATE_KEY: private key for signing transactions (required for writes)
  */
+
+export const PROJECT_ATTRIBUTE = {
+  key: 'project',
+  value: 'serverless-dapp101',
+} as const;
 
 export const SPACE_ID = process.env.SPACE_ID || process.env.BETA_SPACE_ID || 'ns';
 
 /**
- * Get private key from environment
- * Throws if not configured (required for writes)
+ * Get private key from environment.
+ * Throws if not configured (required for writes).
  */
 export function getPrivateKey(): `0x${string}` {
   const privateKey = process.env.ARKIV_PRIVATE_KEY;
@@ -22,4 +33,3 @@ export function getPrivateKey(): `0x${string}` {
   }
   return privateKey as `0x${string}`;
 }
-
