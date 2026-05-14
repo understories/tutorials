@@ -116,10 +116,9 @@ Then go build something with at least two entity types, parent and child relatio
 ### Code references
 
 - [`@arkiv-network/sdk` on npm](https://www.npmjs.com/package/@arkiv-network/sdk): the TypeScript client library
-- [`Arkiv-Network/arkiv-sdk-js`](https://github.com/Arkiv-Network/arkiv-sdk-js): SDK source and `sample/` directory with canonical patterns
-- [`Arkiv-Network/builders-challenge-online-forum-example`](https://github.com/Arkiv-Network/builders-challenge-online-forum-example): full Next.js + RainbowKit + wagmi reference
+- [`Arkiv-Network/arkiv-sdk-js`](https://github.com/Arkiv-Network/arkiv-sdk-js): SDK source and `sample/` directory with canonical patterns (current Braga build)
 - [`Arkiv-Network/dashboard-demo`](https://github.com/Arkiv-Network/dashboard-demo): Bun/Hono streaming-ingestion pattern
-- [`Arkiv-Network/learn-arkiv`](https://github.com/Arkiv-Network/learn-arkiv): MDX tutorial content
+- [`Arkiv-Network/builders-challenge-online-forum-example`](https://github.com/Arkiv-Network/builders-challenge-online-forum-example): full Next.js + RainbowKit + wagmi reference. Pre-Braga, still imports the deprecated `kaolin` chain. Use it for the wagmi + EIP-1193 patterns, but swap the chain import to `braga` and bump the SDK to `^0.6.8` locally before running
 
 ### Official Learn tutorials
 
