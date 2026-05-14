@@ -74,8 +74,8 @@ export const steps: Step[] = [
   },
   {
     id: '09-customization',
-    title: 'Customize Your App',
-    duration: 10,
+    title: 'Add a Second Entity Type',
+    duration: 12,
     path: 'both',
     order: 9,
     file: '09-customization.md',
