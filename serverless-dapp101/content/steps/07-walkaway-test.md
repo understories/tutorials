@@ -152,7 +152,7 @@ A: You can use a unique `SPACE_ID` that only you know. While the data is still o
 A: Yes! This is exactly how production Arkiv apps work. Your data persists independently of your hosting infrastructure.
 
 **Q: Can multiple people see my messages?**
-A: Yes! Since we're using `SPACE_ID=ns` (the shared workshop space), anyone using the same space ID can see all messages. In production, you'd use a unique space ID for your app.
+A: Yes. Every workshop entity is stamped with `PROJECT_ATTRIBUTE = { key: 'project', value: 'serverless-dapp101' }`, and the API filters every query on that attribute. Anyone running the same workshop app reads the same project, so all participants see each other's messages. In production, pick a value globally unique to your project so you isolate from everyone else on Braga.
 
 **Q: Will my messages appear on the deployed hello-world page?**
-A: Yes, as long as both your local environment and the deployed application use the same `SPACE_ID=ns`. The deployed page queries for all entities with `spaceId='ns'`, so messages from all tutorial participants using the same space ID will appear together. This works because Arkiv queries filter by space ID, not by wallet address.
+A: Yes, as long as both your local environment and the deployed app use the same `PROJECT_ATTRIBUTE` value. The deployed page queries for every entity tagged `project = 'serverless-dapp101'`, so messages from all tutorial participants appear together. Queries filter by project attribute, not by wallet address.
